@@ -6,5 +6,5 @@ el Instituto Tecnológico de Costa Rica, además de los documentos se utilizará
 en el transcurso del semestre.
 
 Estudiantes miembros del equipo de trabajo
-Carlos Chévez Cambronero
-Andrés 
+Carlos Chévez
+Andrés Gutiérrez
