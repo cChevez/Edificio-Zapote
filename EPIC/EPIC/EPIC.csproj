@@ -67,6 +67,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="comprobanteFunctions.js" />
     <Content Include="View\alquiler.aspx" />
     <Content Include="Functions.js" />
     <Content Include="Global.asax" />
@@ -83,6 +84,7 @@
     <Content Include="images\demo\imgl.gif" />
     <Content Include="images\demo\imgr.gif" />
     <Content Include="images\demo\index.html" />
+    <Content Include="View\comprobante.aspx" />
     <Content Include="View\index.aspx" />
     <Content Include="styles\custom.flexslider.css" />
     <Content Include="styles\fontawesome-4.6.3.min.css" />
@@ -102,6 +104,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="View\comprobante.aspx.cs">
+      <DependentUpon>comprobante.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\comprobante.aspx.designer.cs">
+      <DependentUpon>comprobante.aspx</DependentUpon>
     </Compile>
     <Compile Include="View\index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>

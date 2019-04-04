@@ -44,12 +44,10 @@
             <li><a class="drop" href="#">Solicitar</a>
               <ul>
                 <li><a href="alquiler.aspx">Alquiler de espacio</a></li>
-                <li><a href="pages/full-width.html">Full Width</a></li>
-                <li><a href="pages/sidebar-left.html">Sidebar Left</a></li>
-                <li><a href="pages/sidebar-right.html">Sidebar Right</a></li>
-                <li><a href="pages/basic-grid.html">Basic Grid</a></li>
+                <li><a href="">Préstamo de espacio</a></li>
               </ul>
             </li>
+            <li><a href="comprobante.aspx">Subir comprobante</a></li>
             <li><a class="drop" href="#">Dropdown</a>
               <ul>
                 <li><a href="#">Level 2</a></li>
@@ -63,7 +61,6 @@
                 <li><a href="#">Level 2</a></li>
               </ul>
             </li>
-            <li><a href="#">Link Text</a></li>
             <li><a href="#">Link Text</a></li>
           </ul>
         </nav>
