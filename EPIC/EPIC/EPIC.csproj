@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="comprobanteFunctions.js" />
+    <Content Include="styles\framework.css" />
     <Content Include="View\alquiler.aspx" />
     <Content Include="Functions.js" />
     <Content Include="Global.asax" />
@@ -90,7 +91,6 @@
     <Content Include="styles\fontawesome-4.6.3.min.css" />
     <Content Include="styles\fonts\fontawesome-webfont.svg" />
     <Content Include="styles\fonts\index.html" />
-    <Content Include="styles\framework.css" />
     <Content Include="styles\styles.css" />
     <Content Include="Web.config" />
   </ItemGroup>

@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 /*
 Template Name: Exative
 Author: <a href="http://www.os-templates.com/">OS Templates</a>
@@ -60,7 +60,7 @@ h1, h2, h3, h4, h5, h6, .heading{font-family:Georgia, "Times New Roman", Times, 
 form, fieldset, legend{margin:0; padding:0; border:none;}
 legend{display:none;}
 label, input, textarea, select, button{display:block; resize:none; outline:none; color:inherit; font-size:inherit; font-family:inherit; vertical-align:middle;
-    width: 335px;
+    width: 200px;
 }
 label{margin-bottom:5px;}
 :required, :invalid{outline:none; box-shadow:none;}
