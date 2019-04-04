@@ -1,4 +1,4 @@
-﻿function show1Aula() {
+﻿function showAula() {
     var radio0 = document.getElementById("0aulaCheck");
     var radio1 = document.getElementById("1aulaCheck");
     var radio2 = document.getElementById("2aulaCheck");
@@ -24,4 +24,42 @@
         aula2.style.display = "none";
         aula3.style.display = "block";
     }
+}
+
+function showLab() {
+    var radio0 = document.getElementById("0labCheck");
+    var radio1 = document.getElementById("1labCheck");
+    var radio2 = document.getElementById("2labCheck");
+    var lab1 = document.getElementById("1lab")
+    var lab2 = document.getElementById("2lab")
+
+    if (radio0.checked) {
+        lab1.style.display = "none";
+        lab2.style.display = "none";
+    } else if (radio1.checked) {
+        lab1.style.display = "block";
+        lab2.style.display = "none";
+    } else if (radio2.checked) {
+        lab1.style.display = "none";
+        lab2.style.display = "block";
+    }
+}
+
+function addDate() {
+    var newRow = fechas.insertRow(fechas.length),
+        cell1 = newRow.insertCell(0),
+        cell2 = newRow.insertCell(1),
+        cell3 = newRow.insertCell(2),
+        dia = document.getElementsByName("dia").values,
+        inicio = document.getElementsByName("horaInicioDia").values,
+        final = document.getElementsByName("horaFinalDia").values;
+
+    cell1.innerHTML = dia;
+    cell2.innerHTML = inicio;
+    cell3.innerHTML = final;
+}
+
+function getDate() {
+    var f = new Date();
+    document.write(f.getDate() + "-" + (f.getMonth() + 1) + "-" + f.getFullYear());
 }

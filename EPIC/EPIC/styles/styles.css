@@ -143,6 +143,10 @@ File: Layout CSS
     .container .content {
     }
 
+    .container .content .entradas{
+        width: 400px;
+    }
+
 .sectiontitle {
     display: block;
     margin-bottom: 80px;
