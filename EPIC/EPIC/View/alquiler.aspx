@@ -78,7 +78,11 @@
         <div class="content">
             <h1>Alquiler de espacios</h1>
             <hr />
-            <p>Fecha de solicitud: "getDate()"</p>
+            <div>
+                <label>Fecha de solicitud</label>
+                <input type="date" id="fechaActual" value="" readonly/>
+            </div>
+            <br />
             <form action="#" method="get">
                 <div class="one_half first">
                     <label>Nombre del solicitante</label>
@@ -107,7 +111,7 @@
                 </div>
                 <hr />
                 <br />
-                <label>Cantidad de aulas (Capacidad máxima 20 personas). Precio ₡9.850 colones por hora</label>
+                <label id="completo">Cantidad de aulas (Capacidad máxima 25 personas). Precio ₡9.850 colones por hora</label>
                 <div class="one_quarter first">
                     <label>Ninguna
                         <input type="radio" id="0aulaCheck" name="aulaChecked" checked onclick="showAula()" />
@@ -162,7 +166,7 @@
                 <br />
                 <br />
                 <div>
-                    <label>Cantidad de laboratorios (Capacidad máxima 20 personas). Precio ₡25.000 colones por hora</label>
+                    <label>Cantidad de laboratorios. Precio ₡25.000 colones por hora</label>
                     <div class="one_third first">
                         <label>Ninguno
                             <input type="radio" id="0labCheck" name="labChecked" checked onclick="showLab()" />
