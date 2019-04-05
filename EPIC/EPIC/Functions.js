@@ -28,33 +28,47 @@
 
 function showLab() {
     var radio0 = document.getElementById("0labCheck");
-    var radio1 = document.getElementById("1labCheck");
-    var radio2 = document.getElementById("2labCheck");
-    var lab1 = document.getElementById("1lab")
-    var lab2 = document.getElementById("2lab")
+    var radio1 = document.getElementById("B1labCheck");
+    var radio2 = document.getElementById("B2labCheck");
+    var radio3 = document.getElementById("2labCheck");
+    var labB1 = document.getElementById("B1lab");
+    var labB2 = document.getElementById("B2lab");
+    var lab2 = document.getElementById("2lab");
 
     if (radio0.checked) {
-        lab1.style.display = "none";
+        labB1.style.display = "none";
+        labB2.style.display = "none";
         lab2.style.display = "none";
     } else if (radio1.checked) {
-        lab1.style.display = "block";
+        labB1.style.display = "block";
+        labB2.style.display = "none";
         lab2.style.display = "none";
     } else if (radio2.checked) {
-        lab1.style.display = "none";
+        labB1.style.display = "none";
+        labB2.style.display = "block";
+        lab2.style.display = "none";
+    } else if (radio3.checked) {
+        labB1.style.display = "none";
+        labB2.style.display = "none";
         lab2.style.display = "block";
     }
 }
 
 function addDate() {
-    var newRow = fechas.insertRow(fechas.length),
-        cell1 = newRow.insertCell(0),
-        cell2 = newRow.insertCell(1),
-        cell3 = newRow.insertCell(2),
-        dia = document.getElementsByName("dia").values,
-        inicio = document.getElementsByName("horaInicioDia").values,
-        final = document.getElementsByName("horaFinalDia").values;
+    var newRow = fechas.insertRow(fechas.length);
+    var cell1 = newRow.insertCell(0);
+    var cell2 = newRow.insertCell(1);
+    var cell3 = newRow.insertCell(2);
 
-    cell1.innerHTML = dia;
+    var dia = document.getElementsByName("dia").values;
+    var day, month, year;
+
+
+    var dFecha = dia.value;
+    var inicio = document.getElementsByName("horaInicioDia").value;
+    var final = document.getElementsByName("horaFinalDia").value;
+
+    cell1.innerHTML = dFecha;
     cell2.innerHTML = inicio;
     cell3.innerHTML = final;
 }

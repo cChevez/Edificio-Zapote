@@ -78,40 +78,45 @@
         <div class="content">
             <h1>Alquiler de espacios</h1>
             <hr />
+            <br />
+            <label class="titulo">Datos del solicitante</label>
+            <br />
             <div>
                 <label>Fecha de solicitud</label>
-                <input type="date" id="fechaActual" value="" readonly/>
+                <input class="fecha" type="date" id="fechaActual" value="" readonly/>
             </div>
             <br />
             <form action="#" method="get">
                 <div class="one_half first">
                     <label>Nombre del solicitante</label>
-                    <input class="entradas" type="text" name="nombreSolicitante" required />
+                    <input type="text" name="nombreSolicitante" required />
                     <br />
                 </div>
                 <div class="one_half">
                     <label>Empresa solicitante</label>
-                    <input class="entradas" type="text" name="empresaSolicitante" required />
+                    <input type="text" name="empresaSolicitante" required />
                     <br />
                 </div>
                 <div class="one_half first">
                     <label>Cédula jurídica</label>
-                    <input class="entradas" type="text" name="cedulaSolicitante" required />
+                    <input type="text" name="cedulaSolicitante" required />
                     <br />
                 </div>
                 <div class="one_half">
                     <label>Correo electrónico</label>
-                    <input class="entradas" type="email" name="correoSolicitante" required />
+                    <input type="email" name="correoSolicitante" required />
                     <br />
                 </div>
                 <div class="one_half first">
                     <label>Número de teléfono</label>
-                    <input class="entradas" type="tel" name="telefonoSolicitante" required />
+                    <input type="tel" name="telefonoSolicitante" required />
                     <br />
                 </div>
                 <hr />
                 <br />
-                <label id="completo">Cantidad de aulas (Capacidad máxima 25 personas). Precio ₡9.850 colones por hora</label>
+                <label class="titulo">Datos del espacio a reservar</label>
+                <br />
+                <label>Cantidad de aulas (Capacidad máxima 25 personas). Precio ₡9.850 colones por hora</label>
                 <div class="one_quarter first">
                     <label>Ninguna
                         <input type="radio" id="0aulaCheck" name="aulaChecked" checked onclick="showAula()" />
@@ -132,27 +137,33 @@
                         <input type="radio" id="3aulaCheck" name="aulaChecked" onclick="showAula()" />
                     </label>
                 </div>
-                    <div class="one_quarter first">
-                        <br />
-                    </div>
-                    <div class="one_quarter" id="1aula" style="display: none">
-                        Cantidad de personas en el aula 1
-                        <input  type="number" id="personas1Aula1" />
-                    </div>
-                    <div class="one_quarter" id="2aula" style="display: none">
-                        Cantidad de personas en el aula 1
-                        <input type="number" id="personas2Aula1" />
-                        Cantidad de personas en el aula 2
-                        <input type="number" id="personas2Aula2" />
-                    </div>
-                    <div class="one_quarter" id="3aula" style="display: none">
-                        Cantidad de personas en el aula 1
-                        <input type="number" id="personas3Aula1" />
-                        Cantidad de personas en el aula 2
-                        <input type="number" id="personas3Aula2" />
-                        Cantidad de personas en el aula 3
-                        <input type="number" id="personas3Aula3" />
-                    </div>
+                <div class="one_quarter first">
+                    <br />
+                </div>
+                <div class="one_quarter" id="1aula" style="display: none">
+                    <br />
+                    Cantidad de personas en el aula 1
+                    <input  type="number" id="personas1Aula1" min="0" max="25" />
+                </div>
+                <div class="one_quarter" id="2aula" style="display: none">
+                    <br />
+                    Cantidad de personas en el aula 2
+                    <input type="number" id="personas2Aula1" min="0" max="25" />
+                    Cantidad de personas en el aula 2
+                    <input type="number" id="personas2Aula2" min="0" max="25" />
+                </div>
+                <div class="one_quarter" id="3aula" style="display: none">
+                    <br />
+                    Cantidad de personas en el aula 3
+                    <input type="number" id="personas3Aula1" min="0" max="25" />
+                    Cantidad de personas en el aula 2
+                    <input type="number" id="personas3Aula2" min="0" max="25" />
+                    Cantidad de personas en el aula 3
+                    <input type="number" id="personas3Aula3" min="0" max="25" />
+                    <br />
+                </div>
+                <br />
+                <br />
                 <br/>
                 <br />
                 <br />
@@ -167,17 +178,22 @@
                 <br />
                 <div>
                     <label>Cantidad de laboratorios. Precio ₡25.000 colones por hora</label>
-                    <div class="one_third first">
+                    <div class="one_quarter first">
                         <label>Ninguno
                             <input type="radio" id="0labCheck" name="labChecked" checked onclick="showLab()" />
                         </label>
                     </div>
-                    <div class="one_third">
-                        <label>1 Laboratorio
-                            <input type="radio" id="1labCheck" name="labChecked" onclick="showLab()" />
+                    <div class="one_quarter">
+                        <label>Laboratorio B1 (18 personas)
+                            <input type="radio" id="B1labCheck" name="labChecked" onclick="showLab()" />
                         </label>
                     </div>
-                    <div class="one_third">
+                    <div class="one_quarter">
+                        <label>Laboratorio B2 (20 personas)
+                            <input type="radio" id="B2labCheck" name="labChecked" onclick="showLab()" />
+                        </label>
+                    </div>
+                    <div class="one_quarter">
                         <label>2 Laboratorios
                             <input type="radio" id="2labCheck" name="labChecked" onclick="showLab()" />
                         </label>
@@ -185,18 +201,26 @@
                 </div>
                 <br />
                 <div>
-                    <div class="one_third first">
+                    <div class="one_quarter first">
                         <br />
                     </div>
-                    <div class="one_third" id="1lab" style="display: none">
-                        Cantidad de personas en el laboratorio 1
-                        <input type="number" id="personas1Lab1" />
+                    <div class="one_quarter" id="B1lab" style="display: none">
+                        <br />
+                        Cantidad de personas en el laboratorio B1
+                        <input type="number" id="personas1LabB1" min="0" max="18" />
                     </div>
-                    <div class="one_third" id="2lab" style="display: none">
-                        Cantidad de personas en el laboratorio 1
-                        <input type="number" id="personas2Lab1" />
-                        Cantidad de personas en el laboratorio 2
-                        <input type="number" id="personas2Lab2" />
+                    <div class="one_quarter" id="B2lab" style="display: none">
+                        <br />
+                        Cantidad de personas en el laboratorio B2
+                        <input type="number" id="personas1LabB2" min="0" max="20" />
+                    </div>
+                    <div class="one_quarter" id="2lab" style="display: none">
+                        <br />
+                        Cantidad de personas en el laboratorio B1
+                        <input type="number" id="personas2Lab1" min="0" max="18" />
+                        Cantidad de personas en el laboratorio B2
+                        <input type="number" id="personas2Lab2" min="0" max="20" />
+                        <br />
                     </div>
                 </div>
                 <br/>
@@ -207,40 +231,42 @@
                 <br />
                 <hr />
                 <br />
+                <label class="titulo">Datos de la actividad</label>
+                <br />
                 <label>Nombre de la actividad</label>
-                <input class="entradas" type="text" name="nombreActividadSolicitante" required />
+                <input type="text" name="nombreActividadSolicitante" required />
                 <br />
                 <div class="one_quarter first">
                     <label>Fecha de inicio:</label>
                 </div>
                 <div class="one_quarter">
-                    <input type="date" name="fechaInicio" required />
+                    <input class="fecha" type="date" name="fechaInicio" required />
                 </div>
                 <div class="one_quarter">
                     <label>Fecha de finalización:</label>
                 </div>
                 <div class="one_quarter">
-                    <input type="date" name="fechaFinal" required />
+                    <input  class="fecha" type="date" name="fechaFinal" required />
                 </div>
                 <br />
                 <br />
                 <br />
-                <label>Añada los horarios según sea necesario</label>
+                <label class="titulo">Añada los horarios según sea necesario</label>
                 <br />
                 <div class="one_quarter first">
                     <label>Día</label>
-                    <input type="date" name="dia" required />
+                    <input class="fecha" type="date" name="dia" required />
                 </div>
                 <div class="one_quarter">
                     <label>Hora de inicio</label>
-                    <input type="time" name="horaInicioDia" min="08:00" max="20:00" step="3600" required />
+                    <input class="fecha" type="time" name="horaInicioDia" min="08:00" max="20:00" step="3600" required />
                 </div>
                 <div class="one_quarter">
                     <label>Hora de finalización</label>
-                    <input type="time" name="horaFinalDia" min="09:00" max="21:00" step="3600" required />
+                    <input class="fecha" type="time" name="horaFinalDia" min="09:00" max="21:00" step="3600" required />
                 </div>
                 <div class="one_quarter"><br />
-                    <input type="button" name="agregarFecha" value="Agregar" onclick="addDate()"/><br />
+                    <input class="button" type="button" name="agregarFecha" value="Agregar" onclick="addDate()"/><br />
                 </div>
                 <div class="scrollable">
                     <table id="fechas">
@@ -256,11 +282,13 @@
                 <br />
                 <br />
                 <br />
+                <label class="titulo">Datos adicionales</label>
+                <br />
                 <label>Observaciones</label>
-                <input type="text" id="observaciones" />
+                <input class="observaciones" type="text" id="observaciones" />
                 <br />
                 <br />
-                <label>Información importante</label>
+                <label class="titulo">Información importante</label>
                 <p>->La reservación se efectuará contra el pago del 50% del costo total</p>
                 <p>->Este monto no es reembolsable</p>
             </form>
