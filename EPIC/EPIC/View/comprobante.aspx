@@ -98,7 +98,7 @@
             </div>
             <br />
             <br />
-            <form id="facturaElec">
+            <form id="myform">
                 <br />
                 <br />
                 <br />
@@ -137,5 +137,13 @@
       </main>
     </div>
     <script src="../comprobanteFunctions.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <script type="text/javascript" src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
+    <script type="text/javascript">
+       (function(){
+          emailjs.init("user_1ye0i1bKUum6x3k7qtaE6");
+       })();
+    </script>
 </body>
 </html>
