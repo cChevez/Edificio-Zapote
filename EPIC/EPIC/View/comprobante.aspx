@@ -90,44 +90,62 @@
             <img id="image" />
             <br />
             <br />
-            <input type="checkbox" id="factura" onclick="solicitudFactura()"/>Solicitud de factura electrónica
+            <div class="one_third first encierroCentral">
+                <br />
+                <label>Solicitud de factura electrónica</label>
+                <input type="checkbox" id="factura" onclick="solicitudFactura()"/>
+                <br />
+            </div>
             <br />
             <br />
-
-            <form action="#" method="get">
+            <form id="facturaElec">
+                <br />
+                <br />
+                <br />
                 <div class="one_half first" id="cedulaFactura" style="display: none" >
                     <label>Cédula</label>
-                    <input class="entradas" type="text" name="cedulaFactura" required />
+                    <input type="text" name="cedulaFactura" required />
                     <br />
                 </div>
                 <div class="one_half" id="nombreFactura" style="display: none">
                     <label>Nombre completo</label>
-                    <input class="entradas" type="text" name="nombreFactura"required />
+                    <input type="text" name="nombreFactura"required />
                     <br />
                 </div>
                 <div class="one_half first" id="telefonoFactura" style="display: none" >
                     <label>Teléfono</label>
-                    <input class="entradas" type="text" name="telefonoFactura"required />
+                    <input type="text" name="telefonoFactura"required />
                     <br />
                 </div>
                 <div class="one_half" id="correoFactura" style="display: none" >
                     <label>Correo electrónico</label>
-                    <input class="entradas" type="email" name="correoFactura" required />
+                    <input type="email" name="correoFactura" required />
                     <br />
                 </div>
                 <div class="one_half first" id="direccionFactura" style="display: none" >
                     <label>Dirección</label>
-                    <input class="entradas" type="tel" name="direccionFactura" required />
+                    <input type="tel" name="direccionFactura" required />
                     <br />
                 </div>
+                <br />
+                <br />
+                <div class="one_half first">
+                    <button>Enviar comprobante</button>
+                </div>
             </form>
-            <div class="one_half first">
-                <input type="button" value="Enviar comprobante" />
-            </div>
         </div>
       </main>
     </div>
     <script src="../comprobanteFunctions.js"></script>
+    
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
     <script type="text/javascript" src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
+    <script type="text/javascript">
+       (function(){
+          emailjs.init("user_1ye0i1bKUum6x3k7qtaE6");
+       })();
+    </script>
+
 </body>
 </html>

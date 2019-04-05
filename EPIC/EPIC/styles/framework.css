@@ -60,15 +60,21 @@ h1, h2, h3, h4, h5, h6, .heading{font-family:Georgia, "Times New Roman", Times, 
 form, fieldset, legend{margin:0; padding:0; border:none;}
 legend{display:none;}
 label, input, textarea, select, button{display:block; resize:none; outline:none; color:inherit; font-size:inherit; font-family:inherit; vertical-align:middle;
-    width: 250px;
+    width: 250px; margin-left:10px;
 }
 .button{width: 250px}
 .fecha{width: 150px}
 .observaciones{width: 1000px}
 .titulo{font-weight:600; font-size: 16px}
 label{margin-bottom:5px; width:auto}
-:required, :invalid{outline:none; box-shadow:none;}
 
+.encierroCentral {
+    margin-left: 40px;
+    border: 1px;
+    border-style: solid;
+    border-color: black;
+}
+:required, :invalid{outline:none; box-shadow:none;}
 
 /* Generalise
 --------------------------------------------------------------------------------------------------------------- */
