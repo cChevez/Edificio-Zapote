@@ -46,14 +46,14 @@ myform.submit(function (event) {
     var service_id = "default_service";
 
     var template_id = "facturaelectronica";
-    myform.find("button").text("Sending...");
+    myform.find("button").text("Enviando...");
     emailjs.send(service_id, template_id, params)
         .then(function () {
             alert("Sent!");
-            myform.find("button").text("Send");
+            myform.find("button").text("Enviar comprobante");
         }, function (err) {
             alert("Send email failed!\r\n Response:\n " + JSON.stringify(err));
-            myform.find("button").text("Send");
+            myform.find("button").text("Enviar comprobante");
         });
 
     return false;

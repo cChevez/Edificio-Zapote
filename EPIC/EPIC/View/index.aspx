@@ -22,8 +22,8 @@
         <div class="fl_right">
           <ul>
             <li><a href="#"><i class="fa fa-lg fa-home"></i></a></li>
-            <li><a href="#">Login</a></li>
-            <li><a href="#">Register</a></li>
+            <li><a href="#">Ingresar</a></li>
+            <li><a href="#">Registrarse</a></li>
           </ul>
         </div>
         <!-- ################################################################################################ -->

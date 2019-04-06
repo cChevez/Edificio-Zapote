@@ -106,22 +106,26 @@
             </div>
             <br />
             <br />
+            <br />
+            <br />
+            <br />
+            <br />
             <form id="myform">
-<label>ced</label>
-<input type="text" name="ced" />
-<label>name</label>
-<input type="text" name="name" />
-<label>tel</label>
-<input type="text" name="tel" />
-<label>email</label>
-<input type="text" name="email" />
-<label>dir</label>
-<input type="text" name="dir" />
-<br><br>
-<button>
-Send
-</button>
-</form>
+                <label>Cédula</label>
+                <input type="text" name="ced" />
+                <label>Nombre completo</label>
+                <input type="text" name="name" />
+                <label>Teléfono</label>
+                <input type="text" name="tel" />
+                <label>Correo</label>
+                <input type="text" name="email" />
+                <label>Dirección</label>
+                <input type="text" name="dir" />
+                <br><br>
+                <button>
+                Enviar comprobante
+                </button>
+            </form>
         </div>
       </main>
     </div>
