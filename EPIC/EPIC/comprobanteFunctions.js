@@ -46,7 +46,7 @@ myform.submit(function (event) {
     var service_id = "default_service";
 
     var template_id = "facturaelectronica";
-    myform.find("button").text("Enviando...");
+    myform.find("button").text("Sending...");
     emailjs.send(service_id, template_id, params)
         .then(function () {
             alert("Sent!");

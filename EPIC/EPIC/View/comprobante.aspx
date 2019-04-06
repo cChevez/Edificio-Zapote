@@ -8,6 +8,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link href="../styles/styles.css" rel="stylesheet" type="text/css" media="all">
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <script type="text/javascript" src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
+    <script type="text/javascript">
+       (function(){
+          emailjs.init("user_1ye0i1bKUum6x3k7qtaE6");
+       })();
+    </script>
 </head>
 <body id="top">
     <div class="wrapper row0">
@@ -99,51 +107,24 @@
             <br />
             <br />
             <form id="myform">
-                <br />
-                <br />
-                <br />
-                <div class="one_half first" id="cedulaFactura" style="display: none" >
-                    <label>Cédula</label>
-                    <input type="text" name="cedulaFactura" required />
-                    <br />
-                </div>
-                <div class="one_half" id="nombreFactura" style="display: none">
-                    <label>Nombre completo</label>
-                    <input type="text" name="nombreFactura"required />
-                    <br />
-                </div>
-                <div class="one_half first" id="telefonoFactura" style="display: none" >
-                    <label>Teléfono</label>
-                    <input type="text" name="telefonoFactura"required />
-                    <br />
-                </div>
-                <div class="one_half" id="correoFactura" style="display: none" >
-                    <label>Correo electrónico</label>
-                    <input type="email" name="correoFactura" required />
-                    <br />
-                </div>
-                <div class="one_half first" id="direccionFactura" style="display: none" >
-                    <label>Dirección</label>
-                    <input type="tel" name="direccionFactura" required />
-                    <br />
-                </div>
-                <br />
-                <br />
-                <div class="one_half first">
-                    <button>Enviar comprobante</button>
-                </div>
-            </form>
+<label>ced</label>
+<input type="text" name="ced" />
+<label>name</label>
+<input type="text" name="name" />
+<label>tel</label>
+<input type="text" name="tel" />
+<label>email</label>
+<input type="text" name="email" />
+<label>dir</label>
+<input type="text" name="dir" />
+<br><br>
+<button>
+Send
+</button>
+</form>
         </div>
       </main>
     </div>
     <script src="../comprobanteFunctions.js"></script>
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
-    <script type="text/javascript" src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
-    <script type="text/javascript">
-       (function(){
-          emailjs.init("user_1ye0i1bKUum6x3k7qtaE6");
-       })();
-    </script>
 </body>
 </html>
