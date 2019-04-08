@@ -67,7 +67,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Alquiler.aspx" />
     <Content Include="comprobanteFunctions.js" />
+    <Content Include="Index.aspx" />
     <Content Include="styles\framework.css" />
     <Content Include="View\alquiler.aspx" />
     <Content Include="Functions.js" />
@@ -86,7 +88,6 @@
     <Content Include="images\demo\imgr.gif" />
     <Content Include="images\demo\index.html" />
     <Content Include="View\comprobante.aspx" />
-    <Content Include="View\index.aspx" />
     <Content Include="styles\custom.flexslider.css" />
     <Content Include="styles\fontawesome-4.6.3.min.css" />
     <Content Include="styles\fonts\fontawesome-webfont.svg" />
@@ -95,6 +96,27 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Alquiler.aspx.cs">
+      <DependentUpon>Alquiler.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Alquiler.aspx.designer.cs">
+      <DependentUpon>Alquiler.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Inicio.Master.cs">
+      <DependentUpon>Inicio.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inicio.Master.designer.cs">
+      <DependentUpon>Inicio.Master</DependentUpon>
+    </Compile>
     <Compile Include="View\alquiler.aspx.cs">
       <DependentUpon>alquiler.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -112,16 +134,10 @@
     <Compile Include="View\comprobante.aspx.designer.cs">
       <DependentUpon>comprobante.aspx</DependentUpon>
     </Compile>
-    <Compile Include="View\index.aspx.cs">
-      <DependentUpon>index.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="View\index.aspx.designer.cs">
-      <DependentUpon>index.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Inicio.Master" />
     <None Include="packages.config" />
     <Content Include="styles\fonts\fontawesome-webfont.eot" />
     <Content Include="styles\fonts\fontawesome-webfont.ttf" />

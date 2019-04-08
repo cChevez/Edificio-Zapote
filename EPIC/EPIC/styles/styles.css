@@ -980,13 +980,13 @@ input:focus, textarea:focus, *:required:focus {
 
 /* Rows */
 .row0, .row0 a {
-    color: #474747;
+    color: midnightblue;
     background-color: #FFFFFF;
 }
 
 .row1 {
     color: #FFFFFF;
-    background-color: #141414;
+    background-color: midnightblue;
 }
 
 .row2 {
@@ -1005,8 +1005,8 @@ input:focus, textarea:focus, *:required:focus {
 }
 
 .row5, .row5 a {
-    color: #CBCBCB;
-    background-color: #141414;
+    color: white;
+    background-color: midnightblue;
 }
 
 .coloured {

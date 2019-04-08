@@ -62,10 +62,11 @@ legend{display:none;}
 label, input, textarea, select, button{display:block; resize:none; outline:none; color:inherit; font-size:inherit; font-family:inherit; vertical-align:middle;
     width: 250px; margin-left:10px;
 }
-.button{width: 250px}
+.button{width: 150px}
 .fecha{width: 150px}
 .observaciones{width: 1000px}
 .titulo{font-weight:600; font-size: 16px}
+.etiquetas{margin-left: 10px;}
 label{margin-bottom:5px; width:auto}
 
 .encierroCentral {
@@ -79,7 +80,9 @@ label{margin-bottom:5px; width:auto}
 /* Generalise
 --------------------------------------------------------------------------------------------------------------- */
 h1, h2, h3, h4, h5, h6, .heading{margin:0 0 20px 0; font-size:22px; line-height:normal; font-weight:normal; text-transform:uppercase;}
-
+h2{
+    font-weight:500;
+}
 address{font-style:normal; font-weight:normal;}
 hr{display:block; width:100%; height:1px; border:solid; border-width:1px 0 0 0;}
 
