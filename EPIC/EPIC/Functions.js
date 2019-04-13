@@ -68,6 +68,8 @@ function addDate() {
     var inicio = document.getElementsByName("horaInicioDia").value;
     var final = document.getElementsByName("horaFinalDia").value;
 
+    //Console.Write("Your");
+
     cell1.innerHTML = dFecha;
     cell2.innerHTML = inicio;
     cell3.innerHTML = final;
