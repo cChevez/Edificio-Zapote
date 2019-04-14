@@ -202,20 +202,17 @@
                 <div class="one_quarter first">
                     <asp:Label class="etiquetas" ID="Label21" runat="server" Text="Día" ></asp:Label> 
                     <asp:TextBox class="fecha" ID="diaReserva" runat="server" ></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ErrorMessage="* Campo necesario" ControlToValidate="diaReserva" ForeColor="Red" class="etiquetas"></asp:RequiredFieldValidator>
-                    <br /> <asp:RegularExpressionValidator ID="RegularExpressionValidator6" class="etiquetas" runat="server" ControlToValidate="diaReserva" ValidationExpression="^([0-2][0-9]|(3)[0-1])(\-)(((0)[0-9])|((1)[0-2]))(\-)\d{4}$" Text="* Formato 01-01-2019" ForeColor="Red"></asp:RegularExpressionValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator6" class="etiquetas" runat="server" ControlToValidate="diaReserva" ValidationExpression="^([0-2][0-9]|(3)[0-1])(\-)(((0)[0-9])|((1)[0-2]))(\-)\d{4}$" Text="* Formato 01-01-2019" ForeColor="Red"></asp:RegularExpressionValidator>
                 </div>
                 <div class="one_quarter">
                     <asp:Label class="etiquetas" ID="Label22" runat="server" Text="Hora de inicio" ></asp:Label> 
-                    <asp:TextBox class="fecha" ID="horaInicio" runat="server"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" ErrorMessage="* Campo necesario" ControlToValidate="horaInicio" ForeColor="Red" class="etiquetas"></asp:RequiredFieldValidator>
-                    <br /> <asp:RegularExpressionValidator ID="RegularExpressionValidator7" class="etiquetas" runat="server" ControlToValidate="horaInicio" ValidationExpression="^^((^[0][1-9]|1[0-2])(:|\.)[0-5][0-9](:[0-5][0-9])?(AM|PM))" Text="* Formato 01:00AM" ForeColor="Red"></asp:RegularExpressionValidator>
+                    <asp:TextBox class="fecha" ID="horaInicio" runat="server" MaxLength="5"></asp:TextBox>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator7" class="etiquetas" runat="server" ControlToValidate="horaInicio" ValidationExpression="^((0[8-9]|1[0-9]):[0|3]0)|^(2[0-0]):00$" Text="De 08:00 a 20:00" ForeColor="Red"></asp:RegularExpressionValidator>
                 </div>
                 <div class="one_quarter">
                     <asp:Label class="etiquetas" ID="Label23" runat="server" Text="Hora de finalización" ></asp:Label> 
-                    <asp:TextBox class="fecha" ID="horaFinal" runat="server"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" ErrorMessage="* Campo necesario" ControlToValidate="horaFinal" ForeColor="Red" class="etiquetas"></asp:RequiredFieldValidator>
-                    <br /> <asp:RegularExpressionValidator ID="RegularExpressionValidator8" class="etiquetas" runat="server" ControlToValidate="horaFinal" ValidationExpression="^((^[0][1-9]|1[0-2])(:|\.)[0-5][0-9](:[0-5][0-9])?(AM|PM))" Text="* Formato 01:00AM" ForeColor="Red"></asp:RegularExpressionValidator>
+                    <asp:TextBox class="fecha" ID="horaFinal" runat="server" MaxLength="5"></asp:TextBox>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator8" class="etiquetas" runat="server" ControlToValidate="horaFinal" ValidationExpression="^(09|1[0-9]:[0|3]0)|^(2[0|1]):[0|3]0$" Text="De 09:00 a 21:30" ForeColor="Red"></asp:RegularExpressionValidator>
                 </div>
                 <div class="one_quarter">
                     <br />

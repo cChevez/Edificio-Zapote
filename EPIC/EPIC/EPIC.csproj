@@ -120,7 +120,8 @@
     <Compile Include="Inicio.Master.designer.cs">
       <DependentUpon>Inicio.Master</DependentUpon>
     </Compile>
-    <Compile Include="Model\Horario.cs" />
+    <Compile Include="Model\ConsultasDB.cs" />
+    <Compile Include="Model\EnviarCorreo.cs" />
     <Compile Include="View\alquiler.aspx.cs">
       <DependentUpon>alquiler.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -142,6 +143,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Inicio.Master" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <Content Include="styles\fonts\fontawesome-webfont.eot" />
     <Content Include="styles\fonts\fontawesome-webfont.ttf" />

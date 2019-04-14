@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Web.UI;
-using System.Data.SqlClient;
-using System.Configuration;
 using System.Threading;
 
 namespace EPIC
@@ -88,61 +86,67 @@ namespace EPIC
 
         protected void agregarHorario_Click(object sender, EventArgs e)
         {
-            string dia = diaReserva.Text;
-            string inicio = horaInicio.Text;
-            string final = horaFinal.Text;
-            
+            string dia, mes, anno;
+            dia = diaReserva.Text.Replace("'", "").Substring(0, 2);
+            mes = diaReserva.Text.Replace("'", "").Substring(3, 2);
+            anno = diaReserva.Text.Replace("'", "").Substring(6, 4);
+            string fecha = (mes + "-" + dia + "-" + anno).Replace("'", "");
+            string inicio = horaInicio.Text.Replace("'", "");
+            int horaI = Int32.Parse(inicio.Substring(0, 2));
+            string final = horaFinal.Text.Replace("'", "");
+            int horaF = Int32.Parse(final.Substring(0, 2));
+
+            if (horaI >= horaF)
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('La hora de finalización no puede ser menor o igual a la de inicio');", true);
+            }
+            else
+            {
+                Model.ConsultasDB.InsertarHoras(fecha, inicio, final);
+                diaReserva.Text = "";
+                horaInicio.Text = "";
+                horaFinal.Text = "";
+            }
         }
 
         protected void enviar_Click(object sender, EventArgs e)
         {
-            SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["ePICsqlConnection"].ToString());
             Boolean enviado = false; ;
             
             string fechaForm, nombreV, empresaV, cedulaV, correoV, telefonoV, nombreActividadV, fechaInicioV, fechaFinalV, observacionesV;
             string dia, mes, anno;
 
+            DateTime today = DateTime.Today;
+            fechaForm = today.ToString("MM-dd-yyyy");
+            nombreV = nombre.Text.Replace("'", "");
+            empresaV = empresa.Text.Replace("'", "");
+            cedulaV = cedula.Text.Replace("'", "");
+            correoV = correo.Text.Replace("'", "");
+            telefonoV = telefono.Text.Replace("'", "");
+            nombreActividadV = nombreActividad.Text.Replace("'", "");
+            dia = fechaInicio.Text.Replace("'", "").Substring(0, 2);
+            mes = fechaInicio.Text.Replace("'", "").Substring(3, 2);
+            anno = fechaInicio.Text.Replace("'", "").Substring(6, 4);
+            fechaInicioV = (mes + "-" + dia + "-" + anno).Replace("'", "");
+            dia = fechaFinal.Text.Replace("'", "").Substring(0, 2);
+            mes = fechaFinal.Text.Replace("'", "").Substring(3, 2);
+            anno = fechaFinal.Text.Replace("'", "").Substring(6, 4);
+            fechaFinalV = (mes + "-" + dia + "-" + anno).Replace("'", "");
+            observacionesV = observaciones.Text.Replace("'", "");
+
             if (Page.IsValid)
             {
-                DateTime today = DateTime.Today;
-                fechaForm = today.ToString("MM-dd-yyyy");
-                nombreV = nombre.Text.Replace("'", "");
-                empresaV = empresa.Text.Replace("'", "");
-                cedulaV = cedula.Text.Replace("'", "");
-                correoV = correo.Text.Replace("'", "");
-                telefonoV = telefono.Text.Replace("'", "");
-                nombreActividadV = nombreActividad.Text.Replace("'", "");
-                dia = fechaInicio.Text.Replace("'", "").Substring(0, 2);
-                mes = fechaInicio.Text.Replace("'", "").Substring(3, 2);
-                anno = fechaInicio.Text.Replace("'", "").Substring(6, 4);
-                fechaInicioV = (mes+"-"+dia+"-"+anno).Replace("'", "");
-                dia = fechaFinal.Text.Replace("'", "").Substring(0, 2);
-                mes = fechaFinal.Text.Replace("'", "").Substring(3, 2);
-                anno = fechaFinal.Text.Replace("'", "").Substring(6, 4);
-                fechaFinalV = (mes + "-" + dia + "-" + anno).Replace("'", "");
-                observacionesV = observaciones.Text.Replace("'", "");
-                
                 int participantes = 10;
 
                 try
                 {
-                    sqlConnection.Open();
-                    SqlCommand sqlCommand = new SqlCommand("Execute insertarTotal '" + fechaForm.Replace("'", "") + "','" + nombreV + "','" + empresaV + "','" + cedulaV + "','" + correoV + "','" + telefonoV + "','" + nombreActividadV + "','" + fechaInicioV + "','" + fechaFinalV + "','" + observacionesV + "','" + participantes + "'", sqlConnection);
-
-                    sqlCommand.ExecuteNonQuery();
-
-                    sqlConnection.Close();
-                    ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Reservación creada');", true);
+                    Model.ConsultasDB.InsertarReservacion(fechaForm, nombreV, empresaV, cedulaV, correoV, telefonoV, nombreActividadV, fechaInicioV, fechaFinalV, observacionesV, participantes);
 
                     enviado = true;
                 }
                 catch(Exception ex)
                 {
-                    SqlCommand sqlCommand = new SqlCommand("Delete from HorasSolicitudTable", sqlConnection);
-
-                    sqlCommand.ExecuteNonQuery();
-
-                    sqlConnection.Close();
+                    Model.ConsultasDB.BorrarHorasSolicitadas();
                     ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + ex.Message + "');", true);
 
                     enviado = false;
@@ -151,7 +155,25 @@ namespace EPIC
             if (enviado)
             {
                 Thread.Sleep(2000);
-                Response.Redirect("~/Index.aspx");
+                ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Reservación creada');", true);
+
+                nombre.Text = "";
+                empresa.Text = "";
+                cedula.Text = "";
+                correo.Text = "";
+                telefono.Text = "";
+                nombre.Text = "";
+                fechaInicio.Text = "";
+                fechaFinal.Text = "";
+                observaciones.Text = "";
+                listAulas.SelectedIndex = 0;
+                listLabs.SelectedIndex = 0;
+                diaReserva.Text = "";
+                horaInicio.Text = "";
+                horaFinal.Text = "";
+
+                Model.EnviarCorreo.CorreoReservacion(fechaForm,nombreV, empresaV,
+                    cedulaV, correoV, telefonoV, nombreActividadV, fechaInicioV, fechaFinalV, observacionesV);
             }
         }
     }
