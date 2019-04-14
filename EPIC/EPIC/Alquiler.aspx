@@ -76,26 +76,39 @@
                 <div class="one_half first">
                     <asp:Label class="etiquetas" ID="Label2" runat="server" Text="Nombre del solicitante"></asp:Label>
                     <asp:TextBox ID="nombre" runat="server" ></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="* Campo necesario" ControlToValidate="nombre" ForeColor="Red" class="etiquetas"></asp:RequiredFieldValidator>
+                    <br />
                     <br />
                 </div>
                 <div class="one_half">
                     <asp:Label class="etiquetas" ID="Label3" runat="server" Text="Empresa solicitante"></asp:Label>
                     <asp:TextBox ID="empresa" runat="server" ></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="* Campo necesario" ControlToValidate="empresa" ForeColor="Red" class="etiquetas"></asp:RequiredFieldValidator>
+                    <br />
                     <br />
                 </div>
                 <div class="one_half first">
                     <asp:Label class="etiquetas" ID="Label4" runat="server" Text="Cédula jurídica"></asp:Label>
                     <asp:TextBox ID="cedula" runat="server" ></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="* Campo necesario" ControlToValidate="cedula" ForeColor="Red" class="etiquetas"></asp:RequiredFieldValidator>
+                    &nbsp;<asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="cedula" ValidationExpression="([2-4])-([0-9])+-([0-9])+" Text="* Formato esperado 0-000-000000" ForeColor="Red"></asp:RegularExpressionValidator>
+                    <br />
                     <br />
                 </div>
                 <div class="one_half">
                     <asp:Label class="etiquetas" ID="Label5" runat="server" Text="Correo electrónico"></asp:Label>
                     <asp:TextBox ID="correo" runat="server" ></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="* Campo necesario" ControlToValidate="correo" ForeColor="Red" class="etiquetas"></asp:RequiredFieldValidator>
+                    &nbsp;<asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ControlToValidate="correo" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" Text="* ejemplo@ejemplo.ejemplo" ForeColor="Red"></asp:RegularExpressionValidator>
+                    <br />
                     <br />
                 </div>
                 <div class="one_half first">
                     <asp:Label class="etiquetas" ID="Label6" runat="server" Text="Número de teléfono"></asp:Label>
                     <asp:TextBox ID="telefono" runat="server" ></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="* Campo necesario" ControlToValidate="telefono" ForeColor="Red" class="etiquetas"></asp:RequiredFieldValidator>
+                    &nbsp;<asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ControlToValidate="telefono" ValidationExpression="\d{8}" Text="* Formato esperado 00000000" ForeColor="Red"></asp:RegularExpressionValidator>
+                    <br />
                     <br />
                 </div>
                 <br />
@@ -162,6 +175,8 @@
                 <div class="one_half first">
                     <asp:Label class="etiquetas" ID="Label16" runat="server" Text="Nombre de la actividad"></asp:Label>
                     <asp:TextBox ID="nombreActividad" runat="server" ></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="* Campo necesario" ControlToValidate="nombreActividad" ForeColor="Red" class="etiquetas"></asp:RequiredFieldValidator>
+                    <br />
                     <br />
                 </div>
                 <div class="one_third first">
@@ -170,11 +185,15 @@
                 </div>
                 <div class="one_quarter first">
                     <asp:Label class="etiquetas" ID="Label18" runat="server" Text="Del:" ></asp:Label> 
-                    <asp:TextBox class="fecha" TextMode="Date" ID="fechaInicio" runat="server"></asp:TextBox>
+                    <asp:TextBox class="fecha" ID="fechaInicio" runat="server"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ErrorMessage="* Campo necesario" ControlToValidate="fechaInicio" ForeColor="Red" class="etiquetas"></asp:RequiredFieldValidator>
+                    <br /> <asp:RegularExpressionValidator ID="RegularExpressionValidator4" class="etiquetas" runat="server" ControlToValidate="fechaInicio" ValidationExpression="^([0-2][0-9]|(3)[0-1])(\-)(((0)[0-9])|((1)[0-2]))(\-)\d{4}$" Text="* Formato 01-12-2019" ForeColor="Red"></asp:RegularExpressionValidator>
                 </div>
                 <div class="one_quarter">
-                    <asp:Label class="etiquetas" ID="Label19" runat="server" Text="hasta:"></asp:Label> 
-                    <asp:TextBox class="fecha" TextMode="Date" ID="fechaFinal" runat="server"></asp:TextBox>
+                    <asp:Label class="etiquetas" ID="Label19" runat="server" Text="hasta:"></asp:Label>
+                    <asp:TextBox class="fecha" ID="fechaFinal" runat="server"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ErrorMessage="* Campo necesario" ControlToValidate="fechaFinal" ForeColor="Red" class="etiquetas"></asp:RequiredFieldValidator>
+                    <br /> <asp:RegularExpressionValidator ID="RegularExpressionValidator5" class="etiquetas" runat="server" ControlToValidate="fechaFinal" ValidationExpression="^([0-2][0-9]|(3)[0-1])(\-)(((0)[0-9])|((1)[0-2]))(\-)\d{4}$" Text="* Formato 01-12-2019" ForeColor="Red"></asp:RegularExpressionValidator>
                 </div>
                 <div class="one_half first">
                     <br />
@@ -182,15 +201,21 @@
                 </div>
                 <div class="one_quarter first">
                     <asp:Label class="etiquetas" ID="Label21" runat="server" Text="Día" ></asp:Label> 
-                    <asp:TextBox class="fecha" TextMode="Date" ID="diaReserva" runat="server" ></asp:TextBox>
+                    <asp:TextBox class="fecha" ID="diaReserva" runat="server" ></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator9" runat="server" ErrorMessage="* Campo necesario" ControlToValidate="diaReserva" ForeColor="Red" class="etiquetas"></asp:RequiredFieldValidator>
+                    <br /> <asp:RegularExpressionValidator ID="RegularExpressionValidator6" class="etiquetas" runat="server" ControlToValidate="diaReserva" ValidationExpression="^([0-2][0-9]|(3)[0-1])(\-)(((0)[0-9])|((1)[0-2]))(\-)\d{4}$" Text="* Formato 01-01-2019" ForeColor="Red"></asp:RegularExpressionValidator>
                 </div>
                 <div class="one_quarter">
                     <asp:Label class="etiquetas" ID="Label22" runat="server" Text="Hora de inicio" ></asp:Label> 
-                    <asp:TextBox class="fecha" TextMode="Time" ID="horaInicio" runat="server"></asp:TextBox>
+                    <asp:TextBox class="fecha" ID="horaInicio" runat="server"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator10" runat="server" ErrorMessage="* Campo necesario" ControlToValidate="horaInicio" ForeColor="Red" class="etiquetas"></asp:RequiredFieldValidator>
+                    <br /> <asp:RegularExpressionValidator ID="RegularExpressionValidator7" class="etiquetas" runat="server" ControlToValidate="horaInicio" ValidationExpression="^^((^[0][1-9]|1[0-2])(:|\.)[0-5][0-9](:[0-5][0-9])?(AM|PM))" Text="* Formato 01:00AM" ForeColor="Red"></asp:RegularExpressionValidator>
                 </div>
                 <div class="one_quarter">
                     <asp:Label class="etiquetas" ID="Label23" runat="server" Text="Hora de finalización" ></asp:Label> 
-                    <asp:TextBox class="fecha" TextMode="Time" ID="horaFinal" runat="server"></asp:TextBox>
+                    <asp:TextBox class="fecha" ID="horaFinal" runat="server"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator11" runat="server" ErrorMessage="* Campo necesario" ControlToValidate="horaFinal" ForeColor="Red" class="etiquetas"></asp:RequiredFieldValidator>
+                    <br /> <asp:RegularExpressionValidator ID="RegularExpressionValidator8" class="etiquetas" runat="server" ControlToValidate="horaFinal" ValidationExpression="^((^[0][1-9]|1[0-2])(:|\.)[0-5][0-9](:[0-5][0-9])?(AM|PM))" Text="* Formato 01:00AM" ForeColor="Red"></asp:RegularExpressionValidator>
                 </div>
                 <div class="one_quarter">
                     <br />
@@ -199,17 +224,70 @@
                     <br />
                 </div>
                 <div>
-                    <asp:Table ID="tablaHorario" runat="server" GridLines="Horizontal">
-                        <asp:TableRow runat="server">
-                            <asp:TableHeaderCell runat="server">Día</asp:TableHeaderCell>
-                            <asp:TableHeaderCell runat="server">Hora de inicio</asp:TableHeaderCell>
-                            <asp:TableHeaderCell runat="server">Hora de finalización</asp:TableHeaderCell>
-                            
-                        </asp:TableRow>
-                    </asp:Table>
-                </div>
-                <div>
                     
+                </div>
+                <br />
+                <hr />
+                <br />
+                <br />
+                <div>
+                    <div class="one_half first">
+                        <asp:Label class="titulo" ID="Label24" runat="server" Text="Observaciones"></asp:Label>
+                        <br />
+                        <asp:TextBox class="observaciones" ID="observaciones" runat="server"></asp:TextBox>
+                        <br />
+                    </div>
+                </div>
+                <br />
+                <br />
+                <br />
+                <br />
+                <div>
+                    <div>
+                        <asp:Label class="titulo" ID="Label25" runat="server" Text="Información adicional"></asp:Label>
+                        <p>-> Se prohíbe el uso de la razón social "Instituto Tecnológico de Costa Rica" en la publicidad o promoción de la actividad, solamente podrá indicarse con el fin de brindar ubicación del lugar         <p>-> La reservación se efectuará contra el pago del 50% del costo total (Este monto no es reembolsable)</p>
+                        <p>-> El 50% faltante debe ser cancelado con al menos 2 días de antelación a la realización de la actividad</p>
+                        <p>-> La cafetería del edificio posee exclusividad dentro de las instalaciones, en caso de información, se le remitirá por correo electrónico (No se permite el ingreso de catering externos)</p>                        
+                        <p>-> Si desea obtener más información, favor comunicarse con: </p>
+                        <p>   Sarela Gómez Brenes, teléfono: 2550-9160, correo: sagomez@itcr.ac.cr </p>
+                    </div>
+                </div>
+                <br />
+                <hr />
+                <br />
+                <div>
+                    <div class="one_half first">
+                        <asp:Label class="titulo" ID="Label26" runat="server" Text="Formas de pago"></asp:Label>
+                        <p>-> Depósito bancario o transferencia electrónica</p>
+                        <p>-> Enviar el comprobante en la sección "Subir comprobante"</p>
+                        <p>-> Cuentas bancarias:</p>
+                        <p>>>> Banco Nacional       # 75-003959-4</p>
+                        <p>>>> Banco de Costa Rica  # 275-004039-8</p>
+                    </div>
+                </div>
+                <br />
+                <br />
+                <hr />
+                <br />
+                <div>
+                    <div class="one_half first">
+                        <asp:Label class="titulo" ID="Label27" runat="server" Text="Costos"></asp:Label>
+                        <br />
+                        <br />
+                        <asp:Label ID="Label28" runat="server" Text="Total:" ></asp:Label>
+                        <asp:Label ID="montoTotal" runat="server" Text="" ></asp:Label>
+                        <br />
+                        <br />
+                    </div>
+                </div>
+                <br />
+                <hr />
+                <div class="one_third first">
+                    <br />
+                </div>
+                <div class="one_third">
+                    <br />
+                    <asp:Button ID="enviar" runat="server" Text="Enviar solicitud" OnClick="enviar_Click"/>
                 </div>
             </div>
           </main>

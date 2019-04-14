@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
+using System.Data.SqlClient;
+using System.Configuration;
+using System.Threading;
 
 namespace EPIC
 {
@@ -11,6 +10,9 @@ namespace EPIC
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!Page.IsPostBack)
+            {
+            }
         }
 
         protected void listAulas_SelectedIndexChanged(object sender, EventArgs e)
@@ -86,22 +88,71 @@ namespace EPIC
 
         protected void agregarHorario_Click(object sender, EventArgs e)
         {
-            String dia = diaReserva.Text;
-            String inicio = horaInicio.Text;
-            String final = horaFinal.Text;
+            string dia = diaReserva.Text;
+            string inicio = horaInicio.Text;
+            string final = horaFinal.Text;
+            
+        }
 
-            TableRow newRow = new TableRow();
-            TableCell newCell = new TableCell();
-            TableCell newCell2 = new TableCell();
-            TableCell newCell3 = new TableCell();
+        protected void enviar_Click(object sender, EventArgs e)
+        {
+            SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["ePICsqlConnection"].ToString());
+            Boolean enviado = false; ;
+            
+            string fechaForm, nombreV, empresaV, cedulaV, correoV, telefonoV, nombreActividadV, fechaInicioV, fechaFinalV, observacionesV;
+            string dia, mes, anno;
 
-            newCell.Text = dia;
-            newRow.Cells.Add(newCell);
-            newCell2.Text = inicio;
-            newRow.Cells.Add(newCell2);
-            newCell3.Text = final;
-            newRow.Cells.Add(newCell3);
-            tablaHorario.Rows.Add(newRow);
+            if (Page.IsValid)
+            {
+                DateTime today = DateTime.Today;
+                fechaForm = today.ToString("MM-dd-yyyy");
+                nombreV = nombre.Text.Replace("'", "");
+                empresaV = empresa.Text.Replace("'", "");
+                cedulaV = cedula.Text.Replace("'", "");
+                correoV = correo.Text.Replace("'", "");
+                telefonoV = telefono.Text.Replace("'", "");
+                nombreActividadV = nombreActividad.Text.Replace("'", "");
+                dia = fechaInicio.Text.Replace("'", "").Substring(0, 2);
+                mes = fechaInicio.Text.Replace("'", "").Substring(3, 2);
+                anno = fechaInicio.Text.Replace("'", "").Substring(6, 4);
+                fechaInicioV = (mes+"-"+dia+"-"+anno).Replace("'", "");
+                dia = fechaFinal.Text.Replace("'", "").Substring(0, 2);
+                mes = fechaFinal.Text.Replace("'", "").Substring(3, 2);
+                anno = fechaFinal.Text.Replace("'", "").Substring(6, 4);
+                fechaFinalV = (mes + "-" + dia + "-" + anno).Replace("'", "");
+                observacionesV = observaciones.Text.Replace("'", "");
+                
+                int participantes = 10;
+
+                try
+                {
+                    sqlConnection.Open();
+                    SqlCommand sqlCommand = new SqlCommand("Execute insertarTotal '" + fechaForm.Replace("'", "") + "','" + nombreV + "','" + empresaV + "','" + cedulaV + "','" + correoV + "','" + telefonoV + "','" + nombreActividadV + "','" + fechaInicioV + "','" + fechaFinalV + "','" + observacionesV + "','" + participantes + "'", sqlConnection);
+
+                    sqlCommand.ExecuteNonQuery();
+
+                    sqlConnection.Close();
+                    ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Reservación creada');", true);
+
+                    enviado = true;
+                }
+                catch(Exception ex)
+                {
+                    SqlCommand sqlCommand = new SqlCommand("Delete from HorasSolicitudTable", sqlConnection);
+
+                    sqlCommand.ExecuteNonQuery();
+
+                    sqlConnection.Close();
+                    ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('" + ex.Message + "');", true);
+
+                    enviado = false;
+                }
+            }
+            if (enviado)
+            {
+                Thread.Sleep(2000);
+                Response.Redirect("~/Index.aspx");
+            }
         }
     }
 }

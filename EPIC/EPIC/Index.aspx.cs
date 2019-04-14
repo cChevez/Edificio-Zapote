@@ -13,10 +13,5 @@ namespace EPIC
         {
 
         }
-
-        protected void Unnamed1_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }
