@@ -84,9 +84,9 @@
                 <hr />
                 <br />
                 <div>
-                    <asp:Button class="button" ID="subirImagen" runat="server" Text="Subir archivo" OnClick="subirImagen_Click"/>
+                    <asp:FileUpload ID="fuArchivo" runat="server" />
                     <br />
-                    Colocar imagen aquí
+                    <asp:Button class="button" ID="subirImagen" runat="server" Text="Subir archivo" OnClick="subirImagen_Click"/>
                     <br />
                 </div>
                 <br />

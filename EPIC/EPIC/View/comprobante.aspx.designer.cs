@@ -49,6 +49,15 @@ namespace EPIC {
         protected global::System.Web.UI.WebControls.Button verificarReservacion;
         
         /// <summary>
+        /// fuArchivo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload fuArchivo;
+        
+        /// <summary>
         /// subirImagen control.
         /// </summary>
         /// <remarks>

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
+﻿using System.Configuration;
 using System.Net;
 using System.Net.Configuration;
 using System.Net.Mail;
-using System.Web;
 
 namespace EPIC.Model
 {
@@ -51,7 +47,7 @@ namespace EPIC.Model
             MailMessage msg = new MailMessage(smtpSection.From, email);
             msg.Subject = "Comprobante de pago recibido";
             msg.IsBodyHtml = true;
-            string mensaje = string.Format("Se ha recibido el comprobante de pago exitosamente para la reservación número:{1}.{0}{0}" +
+            string mensaje = string.Format("Se ha recibido el comprobante de pago exitosamente para la reservación número: {1}.{0}{0}" +
                 "Para más información comuníquese al 2250-9160{0}Correo generado de manera automática, por favor no responda a esta dirección.{0}", "<br/>",numeroReservacion);
             msg.Body = mensaje;
             smtp.Send(msg);

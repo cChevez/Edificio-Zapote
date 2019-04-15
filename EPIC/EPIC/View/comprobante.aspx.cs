@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using System.IO;
 
 namespace EPIC
 {
@@ -25,21 +21,24 @@ namespace EPIC
                 RequiredFieldValidator6.Enabled = false;
                 subirImagen.Enabled = false;
                 enviar.Enabled = false;
+                fuArchivo.Enabled = false;
             }
         }
 
         protected void verificarReservacion_Click(object sender, EventArgs e)
         {
             string numeroRes = numeroReservacion.Text.Replace("'", "");
-            int isReserved = Model.ConsultasDB.verificarReservacion(numeroRes);
+            int isReserved = Model.ConsultasDB.VerificarReservacion(numeroRes);
             if (isReserved == 0)
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('El número ingresado no existe');", true);
                 subirImagen.Enabled = false;
                 enviar.Enabled = false;
+                fuArchivo.Enabled = false;
             }
             else
             {
+                fuArchivo.Enabled = true;
                 subirImagen.Enabled = true;
             }
         }
@@ -68,11 +67,11 @@ namespace EPIC
             telefonoRes = telefono.Text.Replace("'", "");
             direccionRes = direccion.Text.Replace("'", "");
 
-            int isReserved = Model.ConsultasDB.verificarReservacion(numeroRes);
+            int isReserved = Model.ConsultasDB.VerificarReservacion(numeroRes);
 
             if (isReserved == 1)
             {
-                emailRes = Model.ConsultasDB.obtenerCorreoReservacion(numeroRes);
+                emailRes = Model.ConsultasDB.ObtenerCorreoReservacion(numeroRes);
                 if (factura.Checked)
                 {
                     Model.EnviarCorreo.CorreoFacturaElectronicaUsuario(emailRes, numeroRes, nombreRes, cedulaRes, correoRes, telefonoRes, direccionRes);
@@ -86,7 +85,35 @@ namespace EPIC
 
         protected void subirImagen_Click(object sender, EventArgs e)
         {
+            Byte[] Archivo = null;
+            string numeroRes = numeroReservacion.Text.Replace("'", "");
+            string nombreArchivo = string.Empty;
+            string extensionArchivo = string.Empty;
+            if (fuArchivo.HasFile == true)
+            {
+                extensionArchivo = Path.GetExtension(fuArchivo.FileName);
 
+                if (extensionArchivo.Equals(".png") || extensionArchivo.Equals(".jpg") || extensionArchivo.Equals(".pdf"))
+                {
+                    using (BinaryReader reader = new BinaryReader(fuArchivo.PostedFile.InputStream))
+                    {
+                        Archivo = reader.ReadBytes(fuArchivo.PostedFile.ContentLength);
+
+                        Model.ConsultasDB.InsertarComprobante(fuArchivo.FileName, fuArchivo.PostedFile.ContentLength, Archivo, numeroRes);
+                    }
+
+                    ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Se ha subido el comprobante correctamente');", true);
+
+                    //nombreArchivo = Path.GetFileNameWithoutExtension(fuArchivo.FileName);
+
+                }
+                else
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Archivo no permitido, verifique que la extensión del archivo sea .png .jpg .pdf');", true);
+                }
+            }
+
+            enviar.Enabled = true;
         }
     }
 }

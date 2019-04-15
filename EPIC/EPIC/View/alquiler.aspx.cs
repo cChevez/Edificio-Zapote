@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Web.UI;
 using System.Threading;
-using System.Collections;
 using EPIC.Model;
 using System.Collections.Generic;
 
@@ -108,9 +107,29 @@ namespace EPIC
                 List<Horario> listaHorarios = new List<Horario>();
                 Horario nuevoHorario = new Horario(fecha,inicio,final);
                 listaHorarios.Add(nuevoHorario);
+                if (listaHorarios.Count > 1)
+                {
+                    for (int i = 0; i < listaHorarios.Count; i++)
+                    {
+                        Horario horario = listaHorarios[i];
+                        int horaIR = Int32.Parse(horario.horaInicio.Substring(0, 2));
+                        int horaFR = Int32.Parse(horario.horaFinal.Substring(0, 2));
+                        if (horario.dia.Equals(nuevoHorario.dia) && (horaI==horaIR || (horaI>horaIR && horaI<horaFR)))
+                        {
+                            ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Ese horario no está disponible');", true);
+                        }
+                        else
+                        {
+                            Model.ConsultasDB.InsertarHoras(fecha, inicio, final);
+                        }
 
+                    }
+                }
+                else
+                {
+                    Model.ConsultasDB.InsertarHoras(fecha, inicio, final);
+                }
 
-                //Model.ConsultasDB.InsertarHoras(fecha, inicio, final);
                 diaReserva.Text = "";
                 horaInicio.Text = "";
                 horaFinal.Text = "";
