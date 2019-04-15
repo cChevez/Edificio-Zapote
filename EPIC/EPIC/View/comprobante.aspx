@@ -1,134 +1,138 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="comprobante.aspx.cs" Inherits="EPIC.View.comprobante" %>
-
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title>Reservaciones EPIc | Subir comprobante de pago</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Inicio.Master" AutoEventWireup="true" CodeBehind="Comprobante.aspx.cs" Inherits="EPIC.Comprobante" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="../styles/styles.css" rel="stylesheet" type="text/css" media="all">
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <script type="text/javascript" src="https://cdn.emailjs.com/sdk/2.3.2/email.min.js"></script>
-    <script type="text/javascript">
-       (function(){
-          emailjs.init("user_1ye0i1bKUum6x3k7qtaE6");
-       })();
-    </script>
-</head>
-<body id="top">
-    <div class="wrapper row0">
-      <div id="topbar" class="hoc clear"> 
-        <!-- ################################################################################################ -->
-        <div class="fl_left">
-          <ul>
-            <li><i class="fa fa-phone"></i> +00 (123) 456 7890</li>
-            <li><i class="fa fa-envelope-o"></i> info@domain.com</li>
-          </ul>
-        </div>
-        <div class="fl_right">
-          <ul>
-            <li><a href="#"><i class="fa fa-lg fa-home"></i></a></li>
-            <li><a href="#">Login</a></li>
-            <li><a href="#">Register</a></li>
-          </ul>
-        </div>
-        <!-- ################################################################################################ -->
-      </div>
-    </div>
-    <!-- ################################################################################################ -->
-    <!-- ################################################################################################ -->
-    <!-- ################################################################################################ -->
-    <div class="wrapper row1">
-      <header id="header" class="hoc clear"> 
-        <!-- ################################################################################################ -->
-        <div id="logo" class="fl_left">
-          <h1><a href="index.aspx">Reservaciones EPIC</a></h1>
-        </div>
-        <nav id="mainav" class="fl_right">
-          <ul class="clear">
-            <li><a href="index.aspx">Home</a></li>
-            <li><a class="drop" href="#">Solicitar</a>
-              <ul>
-                <li><a href="alquiler.aspx">Alquiler de espacio</a></li>
-                <li><a href="">Préstamo de espacio</a></li>
-              </ul>
-            </li>
-            <li class="active"><a href="comprobante.aspx">Subir comprobante</a></li>
-            <li><a class="drop" href="#">Dropdown</a>
-              <ul>
-                <li><a href="#">Level 2</a></li>
-                <li><a class="drop" href="#">Level 2 + Drop</a>
-                  <ul>
-                    <li><a href="#">Level 3</a></li>
-                    <li><a href="#">Level 3</a></li>
-                    <li><a href="#">Level 3</a></li>
-                  </ul>
-                </li>
-                <li><a href="#">Level 2</a></li>
-              </ul>
-            </li>
-            <li><a href="#">Link Text</a></li>
-          </ul>
-        </nav>
-        <!-- ################################################################################################ -->
-      </header>
-    </div>
-    <div class="wrapper row2">
-      <div id="breadcrumb" class="hoc clear"> 
-      </div>
-    </div>
-    <div class="wrapper row3">
-      <main class="hoc container clear"> 
-        <!-- main body -->
-        <!-- ################################################################################################ -->
-        <div class="content">
-            <h1>Subir comprobante de pago</h1>
-            <hr />
-            <label>Ingrese el número de reservación</label>
-            <input type="text" id="codigo" required />
-            <br />
-            <input type="button" value="Verificar" />
-            <br />
-            <hr />
-            <br />
-            <input type="file" id="fileUploader" accept="image/" onchange="showImage()" />
-            <br />
-            <img id="image" />
-            <br />
-            <br />
-            <div class="one_third first encierroCentral">
-                <br />
-                <label>Solicitud de factura electrónica</label>
-                <input type="checkbox" id="factura" onclick="solicitudFactura()"/>
-                <br />
+    <body>
+        <div class="wrapper row0">
+            <div id="topbar" class="hoc clear"> 
+                <!-- ################################################################################################ -->
+                <div class="fl_left">
+                    <ul>
+                        <li><i class="fa fa-phone"></i> +00 (123) 456 7890</li>
+                        <li><i class="fa fa-envelope-o"></i> info@domain.com</li>
+                    </ul>
+                </div>
+                <div class="fl_right">
+                    <ul>
+                        <li><a href="#"><i class="fa fa-lg fa-home"></i></a></li>
+                        <li><a href="#">Ingresar</a></li>
+                        <li><a href="#">Registrarse</a></li>
+                    </ul>
+                </div>
+                <!-- ################################################################################################ -->
             </div>
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <form id="myform">
-                <label>Cédula</label>
-                <input type="text" name="ced" />
-                <label>Nombre completo</label>
-                <input type="text" name="name" />
-                <label>Teléfono</label>
-                <input type="text" name="tel" />
-                <label>Correo</label>
-                <input type="text" name="email" />
-                <label>Dirección</label>
-                <input type="text" name="dir" />
-                <br><br>
-                <button>
-                Enviar comprobante
-                </button>
-            </form>
         </div>
-      </main>
-    </div>
-    <script src="../comprobanteFunctions.js"></script>
-</body>
-</html>
+        <div class="wrapper row1">
+            <header id="header" class="hoc clear">
+                <!-- ################################################################################################ -->
+                <div id="logo" class="fl_left">
+                    <h1><a href="Index.aspx">Reservaciones ePIC</a></h1>
+                </div>
+                <nav id="mainav" class="fl_right">
+                    <ul class="clear">
+                        <li><a href="Index.aspx">Home</a></li>
+                        <li><a class="drop" href="#">Solicitar</a>
+                            <ul>
+                                <li><a href="Alquiler.aspx">Alquiler de espacio</a></li>
+                                <li><a href="">Préstamo de espacio</a></li>
+                            </ul>
+                        </li>
+                        <li class="active"><a href="Comprobante.aspx">Subir comprobante</a></li>
+                        <li><a class="drop" href="#">Dropdown</a>
+                            <ul>
+                                <li><a href="#">Level 2</a></li>
+                                <li><a class="drop" href="#">Level 2 + Drop</a>
+                                    <ul>
+                                        <li><a href="#">Level 3</a></li>
+                                        <li><a href="#">Level 3</a></li>
+                                        <li><a href="#">Level 3</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">Level 2</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">Link Text</a></li>
+                    </ul>
+                </nav>
+                <!-- ################################################################################################ -->
+            </header>
+        </div>
+        <div class="wrapper row2">
+            <div id="breadcrumb" class="hoc clear"> 
+            </div>
+        </div>
+        <div class="wrapper row3">
+            <main class="hoc container clear"> 
+                <!-- main body -->
+                <!-- ################################################################################################ -->
+                <div class="content">
+                    <h2>Subir comprobante de pago</h2>
+                    <hr />
+                    <asp:Label class="titulo" ID="Label1" runat="server" Text="Ingrese el número de reservación"></asp:Label>
+                    <br />
+                    <br />
+                    <asp:TextBox ID="numeroReservacion" runat="server" ></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="* Campo necesario" ControlToValidate="numeroReservacion" ForeColor="Red" class="etiquetas"></asp:RequiredFieldValidator>
+                    <br />
+                    <br />
+                    <asp:Button class="button" ID="verificarReservacion" runat="server" Text="Verificar" OnClick="verificarReservacion_Click"/>
+                    <br />
+                </div>
+                <br />
+                <hr />
+                <br />
+                <div>
+                    <asp:Button class="button" ID="subirImagen" runat="server" Text="Subir archivo" OnClick="subirImagen_Click"/>
+                    <br />
+                    Colocar imagen aquí
+                    <br />
+                </div>
+                <br />
+                <hr />
+                <br />
+                <div class="one_third first encierroCentral">
+                    <asp:Label class="etiquetas" ID="Label2" runat="server" Text="¿Desea factura electrónica?"></asp:Label>
+                    <asp:CheckBox ID="factura" runat="server" OnCheckedChanged="factura_CheckedChanged" AutoPostBack="True" />
+                </div>
+                <br />
+                <br />
+                <br />
+                <hr />
+                <br />
+                <div id="formFactura">
+                    <asp:Label class="titulo" ID="Label4" runat="server" Text="Datos para la factura electrónica"></asp:Label>
+                    <br />
+                    <br />
+                    <asp:Label class="etiquetas" ID="Label3" runat="server" Text="Nombre completo"></asp:Label>
+                    <asp:TextBox ID="nombre" runat="server" ></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ErrorMessage="* Campo necesario" ControlToValidate="nombre" ForeColor="Red" class="etiquetas"></asp:RequiredFieldValidator>
+                    <br />
+                    <asp:Label class="etiquetas" ID="Label5" runat="server" Text="Cédula"></asp:Label>
+                    <asp:TextBox ID="cedula" runat="server" ></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="* Campo necesario" ControlToValidate="cedula" ForeColor="Red" class="etiquetas"></asp:RequiredFieldValidator>
+                    <br />
+                    <asp:Label class="etiquetas" ID="Label6" runat="server" Text="Teléfono"></asp:Label>
+                    <asp:TextBox ID="telefono" runat="server" ></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="* Campo necesario" ControlToValidate="telefono" ForeColor="Red" class="etiquetas"></asp:RequiredFieldValidator>
+                    <br />
+                    <asp:Label class="etiquetas" ID="Label7" runat="server" Text="Correo electrónico"></asp:Label>
+                    <asp:TextBox ID="correo" runat="server" ></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="* Campo necesario" ControlToValidate="correo" ForeColor="Red" class="etiquetas"></asp:RequiredFieldValidator>
+                    <br />
+                    <asp:Label class="etiquetas" ID="Label8" runat="server" Text="Dirección"></asp:Label>
+                    <asp:TextBox ID="direccion" runat="server" ></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="* Campo necesario" ControlToValidate="direccion" ForeColor="Red" class="etiquetas"></asp:RequiredFieldValidator>
+                </div>
+                <br />
+                <br />
+                <hr />
+                <br />
+                <br />
+                <asp:Button class="button" ID="enviar" runat="server" Text="Enviar" OnClick="enviar_Click"/>
+            </main>
+        </div>
+    </body>
+</asp:Content>
+

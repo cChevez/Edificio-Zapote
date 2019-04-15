@@ -68,11 +68,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Alquiler.aspx" />
+    <Content Include="View\Alquiler.aspx" />
+    <Content Include="View\Comprobante.aspx" />
     <Content Include="comprobanteFunctions.js" />
-    <Content Include="Index.aspx" />
+    <Content Include="View\Index.aspx" />
     <Content Include="styles\framework.css" />
-    <Content Include="View\alquiler.aspx" />
     <Content Include="Functions.js" />
     <Content Include="Global.asax" />
     <Content Include="images\demo\320x180.png" />
@@ -88,7 +88,6 @@
     <Content Include="images\demo\imgl.gif" />
     <Content Include="images\demo\imgr.gif" />
     <Content Include="images\demo\index.html" />
-    <Content Include="View\comprobante.aspx" />
     <Content Include="styles\custom.flexslider.css" />
     <Content Include="styles\fontawesome-4.6.3.min.css" />
     <Content Include="styles\fonts\fontawesome-webfont.svg" />
@@ -99,18 +98,25 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Alquiler.aspx.cs">
+    <Compile Include="View\Alquiler.aspx.cs">
       <DependentUpon>Alquiler.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Alquiler.aspx.designer.cs">
+    <Compile Include="View\Alquiler.aspx.designer.cs">
       <DependentUpon>Alquiler.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Index.aspx.cs">
+    <Compile Include="View\Comprobante.aspx.cs">
+      <DependentUpon>Comprobante.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\Comprobante.aspx.designer.cs">
+      <DependentUpon>Comprobante.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Index.aspx.designer.cs">
+    <Compile Include="View\Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
     <Compile Include="Inicio.Master.cs">
@@ -122,28 +128,14 @@
     </Compile>
     <Compile Include="Model\ConsultasDB.cs" />
     <Compile Include="Model\EnviarCorreo.cs" />
-    <Compile Include="View\alquiler.aspx.cs">
-      <DependentUpon>alquiler.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="View\alquiler.aspx.designer.cs">
-      <DependentUpon>alquiler.aspx</DependentUpon>
-    </Compile>
+    <Compile Include="Model\Horario.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="View\comprobante.aspx.cs">
-      <DependentUpon>comprobante.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="View\comprobante.aspx.designer.cs">
-      <DependentUpon>comprobante.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Inicio.Master" />
-    <Content Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <Content Include="styles\fonts\fontawesome-webfont.eot" />
     <Content Include="styles\fonts\fontawesome-webfont.ttf" />

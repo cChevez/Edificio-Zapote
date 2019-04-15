@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Inicio.Master" AutoEventWireup="true" CodeBehind="Index.aspx.cs" Inherits="EPIC.Index" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="server">
-    <link href="styles/styles.css" rel="stylesheet" type="text/css" media="all">
+    <link href="../styles/styles.css" rel="stylesheet" type="text/css" media="all">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="server">
     
@@ -40,7 +40,7 @@
                     <li><a href="">Préstamo de espacio</a></li>
                   </ul>
                 </li>
-                <li><a href="comprobante.aspx">Subir comprobante</a></li>
+                <li><a href="Comprobante.aspx">Subir comprobante</a></li>
                 <li><a class="drop" href="#">Dropdown</a>
                   <ul>
                     <li><a href="#">Level 2</a></li>
@@ -60,7 +60,7 @@
             <!-- ################################################################################################ -->
           </header>
         </div>
-        <div class="bgded overlay" style="background-image:url('images/logo.png');">
+        <div class="bgded overlay" style="background-image:url('../images/logo.png');">
             <div id="pageintro" class="hoc clear"> 
             </div>
         </div>

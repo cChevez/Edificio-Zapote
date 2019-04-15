@@ -43,5 +43,27 @@ namespace EPIC.Model
 
             sqlConnection.Close();
         }
+
+        public static int verificarReservacion(string id)
+        {
+            SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["ePICsqlConnection"].ToString());
+            sqlConnection.Open();
+            SqlCommand sqlCommand = new SqlCommand("select count(*) from Reservacion where id= '" + id + "'", sqlConnection);
+
+            sqlCommand.ExecuteNonQuery();
+
+            return Convert.ToInt32(sqlCommand.ExecuteScalar());
+        }
+
+        public static string obtenerCorreoReservacion(string id)
+        {
+            SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["ePICsqlConnection"].ToString());
+            sqlConnection.Open();
+            SqlCommand sqlCommand = new SqlCommand("select email from Reservacion where id= '" + id + "'", sqlConnection);
+
+            sqlCommand.ExecuteNonQuery();
+
+            return Convert.ToString(sqlCommand.ExecuteScalar());
+        }
     }
 }
