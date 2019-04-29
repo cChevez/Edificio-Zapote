@@ -17,11 +17,14 @@ go
 create or alter procedure insertarReservacion @fechaSolicitud date, @nombreSolicitante nvarchar(50), @empresaSolicitante nvarchar(50), @nombreActividad nvarchar(50), @cedulaJuridica varchar(50), @email nvarchar(50), @numeroTelefono varchar(50),
 @descripcion nvarchar(100), @cantidadParticipantes int, 
 --@dia date, @horaInicio datetime, @horaFinal datetime, 
-@idAula int, @idLaboratorio int, @videobin bit, @TipoReservacion int, @administrador int
+@videobin bit, @TipoReservacion int, @administrador int
 as begin
 	set nocount on
 	begin transaction
 	begin try
+		Declare @idAula int
+		Declare @idLaboratorio int
+		set @idAula = (Select A.id from Aula A inner join HorasSolicitudTable H on H.numAula = A.numeroAula)
 		if @idAula is not null
 		begin
 			if not exists(select 1 from Aula A where A.id = @idAula)
@@ -89,7 +92,8 @@ as begin
 	set nocount on;
 	begin transaction;
 	begin try
-	Execute insertarReservacion @fechaReservacion, @nombre, @empresa, @nombreActividad,@cedula,@correo,@telefono,@observaciones,@cantidadParticipantes, 1, null, 1, 1, 1
+	Execute insertarReservacion @fechaReservacion, @nombre, @empresa, @nombreActividad,@cedula,@correo,@telefono,@observaciones,@cantidadParticipantes, 1, 1,1
+	DELETE FROM HorasSolicitudTable
 	commit;
 	end try
 	begin catch
@@ -99,12 +103,33 @@ as begin
 end
 go
 
+
+Create or alter Procedure SaveFile @Name varchar (250), @Path varchar(max), @extension varchar(5)
+as begin
+	insert into FilesSave (NameOfFile,FilePath,ext) values (@Name,@Path,@extension)
+end 
+go
+
+
+
+Create or alter Procedure TestSP
+as begin
+	DECLARE @variable varchar(100)
+	Select @variable =  M.NameOfFile from FilesSave M;
+	PRINT @variable
+end 
+go
+
+
+
+
+
+
 --set nocount on
 --declare @tablaConHoras as HorasSolicitudTable
-insert into HorasSolicitudTable(dia, horaInicio, horaFinal) values ('12-12-19','09:00:00','11:00:00')
---insert into @tablaConHoras(dia, horaInicio, horaFinal) values ('12-13-19','10:00:00','11:00:00')
---insert into @tablaConHoras(dia, horaInicio, horaFinal) values ('12-14-19','09:00:00','11:00:00')
---insert into @tablaConHoras(dia, horaInicio, horaFinal) values ('12-15-19','09:00:00','11:00:00')
+--insert into @tablaConHoras(dia, horaInicio, horaFinal,numAula,numLab) values ('12-13-19','10:00:00','11:00:00')
+--insert into @tablaConHoras(dia, horaInicio, horaFinal,numAula,numLab) values ('12-14-19','09:00:00','11:00:00')
+--insert into @tablaConHoras(dia, horaInicio, horaFinal,numAula,numLab) values ('12-15-19','09:00:00','11:00:00')
 --set nocount off
 
 --Exec insertarReservacion '12-12-2019', 'Andres', 'Test', 'Test actividad', 12345124,'andreguti333@gmail.com',5141414,'Test description',15, @tablaConHoras,1,null,1,1,1
@@ -144,6 +169,24 @@ insert into HorasSolicitudTable(dia, horaInicio, horaFinal) values ('12-12-19','
 
 --Exec insertarReservacion '12-14-19', 'Andres', 'Test', 'Test actividad', 12345124,'cjchevezc@gmail.com',5141414,'Test description',15, @tablaConHoras3,1,null,1,1,1
 
-Exec insertarTotal '12-14-19', 'nombreSolic', 'nombreEmpresa', '2-0004-3123', 'test@test.com', '5124-1351','NombreActividad','12-14-19', '12-20-19','observacion', 12
+
+DELETE FROM HorasSolicitudTable
+--DELETE FROM Reservacion
+insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('12-12-19','09:00:00','11:00:00',1,null)
+insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('12-12-19','13:00:00','15:00:00',2,null)
+insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('12-12-19','16:00:00','19:00:00',3,null)
 
 
+
+Exec insertarTotal '12-14-2019', 'nombreSolic', 'nombreEmpresa', '2-0004-3123', 'test@test.com', '5124-1351','NombreActividad','12-14-19', '12-20-19','observacion', 12
+
+--DELETE FROM FilesSave
+
+--exec SaveFile 'sqlservercentral_logo','C:\test','.jpg'
+
+--exec TestSP
+
+Declare @idAula int
+set @idAula = (Select A.id from Aula A inner join HorasSolicitudTable H on H.numAula = A.numeroAula)
+
+PRINT @idAula

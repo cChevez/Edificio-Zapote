@@ -27,4 +27,3 @@ end
 GO 
 
 
-Exec enviarEmail 3;

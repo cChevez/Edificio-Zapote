@@ -26,12 +26,7 @@ create table Operador(
 	email nvarchar(50) unique not null,
 );
 
-create table HorarioReservado(
-	id int identity primary key,
-	dia date not null,
-	horaInicio datetime not null,
-	horaFinal datetime not null
-);
+
 
 
 create table TipoReservacion(
@@ -52,6 +47,21 @@ create table Laboratorio(
 	cantidadMax int not null
 );
 
+create table HorarioReservado(
+	id int identity primary key,
+	dia date not null,
+	horaInicio datetime not null,
+	horaFinal datetime not null,
+	FKAula int constraint FKAulaXRHorarioReservado foreign key references Aula(id),
+	FKLaboratorio int constraint FKLaboratorioXHorarioReservado foreign key references Laboratorio(id)
+);
+
+create table estadoReservacion(
+	id int identity primary key,
+	nombreEstado varchar(50),
+	descripcion varchar(250)
+);
+
 create table Reservacion(
 	id int identity primary key,
 	fechaSolicitud date not null,
@@ -66,9 +76,9 @@ create table Reservacion(
 	FKTipoReservacion int constraint FKTipoReservacionXReservacion foreign key references TipoReservacion(id) not null,
 	FKHorarioReservado int constraint FKHorarioReservadoXReservacion foreign key references HorarioReservado(id) not null,
 	FKAdministrador int constraint FKAdministradorXReservacion foreign key references Administrador(id),
-	FKAula int constraint FKAulaXReservacion foreign key references Aula(id),
-	FKLaboratorio int constraint FKLaboratorioXReservacion foreign key references Laboratorio(id),
-	videoBin bit not null
+	videoBin bit not null,
+	FKEstadoReservacion int constraint FKEstadoReservacionXReservacion foreign key references estadoReservacion(id) not null
+
 );
 
 
@@ -83,5 +93,14 @@ CREATE Table HorasSolicitudTable(
 	id int identity primary key,
 	dia date,
 	horaInicio datetime,
-	horaFinal datetime
+	horaFinal datetime,
+	numAula int, 
+	numLab int
+);
+
+CREATE Table FilesSave(
+	id int identity primary key,
+	NameOfFile varchar(250),
+	FilePath varchar(MAX),
+	ext varchar(5)
 );

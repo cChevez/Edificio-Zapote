@@ -9,6 +9,11 @@ begin
 		insert into Aula(numeroAula, cantidadMax) values (1, 20)
 		insert into Aula(numeroAula, cantidadMax) values (2, 20)
 		insert into Aula(numeroAula, cantidadMax) values (3, 20)
+		
+		insert into estadoReservacion(nombreEstado, descripcion) values ('Activo', 'Estado Inicial de la reservacion')
+		insert into estadoReservacion(nombreEstado, descripcion) values ('ActivoComprobante', 'Estado de la reservacion con el comprobante agregado')
+		insert into estadoReservacion(nombreEstado, descripcion) values ('Bloqueada', 'Estado de la reservacion que se encuentra bloqueada cuando no se subio el comprobante')
+		insert into estadoReservacion(nombreEstado, descripcion) values ('Cancelada', 'Estado de la reservacion para cuando se cancela')
 
 		insert into Laboratorio(numeroLab, cantidadMax) values (1, 20)
 		insert into Laboratorio(numeroLab, cantidadMax) values (2, 20)
@@ -17,6 +22,7 @@ begin
 		insert into TipoReservacion(nombre,descripcion) values ('Prestamo','Prestamo de un espacio para gente del TEC')
 
 		insert into Administrador(nombre,apellido,email,contra) values ('Sarela','Gomez','sarela@test.com','1234')
+
 
 
 		commit;

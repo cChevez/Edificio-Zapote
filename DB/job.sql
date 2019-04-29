@@ -1,4 +1,4 @@
-use master
+ use master
 if not exists(select * from sysdatabases where name = 'Proyecto') 
 	create database [Proyecto];--si no existe, la crea
 go
@@ -8,6 +8,5 @@ go
 
 
 SELECT * FROM Reservacion
-
-UPDATE Reservacion SET numeroTelefono='88887777' WHERE  Reservacion.id=3
+	UPDATE Reservacion SET numeroTelefono='88887777' WHERE  Reservacion.id=3
 GO
