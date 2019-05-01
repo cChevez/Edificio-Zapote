@@ -22,59 +22,42 @@ as begin
 	set nocount on
 	begin transaction
 	begin try
-		Declare @idAula int
-		Declare @idLaboratorio int
-		set @idAula = (Select A.id from Aula A inner join HorasSolicitudTable H on H.numAula = A.numeroAula)
-		if @idAula is not null
+		if exists(select * from HorarioReservado HS
+					inner join HorasSolicitudTable T on
+					HS.dia = T.dia and HS.dia = T.dia and 
+					((HS.horaInicio >= T.horaInicio and HS.horaInicio < T.horaFinal)
+					or (HS.horaFinal > T.horaInicio and HS.horaFinal <= T.horaFinal))
+					where HS.FKAula is not null and HS.FKLaboratorio is null and T.numAula is not null and T.numLab is null)
 		begin
-			if not exists(select 1 from Aula A where A.id = @idAula)
-			begin
-				rollback
-				select ERROR_MESSAGE()
-				return -1
-			end
-			if exists(select * from HorarioReservado HS
-							inner join Reservacion R on R.FKHorarioReservado = HS.id
-							inner join Aula A on A.id = R.FKAula
-							inner join HorasSolicitudTable T on
-								HS.dia = T.dia and HS.dia = T.dia and 
-								((HS.horaInicio >= T.horaInicio and HS.horaInicio <= T.horaFinal)
-								or (HS.horaFinal >= T.horaFinal and HS.horaFinal <= T.horaFinal)))
-			begin
-				rollback
-				select ERROR_MESSAGE()
-				return -1
-			end
-			insert into HorarioReservado(dia, horaInicio, horaFinal) select T.dia, T.horaInicio, T.horaFinal from HorasSolicitudTable T
-			insert into Reservacion(fechaSolicitud, nombreSolicitante, nombreEmpresa, nombreActividad, cedulaJuridica, email, numeroTelefono, descripcion, cantidadParticipantes, videoBin, FKTipoReservacion,FKHorarioReservado, FKAdministrador,FKAula,FKLaboratorio) values (@fechaSolicitud, @nombreSolicitante, @empresaSolicitante,@nombreActividad, @cedulaJuridica, @email, @numeroTelefono, @descripcion,@cantidadParticipantes, @videobin, @TipoReservacion, @@IDENTITY, @administrador, @idAula, @idLaboratorio)
-			commit
-			return @@identity
+			rollback
+			select ERROR_MESSAGE()
+			return -1
 		end
-		if @idLaboratorio is not null
+		if exists(select * from HorarioReservado HS
+					inner join HorasSolicitudTable T on
+					HS.dia = T.dia and HS.dia = T.dia and 
+					((HS.horaInicio >= T.horaInicio and HS.horaInicio < T.horaFinal)
+					or (HS.horaFinal > T.horaInicio and HS.horaFinal <= T.horaFinal))
+					where HS.FKAula is null and HS.FKLaboratorio is not null and T.numAula is null and T.numLab is not null)
 		begin
-			if not exists(select 1 from Aula A where A.id = @idLaboratorio)
-			begin
-				rollback
-				select ERROR_MESSAGE()
-				return -1
-			end
-			if exists(select * from HorarioReservado HS
-							inner join Reservacion R on R.FKHorarioReservado = HS.id
-							inner join Aula A on A.id = R.FKAula
-							inner join HorasSolicitudTable T on 
-								HS.dia = T.dia and HS.dia = T.dia and 
-								((HS.horaInicio >= T.horaInicio and HS.horaInicio <= T.horaFinal)
-								or (HS.horaFinal >= T.horaFinal and HS.horaFinal <= T.horaFinal)))
-			begin
-				rollback
-				select ERROR_MESSAGE()
-				return -1
-			end
-			insert into HorarioReservado(dia, horaInicio, horaFinal) select T.dia, T.horaInicio, T.horaFinal from HorasSolicitudTable T
-			insert into Reservacion(fechaSolicitud, nombreSolicitante, nombreEmpresa, nombreActividad, cedulaJuridica, email, numeroTelefono, descripcion, cantidadParticipantes, videoBin, FKTipoReservacion,FKHorarioReservado, FKAdministrador,FKAula,FKLaboratorio) values (@fechaSolicitud, @nombreSolicitante, @empresaSolicitante,@nombreActividad, @cedulaJuridica, @email, @numeroTelefono, @descripcion,@cantidadParticipantes, @videobin, @TipoReservacion, @@IDENTITY, @administrador, @idAula, @idLaboratorio)
-			commit
-			return @@identity
+			rollback
+			select ERROR_MESSAGE()
+			return -1
 		end
+		insert into HorarioReservado(dia, horaInicio, horaFinal, FKAula, FKLaboratorio) 
+			select T.dia, T.horaInicio, T.horaFinal, A.id, null
+			from HorasSolicitudTable T
+			inner join Aula A on A.numeroAula = T.numAula
+			where T.numLab is null
+		insert into HorarioReservado(dia, horaInicio, horaFinal, FKAula, FKLaboratorio) 
+			select T.dia, T.horaInicio, T.horaFinal, null, L.id
+			from HorasSolicitudTable T
+			inner join Laboratorio L on L.numeroLab = T.numLab
+			where T.numAula is null
+		select * from HorarioReservado
+		insert into Reservacion(fechaSolicitud, nombreSolicitante, nombreEmpresa, nombreActividad, cedulaJuridica, email, numeroTelefono, descripcion, cantidadParticipantes, videoBin, FKTipoReservacion, FKHorarioReservado, FKAdministrador, FKEstadoReservacion) values (@fechaSolicitud, @nombreSolicitante, @empresaSolicitante,@nombreActividad, @cedulaJuridica, @email, @numeroTelefono, @descripcion,@cantidadParticipantes, @videobin, @TipoReservacion, @@IDENTITY, @administrador, 1)
+	commit
+	return @@identity
 	end try
 	begin catch
 		rollback
@@ -83,7 +66,6 @@ as begin
 	end catch
 end
 go
-
 
 
 create or alter procedure insertarTotal @fechaReservacion date, @nombre varchar(50), @empresa varchar(50), @cedula varchar(50) , @correo varchar(50), @telefono varchar(50), 
@@ -97,7 +79,7 @@ as begin
 	commit;
 	end try
 	begin catch
-		rollback
+		--rollback
 		return -50001;
 	end catch
 end
@@ -169,12 +151,14 @@ go
 
 --Exec insertarReservacion '12-14-19', 'Andres', 'Test', 'Test actividad', 12345124,'cjchevezc@gmail.com',5141414,'Test description',15, @tablaConHoras3,1,null,1,1,1
 
-
 DELETE FROM HorasSolicitudTable
---DELETE FROM Reservacion
+DELETE FROM HorarioReservado
+DELETE FROM Reservacion
 insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('12-12-19','09:00:00','11:00:00',1,null)
 insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('12-12-19','13:00:00','15:00:00',2,null)
 insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('12-12-19','16:00:00','19:00:00',3,null)
+insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('12-12-19','12:00:00','16:00:00',null,1)
+insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('12-12-19','16:00:00','19:00:00',null,2)
 
 
 
@@ -186,7 +170,7 @@ Exec insertarTotal '12-14-2019', 'nombreSolic', 'nombreEmpresa', '2-0004-3123', 
 
 --exec TestSP
 
-Declare @idAula int
-set @idAula = (Select A.id from Aula A inner join HorasSolicitudTable H on H.numAula = A.numeroAula)
+--Declare @idAula int
+--set @idAula = (Select A.id from Aula A inner join HorasSolicitudTable H on H.numAula = A.numeroAula)
 
-PRINT @idAula
+--PRINT @idAula

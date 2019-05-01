@@ -52,8 +52,12 @@ create table HorarioReservado(
 	dia date not null,
 	horaInicio datetime not null,
 	horaFinal datetime not null,
+	FKAula int,
+	FKLaboratorio int
+	/*
 	FKAula int constraint FKAulaXRHorarioReservado foreign key references Aula(id),
 	FKLaboratorio int constraint FKLaboratorioXHorarioReservado foreign key references Laboratorio(id)
+	*/
 );
 
 create table estadoReservacion(
@@ -78,7 +82,6 @@ create table Reservacion(
 	FKAdministrador int constraint FKAdministradorXReservacion foreign key references Administrador(id),
 	videoBin bit not null,
 	FKEstadoReservacion int constraint FKEstadoReservacionXReservacion foreign key references estadoReservacion(id) not null
-
 );
 
 
