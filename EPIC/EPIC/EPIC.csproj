@@ -70,10 +70,8 @@
   <ItemGroup>
     <Content Include="View\Alquiler.aspx" />
     <Content Include="View\Comprobante.aspx" />
-    <Content Include="comprobanteFunctions.js" />
     <Content Include="View\Index.aspx" />
     <Content Include="styles\framework.css" />
-    <Content Include="Functions.js" />
     <Content Include="Global.asax" />
     <Content Include="images\demo\320x180.png" />
     <Content Include="images\demo\320x220.png" />
