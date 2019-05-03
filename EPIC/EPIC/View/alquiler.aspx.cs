@@ -145,7 +145,7 @@ namespace EPIC
             string dia, mes, anno;
 
             DateTime today = DateTime.Today;
-            fechaForm = today.ToString("MM-dd-yyyy");
+            fechaForm = today.ToString("dd-MM-yyyy");
             nombreV = nombre.Text.Replace("'", "");
             empresaV = empresa.Text.Replace("'", "");
             cedulaV = cedula.Text.Replace("'", "");
@@ -200,8 +200,10 @@ namespace EPIC
                 horaInicio.Text = "";
                 horaFinal.Text = "";
 
+                int numeroReservacion = Model.ConsultasDB.ObtenerNumeroReservacion(cedulaV);
+
                 Model.EnviarCorreo.CorreoReservacion(fechaForm,nombreV, empresaV,
-                    cedulaV, correoV, telefonoV, nombreActividadV, fechaInicioV, fechaFinalV, observacionesV);
+                    cedulaV, correoV, telefonoV, nombreActividadV, fechaInicioV, fechaFinalV, observacionesV, numeroReservacion);
             }
         }
     }

@@ -63,6 +63,17 @@ namespace EPIC.Model
             return Convert.ToString(sqlCommand.ExecuteScalar());
         }
 
+        public static int ObtenerNumeroReservacion(string cedula)
+        {
+            SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["ePICsqlConnection"].ToString());
+            sqlConnection.Open();
+            SqlCommand sqlCommand = new SqlCommand("select id from Reservacion where cedulaJuridica= '" + cedula + "'", sqlConnection);
+
+            sqlCommand.ExecuteNonQuery();
+
+            return Convert.ToInt32(sqlCommand.ExecuteScalar());
+        }
+
         public static void InsertarComprobante(string nombre, int length, byte[] imagen, string reservacion)
         {
             SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["ePICsqlConnection"].ToString());

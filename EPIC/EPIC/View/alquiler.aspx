@@ -88,10 +88,10 @@
                     <br />
                 </div>
                 <div class="one_half first">
-                    <asp:Label class="etiquetas" ID="Label4" runat="server" Text="Cédula jurídica"></asp:Label>
+                    <asp:Label class="etiquetas" ID="Label4" runat="server" Text="Cédula jurídica o física"></asp:Label>
                     <asp:TextBox ID="cedula" runat="server" ></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="* Campo necesario" ControlToValidate="cedula" ForeColor="Red" class="etiquetas"></asp:RequiredFieldValidator>
-                    &nbsp;<asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="cedula" ValidationExpression="([2-4])-([0-9])+-([0-9])+" Text="* Formato esperado 0-000-000000" ForeColor="Red"></asp:RegularExpressionValidator>
+                    &nbsp;<asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="cedula" ValidationExpression="\d{9,12}" Text="* Solo números sin guiones" ForeColor="Red"></asp:RegularExpressionValidator>
                     <br />
                     <br />
                 </div>
@@ -99,7 +99,7 @@
                     <asp:Label class="etiquetas" ID="Label5" runat="server" Text="Correo electrónico"></asp:Label>
                     <asp:TextBox ID="correo" runat="server" ></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="* Campo necesario" ControlToValidate="correo" ForeColor="Red" class="etiquetas"></asp:RequiredFieldValidator>
-                    &nbsp;<asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ControlToValidate="correo" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" Text="* ejemplo@ejemplo.ejemplo" ForeColor="Red"></asp:RegularExpressionValidator>
+                    &nbsp;<asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ControlToValidate="correo" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" Text="* ejemplo@ejemplo.com" ForeColor="Red"></asp:RegularExpressionValidator>
                     <br />
                     <br />
                 </div>
