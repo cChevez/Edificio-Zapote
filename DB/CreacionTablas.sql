@@ -97,8 +97,10 @@ CREATE Table HorasSolicitudTable(
 	dia date,
 	horaInicio datetime,
 	horaFinal datetime,
-	numAula int, 
-	numLab int
+	numAula int CONSTRAINT CHK_NumAula CHECK (numAula>=1 AND numAula <=3), 
+	numLab int CONSTRAINT CHK_NumLab CHECK (numLab>=1 AND numLab <=2),
+	CONSTRAINT CHK_HorasReserva CHECK (horaInicio < horaFinal)
+	
 );
 
 CREATE Table FilesSave(

@@ -93,6 +93,27 @@ end
 go
 
 
+Create or alter Procedure SaveHoraSolicitudTable @dia date, @HoraInicio datetime, @HoraFinal datetime, @numAula int, @numLab int
+as begin
+	if exists(SELECT * FROM HorasSolicitudTable WHERE dia=@dia and horaInicio=@HoraInicio and @HoraFinal=@HoraFinal and numAula=@numAula and numLab is NULL)
+		begin
+			rollback
+		end
+	else if exists(SELECT * FROM HorasSolicitudTable WHERE dia=@dia and horaInicio=@HoraInicio and @HoraFinal=@HoraFinal and numLab=@numLab and numAula is NULL)
+	begin 
+		rollback
+	end
+	else
+	begin 
+		insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values (@dia,@HoraInicio,@HoraFinal,@numAula,@numLab)
+	end
+end 
+go
+
+execute SaveHoraSolicitudTable '12-12-19','09:00:00','11:00:00',1,null
+
+execute SaveHoraSolicitudTable '12-12-19','12:00:00','16:00:00',null,1
+
 
 Create or alter Procedure TestSP
 as begin
