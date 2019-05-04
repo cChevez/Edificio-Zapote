@@ -49,8 +49,8 @@ namespace EPIC.Model
             MailMessage msg = new MailMessage(smtpSection.From, email);
             msg.Subject = "Comprobante de pago recibido";
             msg.IsBodyHtml = true;
-            string mensaje = string.Format("Se ha recibido el comprobante de pago exitosamente para la reservación número: {1}.{0}{0}A continuación se procederá a la revisión del " +
-                "mismo y será notificado por este medio una vez se haya aprobado su reservación." +
+            string mensaje = string.Format("Se ha recibido el comprobante de pago exitosamente para la reservación número: {1}.{0}{0}A continuación se procederá a la revisión de la " +
+                "misma y será notificado por este medio una vez se haya aprobado su reservación.{0}" +
                 "Para más información comuníquese al 2250-9160{0}Correo generado de manera automática, por favor no responda a este correo ya que no " +
                 "recibirá ninguna respuesta.{0}", "<br/>",numeroReservacion);
             msg.Body = mensaje;
@@ -73,7 +73,9 @@ namespace EPIC.Model
             msg.Subject = "Comprobante de pago recibido";
             msg.IsBodyHtml = true;
             string mensaje = string.Format("Se ha recibido el comprobante de pago exitosamente.{0}{0}" +
-                "Se procederá a realizar la confección de la factura electrónica para la reservación número: {1}, la cual le llegará una vez esté lista.{0}" +
+                "Se ha recibido el comprobante de pago exitosamente para la reservación número: {1}.{0}{0}A continuación se procederá a la revisión de la misma" +
+                "y luego será notificado por este medio una vez se haya aprobado su reservación.{0}En caso de no existir ningún problema adicional, se procederá a realizar" +
+                " la confección de la factura electrónica, la cual le llegará una vez esté lista.{0}" +
                 "La factura electrónica se realizará con los siguientes datos:{0}Nombre completo: {2}{0}Cédula: {3}{0}Correo electrónico: {4}{0}Teléfono: {5}{0}Dirección: {6}{0}" +
                 "Para más información comuníquese al 2250-9160{0}Correo generado de manera automática, por favor no responda este correo ya que no recibirá" +
                 "ninguna respuesta.{0}", "<br/>",numeroReservacion,nombre,cedula,correo,telefono,direccion);

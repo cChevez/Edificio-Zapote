@@ -40,18 +40,11 @@
                             </ul>
                         </li>
                         <li class="active"><a href="Comprobante.aspx">Subir comprobante</a></li>
-                        <li><a class="drop" href="#">Dropdown</a>
-                            <ul>
-                                <li><a href="#">Level 2</a></li>
-                                <li><a class="drop" href="#">Level 2 + Drop</a>
-                                    <ul>
-                                        <li><a href="#">Level 3</a></li>
-                                        <li><a href="#">Level 3</a></li>
-                                        <li><a href="#">Level 3</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#">Level 2</a></li>
-                            </ul>
+                        <li><a class="drop" href="#">Opciones administrativas</a>
+                          <ul>
+                            <li><a href="Reservaciones.aspx">Control de reservaciones</a></li>
+                            <li><a href="#">Level 2</a></li>
+                          </ul>
                         </li>
                         <li><a href="#">Link Text</a></li>
                     </ul>
@@ -133,6 +126,7 @@
                 <asp:Button class="button" ID="enviar" runat="server" Text="Enviar" OnClick="enviar_Click"/>
             </main>
         </div>
+        <a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
     </body>
-</asp:Content>
 
+</asp:Content>

@@ -35,21 +35,14 @@
                 <li><a href="Index.aspx">Home</a></li>
                 <li class="active"><a class="drop" href="#">Solicitar</a>
                   <ul>
-                    <li><a href="Alquiler.aspx">Alquiler de espacio</a></li>
+                    <li class="active"><a href="Alquiler.aspx">Alquiler de espacio</a></li>
                     <li><a href="">Préstamo de espacio</a></li>
                   </ul>
                 </li>
                 <li><a href="Comprobante.aspx">Subir comprobante</a></li>
-                <li><a class="drop" href="#">Dropdown</a>
+                <li><a class="drop" href="#">Opciones administrativas</a>
                   <ul>
-                    <li><a href="#">Level 2</a></li>
-                    <li><a class="drop" href="#">Level 2 + Drop</a>
-                      <ul>
-                        <li><a href="#">Level 3</a></li>
-                        <li><a href="#">Level 3</a></li>
-                        <li><a href="#">Level 3</a></li>
-                      </ul>
-                    </li>
+                    <li><a href="Reservaciones.aspx">Control de reservaciones</a></li>
                     <li><a href="#">Level 2</a></li>
                   </ul>
                 </li>
@@ -289,6 +282,7 @@
             </div>
           </main>
         </div>
+        <a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
     </body>
 
 </asp:Content>

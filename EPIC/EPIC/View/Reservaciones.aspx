@@ -1,10 +1,9 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Inicio.Master" AutoEventWireup="true" CodeBehind="Index.aspx.cs" Inherits="EPIC.Index" %>
-
-<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="server">
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Inicio.Master" AutoEventWireup="true" CodeBehind="Reservaciones.aspx.cs" Inherits="EPIC.View.Reservaciones" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="../styles/styles.css" rel="stylesheet" type="text/css" media="all">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="server">
-    
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
     <body>
         <div class="wrapper row0">
           <div id="topbar" class="hoc clear"> 
@@ -33,7 +32,7 @@
             </div>
             <nav id="mainav" class="fl_right">
               <ul class="clear">
-                <li class="active"><a href="Index.aspx">Home</a></li>
+                <li><a href="Index.aspx">Home</a></li>
                 <li><a class="drop" href="#">Solicitar</a>
                   <ul>
                     <li><a href="Alquiler.aspx">Alquiler de espacio</a></li>
@@ -41,11 +40,11 @@
                   </ul>
                 </li>
                 <li><a href="Comprobante.aspx">Subir comprobante</a></li>
-                <li><a class="drop" href="#">Opciones administrativas</a>
-                  <ul>
-                    <li><a href="Reservaciones.aspx">Control de reservaciones</a></li>
-                    <li><a href="#">Level 2</a></li>
-                  </ul>
+                <li class="active"><a class="drop" href="#">Opciones administrativas</a>
+                    <ul>
+                        <li class="active"><a href="Reservaciones.aspx">Control de reservaciones</a></li>
+                        <li><a href="#">Level 2</a></li>
+                    </ul>
                 </li>
                 <li><a href="#">Link Text</a></li>
               </ul>
@@ -53,17 +52,7 @@
             <!-- ################################################################################################ -->
           </header>
         </div>
-        <div class="bgded overlay" style="background-image:url('../images/logo.png');">
-            <div id="pageintro" class="hoc clear"> 
-            </div>
-        </div>
-        <div class="wrapper row5">
-          <div id="copyright" class="hoc clear"> 
-            <!-- ################################################################################################ -->
-            <p class="fl_left">Copyright &copy; 2019 - Todos los derechos reservados - </p>
-            <p class="fl_right">Escuela de Ingeniería en Computación</p>
-            <!-- ################################################################################################ -->
-          </div>
+        <div>
         </div>
         <a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>
     </body>

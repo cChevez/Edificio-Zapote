@@ -962,7 +962,6 @@ input:focus, textarea:focus, *:required:focus {
 
     .overlay::after {
         color: inherit;
-        background-color: rgba(0,0,0,0);
     }
 
 .btn, .btn.inverse:hover, a .icon.fa, a.inverse:hover .icon.fa {
