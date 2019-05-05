@@ -17,7 +17,7 @@ go
 create or alter procedure insertarReservacion @fechaSolicitud date, @nombreSolicitante nvarchar(50), @empresaSolicitante nvarchar(50), @nombreActividad nvarchar(50), @cedulaJuridica varchar(50), @email nvarchar(50), @numeroTelefono varchar(50),
 @descripcion nvarchar(100), @cantidadParticipantes int, 
 --@dia date, @horaInicio datetime, @horaFinal datetime, 
-@videobin bit, @TipoReservacion int, @administrador int
+@videobin bit, @TipoReservacion int, @administrador int, @fechaInicioActividad date, @FechaFinalActividad date
 as begin
 	set nocount on
 	begin transaction
@@ -27,7 +27,9 @@ as begin
 					HS.dia = T.dia and HS.dia = T.dia and 
 					((HS.horaInicio >= T.horaInicio and HS.horaInicio < T.horaFinal)
 					or (HS.horaFinal > T.horaInicio and HS.horaFinal <= T.horaFinal))
-					where HS.FKAula is not null and HS.FKLaboratorio is null and T.numAula is not null and T.numLab is null)
+					inner join Aula A on A.numeroAula = T.numAula
+					where HS.FKAula is not null and HS.FKLaboratorio is null and T.numAula is not null and T.numLab is null
+					and A.id = HS.FKAula)
 		begin
 			rollback
 			select ERROR_MESSAGE()
@@ -38,7 +40,9 @@ as begin
 					HS.dia = T.dia and HS.dia = T.dia and 
 					((HS.horaInicio >= T.horaInicio and HS.horaInicio < T.horaFinal)
 					or (HS.horaFinal > T.horaInicio and HS.horaFinal <= T.horaFinal))
-					where HS.FKAula is null and HS.FKLaboratorio is not null and T.numAula is null and T.numLab is not null)
+					inner join Laboratorio L on L.numeroLab = T.numLab
+					where HS.FKAula is null and HS.FKLaboratorio is not null and T.numAula is null and T.numLab is not null
+					and L.id = HS.FKLaboratorio)
 		begin
 			rollback
 			select ERROR_MESSAGE()
@@ -55,7 +59,8 @@ as begin
 			inner join Laboratorio L on L.numeroLab = T.numLab
 			where T.numAula is null
 		select * from HorarioReservado
-		insert into Reservacion(fechaSolicitud, nombreSolicitante, nombreEmpresa, nombreActividad, cedulaJuridica, email, numeroTelefono, descripcion, cantidadParticipantes, videoBin, FKTipoReservacion, FKHorarioReservado, FKAdministrador, FKEstadoReservacion) values (@fechaSolicitud, @nombreSolicitante, @empresaSolicitante,@nombreActividad, @cedulaJuridica, @email, @numeroTelefono, @descripcion,@cantidadParticipantes, @videobin, @TipoReservacion, @@IDENTITY, @administrador, 1)
+		insert into Reservacion(fechaSolicitud, nombreSolicitante, nombreEmpresa, nombreActividad, cedulaJuridica, email, numeroTelefono, descripcion, cantidadParticipantes, videoBin, FKTipoReservacion, FKHorarioReservado, FKAdministrador, FKEstadoReservacion,fechaInicioActividad,fechaFinalActividad) values (@fechaSolicitud, @nombreSolicitante, @empresaSolicitante,@nombreActividad, @cedulaJuridica, @email, @numeroTelefono, @descripcion,@cantidadParticipantes, @videobin, @TipoReservacion, @@IDENTITY, @administrador, 1,@fechaInicioActividad,@FechaFinalActividad)
+		
 	commit
 	return @@identity
 	end try
@@ -74,7 +79,7 @@ as begin
 	set nocount on;
 	begin transaction;
 	begin try
-	Execute insertarReservacion @fechaReservacion, @nombre, @empresa, @nombreActividad,@cedula,@correo,@telefono,@observaciones,@cantidadParticipantes, 1, 1,1
+	Execute insertarReservacion @fechaReservacion, @nombre, @empresa, @nombreActividad,@cedula,@correo,@telefono,@observaciones,@cantidadParticipantes, 1, 1,1, @fechaInicio, @fechaFinal
 	DELETE FROM HorasSolicitudTable
 	commit;
 	end try
@@ -110,10 +115,152 @@ as begin
 end 
 go
 
-execute SaveHoraSolicitudTable '12-12-19','09:00:00','11:00:00',1,null
+Create or alter Procedure CorreoAvisoComprobante
+as begin
+	
+	DECLARE @nombre VARCHAR(MAX)
+	DECLARE @nombreActividad VARCHAR(MAX)
+	DECLARE @id INT
+	DECLARE @contador INT
+	DECLARE @Mensaje VARCHAR(MAX)
+	DECLARE @Email VARCHAR(MAX)
+	DECLARE @titulo VARCHAR(MAX)
+	SET @contador=1
 
-execute SaveHoraSolicitudTable '12-12-19','12:00:00','16:00:00',null,1
+	IF OBJECT_ID('tempdb..#temp') IS NOT NULL
+		DROP TABLE #temp
 
+	SELECT R.email, R.nombreSolicitante, R.nombreActividad, R.id, IDENTITY(INT,1,1) AS rn INTO #temp 	
+	FROM Reservacion R	
+	inner join HorarioReservado HR on R.FKHorarioReservado =  HR.id
+	WHERE (DATEDIFF(DAY,getDate(), HR.dia) = 2 AND R.FKEstadoReservacion = 1)
+	/*
+	SELECT R.email, R.nombreSolicitante, R.id, IDENTITY(INT,1,1) AS rn INTO #temp 	
+	FROM Reservacion R	
+	inner join HorarioReservado HR on R.FKHorarioReservado =  HR.id
+	WHERE (DATEDIFF(DAY,'04-30-19', HR.dia) = 2 AND R.FKEstadoReservacion = 1)
+	*/
+	Select * from #temp
+
+	while @contador <= (SELECT COUNT(*) FROM #temp)
+	BEGIN
+	SELECT @nombre=nombreSolicitante,@id=id, @Email=email, @nombreActividad=nombreActividad FROM #temp WHERE rn=@contador
+	SELECT @Mensaje = 'Señor(a) ' + @nombre + CHAR(10) + CHAR(13) + CHAR(10) + CHAR(13) + 
+	'Se le recuerda que tiene una reservación pendiente para la actividad '+@nombreActividad+', para la cuál quedan dos días y aún no se ha enviado el comprobante de pago.' +CHAR(10) + CHAR(13) + CHAR(10) + CHAR(13) + 
+	'En caso de haber realizado el pago, se le solicita enviar el comprobante de pago a través de la plataforma.'+ CHAR(10) + CHAR(13) + 
+	'Su numero de reservacion es: ' +CAST(@id as varchar(10)) + CHAR(10) + CHAR(13) + CHAR(10) + CHAR(13) + 
+	'Si no ha realizado el pago, recuerde que puede utilizar los siguientes números de cuenta:'+ CHAR(10) + CHAR(13) + 
+	'>>> Banco Nacional       # 75-003959-4'+ CHAR(10) + CHAR(13) + 
+	'>>> Banco de Costa Rica  # 275-004039-8'+ CHAR(10) + CHAR(13) + CHAR(10) + CHAR(13) + 
+	'Si no sube el comprobante el día de hoy antes de las 4 de la tarde, se procederá a realizar el bloqueo y cancelación de su reservación. Si tiene algún problema o desea cancelar su reservación comuníquese al 2250-9160 con Sarela Gómez.'+ CHAR(10) + CHAR(13) + CHAR(10) + CHAR(13) + 
+	'Correo generado de manera automática, por favor no responda este correo ya que no recibirá ninguna respueta.'
+	
+	Select @titulo = 'Aviso Comprobante: '+@nombre
+	
+	EXEC msdb.dbo.sp_send_dbmail
+		@profile_Name = 'ProyectoEmail',
+		--@recipients = @copy_to,
+		@recipients = @Email,
+		--@copy_recipients = 'andreguti333@gmail.com',
+		@subject = @titulo,
+		@body = @Mensaje
+		--@body_format = 'HTML'
+		
+	SET @contador=@contador+1
+	/*
+	select DATEDIFF(DAY,'03-02-19', HR.dia) from Reservacion R
+	inner join HorarioReservado HR on R.FKHorarioReservado =  HR.id
+	*/
+	end
+end
+go
+
+
+Create or alter Procedure CorreoBloqueoReserva
+as begin
+	
+	DECLARE @nombre VARCHAR(MAX)
+	DECLARE @nombreActividad VARCHAR(MAX)
+	DECLARE @nombreEmpresa VARCHAR(MAX)
+	DECLARE @id INT
+	DECLARE @contador INT
+	DECLARE @Mensaje VARCHAR(MAX)
+	DECLARE @MensajeAdmin VARCHAR(MAX)
+	DECLARE @Email VARCHAR(MAX)
+	DECLARE @titulo VARCHAR(MAX)
+	DECLARE @Fecha varchar(10)
+	SET @contador=1
+
+	IF OBJECT_ID('tempdb..#temp') IS NOT NULL
+		DROP TABLE #temp
+
+	SELECT R.email, R.nombreSolicitante, R.nombreActividad, R.id, R.nombreEmpresa, R.fechaInicioActividad ,IDENTITY(INT,1,1) AS rn INTO #temp 	
+	FROM Reservacion R	
+	inner join HorarioReservado HR on R.FKHorarioReservado =  HR.id
+	WHERE (DATEDIFF(DAY,getDate(), HR.dia) = 2 AND R.FKEstadoReservacion = 1)
+	--DECLARE @Fecha date
+
+	--Select @Fecha= HR.dia from HorarioReservado HR 
+	--inner join Reservacion R on R.FKHorarioReservado = HR.id
+
+	--PRINT @fecha
+
+	/*
+	SELECT R.email, R.nombreSolicitante, R.id, IDENTITY(INT,1,1) AS rn INTO #temp 	
+	FROM Reservacion R	
+	inner join HorarioReservado HR on R.FKHorarioReservado =  HR.id
+	WHERE (DATEDIFF(DAY,'04-30-19', HR.dia) = 2 AND R.FKEstadoReservacion = 1)
+	*/
+	Select * from #temp
+
+	while @contador <= (SELECT COUNT(*) FROM #temp)
+	BEGIN
+	SELECT @nombre=nombreSolicitante,@id=id, @Email=email, @nombreActividad=nombreActividad, @nombreEmpresa=nombreEmpresa, @Fecha=convert(varchar, fechaInicioActividad, 105) FROM #temp WHERE rn=@contador
+	SELECT @Mensaje = 'Señor(a) ' + @nombre + CHAR(10) + CHAR(13) + CHAR(10) + CHAR(13) + 
+	'Se le comunica que la reservación número '+CAST(@id as varchar(10)) +' para la actividadad '+@nombreActividad+' ha sido bloqueada debido a que no se ha enviado el comprobante de pago respectivo.' +CHAR(10) + CHAR(13) + CHAR(10) + CHAR(13) + 
+	'Además, se le informa que cualquier tramite que desee realizar, ya sea para cancelar la reservación o si desea mantener la reservación, deberá realizarse con Sarela Gómez, puede comunicarse al número 2250-9160 o al correo sagomez@itcr.ac.cr'+ CHAR(10) + CHAR(13) + CHAR(10) + CHAR(13) + 
+	'Correo generado de manera automática, por favor no responda este correo ya que no recibirá ninguna respueta.'
+	
+	Select @MensajeAdmin = 'El presente correo se ha generado de forma automática para informar que se ha bloqueado la reservación número ' +CAST(@id as varchar(10)) +
+	' de la empresa '+@nombreEmpresa+' para la actividad '+@nombreActividad+', programada para empezar en el día '+CAST(@Fecha as varchar(10))+',debido a que no se ha enviado el comprobante de pago.' + CHAR(10) + CHAR(13) + CHAR(10) + CHAR(13) + 
+	'Correo generado de manera automática, por favor no responda este correo ya que no recibirá ninguna respueta.'
+
+	Select @titulo = 'Notificacion Reserva Bloqueada'
+	
+	EXEC msdb.dbo.sp_send_dbmail
+		@profile_Name = 'ProyectoEmail',
+		--@recipients = @copy_to,
+		@recipients = @Email,
+		--@copy_recipients = 'andreguti333@gmail.com',
+		@subject = @titulo,
+		@body = @Mensaje
+		--@body_format = 'HTML'
+		
+	EXEC msdb.dbo.sp_send_dbmail
+	@profile_Name = 'ProyectoEmail',
+	--@recipients = @copy_to,
+	@recipients = 'andreduard333@gmail.com',
+	--@copy_recipients = 'andreguti333@gmail.com',
+	@subject = 'Notificacion Reserva Bloqueada',
+	@body = @MensajeAdmin
+	
+
+	UPDATE Reservacion
+	SET FKEstadoReservacion = 3
+	WHERE id=@id
+
+	SET @contador=@contador+1
+	/*
+	select DATEDIFF(DAY,'03-02-19', HR.dia) from Reservacion R
+	inner join HorarioReservado HR on R.FKHorarioReservado =  HR.id
+	*/
+	end
+end
+go
+
+Exec CorreoBloqueoReserva
+
+select * from Reservacion
 
 Create or alter Procedure TestSP
 as begin
@@ -172,18 +319,32 @@ go
 
 --Exec insertarReservacion '12-14-19', 'Andres', 'Test', 'Test actividad', 12345124,'cjchevezc@gmail.com',5141414,'Test description',15, @tablaConHoras3,1,null,1,1,1
 
+DELETE FROM Reservacion
 DELETE FROM HorasSolicitudTable
 DELETE FROM HorarioReservado
-DELETE FROM Reservacion
-insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('12-12-19','09:00:00','11:00:00',1,null)
-insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('12-12-19','13:00:00','15:00:00',2,null)
-insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('12-12-19','16:00:00','19:00:00',3,null)
-insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('12-12-19','12:00:00','16:00:00',null,1)
-insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('12-12-19','16:00:00','19:00:00',null,2)
+--insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('12-12-19','09:00:00','11:00:00',1,null)
+--insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('12-12-19','13:00:00','15:00:00',2,null)
+--insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('12-12-19','16:00:00','19:00:00',3,null)
+--insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('12-12-19','12:00:00','16:00:00',null,1)
+--insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('12-12-19','16:00:00','19:00:00',null,2)
 
 
+insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-07-19','09:00:00','11:00:00',1,null)
+insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-07-19','13:00:00','15:00:00',2,null)
+insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-07-19','16:00:00','19:00:00',3,null)
+insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-07-19','12:00:00','16:00:00',null,1)
+insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-07-19','16:00:00','19:00:00',null,2)
 
-Exec insertarTotal '12-14-2019', 'nombreSolic', 'nombreEmpresa', '2-0004-3123', 'test@test.com', '5124-1351','NombreActividad','12-14-19', '12-20-19','observacion', 12
+Exec insertarTotal '05-03-2019', 'Andres Gutierrez', 'nombreEmpresa', '2-0004-3123', 'andreguti333@gmail.com', '5124-1351','NombreActividad','12-14-19', '12-20-19','observacion', 12
+
+
+insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-07-19','09:00:00','11:00:00',3,null)
+insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-07-19','13:00:00','15:00:00',1,null)
+insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-07-19','16:00:00','19:00:00',2,null)
+insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-07-19','12:00:00','16:00:00',null,2)
+insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-07-19','16:00:00','19:00:00',null,1)
+
+Exec insertarTotal '05-03-2019', 'Carlos Chevez', 'nombreEmpresa', '2-0004-3123', 'cjchevezc@gmail.com', '5124-1351','NombreActividad','12-14-19', '12-20-19','observacion', 12
 
 --DELETE FROM FilesSave
 

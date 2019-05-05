@@ -81,7 +81,9 @@ create table Reservacion(
 	FKHorarioReservado int constraint FKHorarioReservadoXReservacion foreign key references HorarioReservado(id) not null,
 	FKAdministrador int constraint FKAdministradorXReservacion foreign key references Administrador(id),
 	videoBin bit not null,
-	FKEstadoReservacion int constraint FKEstadoReservacionXReservacion foreign key references estadoReservacion(id) not null
+	FKEstadoReservacion int constraint FKEstadoReservacionXReservacion foreign key references estadoReservacion(id) not null,
+	fechaInicioActividad date not null,
+	fechaFinalActividad date not null,
 );
 
 
@@ -99,8 +101,8 @@ CREATE Table HorasSolicitudTable(
 	horaFinal datetime,
 	numAula int CONSTRAINT CHK_NumAula CHECK (numAula>=1 AND numAula <=3), 
 	numLab int CONSTRAINT CHK_NumLab CHECK (numLab>=1 AND numLab <=2),
-	CONSTRAINT CHK_HorasReserva CHECK (horaInicio < horaFinal)
-	
+	CONSTRAINT CHK_HorasReserva CHECK (horaInicio < horaFinal),
+	CONSTRAINT CHK_DiaReserva CHECK (horaInicio < horaFinal),
 );
 
 CREATE Table FilesSave(

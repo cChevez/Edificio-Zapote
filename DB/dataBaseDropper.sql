@@ -5,6 +5,7 @@ go
 
 use [master]
 go
+
 alter database [Proyecto] set single_user with rollback immediate
 go
 
