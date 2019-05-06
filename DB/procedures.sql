@@ -222,7 +222,7 @@ as begin
 	'Correo generado de manera automática, por favor no responda este correo ya que no recibirá ninguna respueta.'
 	
 	Select @MensajeAdmin = 'El presente correo se ha generado de forma automática para informar que se ha bloqueado la reservación número ' +CAST(@id as varchar(10)) +
-	' de la empresa '+@nombreEmpresa+' para la actividad '+@nombreActividad+', programada para empezar en el día '+CAST(@Fecha as varchar(10))+',debido a que no se ha enviado el comprobante de pago.' + CHAR(10) + CHAR(13) + CHAR(10) + CHAR(13) + 
+	' de la empresa '+@nombreEmpresa+' para la actividad '+@nombreActividad+', programada para empezar en el día '+CAST(@Fecha as varchar(10))+', debido a que no se ha enviado el comprobante de pago.' + CHAR(10) + CHAR(13) + CHAR(10) + CHAR(13) + 
 	'Correo generado de manera automática, por favor no responda este correo ya que no recibirá ninguna respueta.'
 
 	Select @titulo = 'Notificacion Reserva Bloqueada'
