@@ -43,7 +43,7 @@ as begin
 					inner join Laboratorio L on L.numeroLab = T.numLab
 					where HS.FKAula is null and HS.FKLaboratorio is not null and T.numAula is null and T.numLab is not null
 					and L.id = HS.FKLaboratorio)
-		begin
+		begin 
 			rollback
 			select ERROR_MESSAGE()
 			return -1
@@ -100,11 +100,21 @@ go
 
 Create or alter Procedure SaveHoraSolicitudTable @dia date, @HoraInicio datetime, @HoraFinal datetime, @numAula int, @numLab int
 as begin
-	if exists(SELECT * FROM HorasSolicitudTable WHERE dia=@dia and horaInicio=@HoraInicio and @HoraFinal=@HoraFinal and numAula=@numAula and numLab is NULL)
+	if exists(SELECT * FROM HorasSolicitudTable WHERE dia=@dia and horaInicio=@HoraInicio and horaFinal=@HoraFinal and numAula=@numAula and numLab is NULL)
 		begin
 			rollback
 		end
-	else if exists(SELECT * FROM HorasSolicitudTable WHERE dia=@dia and horaInicio=@HoraInicio and @HoraFinal=@HoraFinal and numLab=@numLab and numAula is NULL)
+	else if exists(SELECT * FROM HorasSolicitudTable WHERE dia=@dia and horaInicio=@HoraInicio and horaFinal=@HoraFinal and numLab=@numLab and numAula is NULL)
+	begin 
+		rollback
+	end
+	else if exists(SELECT * FROM HorasSolicitudTable WHERE dia=@dia and ((@HoraInicio>=horaInicio and @HoraInicio<horaFinal) or (@HoraFinal<horaInicio and @HoraFinal <= HoraFinal))
+	and numAula=@numAula and numLab is NULL)
+	begin 
+		rollback
+	end
+	else if exists(SELECT * FROM HorasSolicitudTable WHERE dia=@dia and ((@HoraInicio>=horaInicio and @HoraInicio<horaFinal) or (@HoraFinal<horaInicio and @HoraFinal <= HoraFinal))
+	and numLab=@numLab and numAula is NULL)
 	begin 
 		rollback
 	end
@@ -115,7 +125,21 @@ as begin
 end 
 go
 
+exec SaveHoraSolicitudTable '05-07-19','09:00:00','11:00:00',1,null
+exec SaveHoraSolicitudTable '05-07-19','10:00:00','12:00:00',1,null
+exec SaveHoraSolicitudTable '05-07-19','10:00:00','12:00:00',2,null
+exec SaveHoraSolicitudTable '05-07-19','16:00:00','19:00:00',3,null
+exec SaveHoraSolicitudTable '05-07-19','12:00:00','16:00:00',null,1
+exec SaveHoraSolicitudTable '05-07-19','15:00:00','17:00:00',null,1
+exec SaveHoraSolicitudTable '05-07-19','16:00:00','19:00:00',null,2
+
+select * from HorasSolicitudTable
+
+DELETE FROM HorasSolicitudTable
+
+
 Create or alter Procedure CorreoAvisoComprobante
+
 as begin
 	
 	DECLARE @nombre VARCHAR(MAX)
@@ -262,17 +286,6 @@ Exec CorreoBloqueoReserva
 
 select * from Reservacion
 
-Create or alter Procedure TestSP
-as begin
-	DECLARE @variable varchar(100)
-	Select @variable =  M.NameOfFile from FilesSave M;
-	PRINT @variable
-end 
-go
-
-
-
-
 
 
 --set nocount on
@@ -330,7 +343,8 @@ DELETE FROM HorarioReservado
 
 
 insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-07-19','09:00:00','11:00:00',1,null)
-insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-07-19','13:00:00','15:00:00',2,null)
+insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-07-19','10:00:00','12:00:00',1,null)
+insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-07-19','10:00:00','12:00:00',2,null)
 insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-07-19','16:00:00','19:00:00',3,null)
 insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-07-19','12:00:00','16:00:00',null,1)
 insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-07-19','16:00:00','19:00:00',null,2)
