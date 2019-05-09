@@ -84,6 +84,7 @@ create table Reservacion(
 	FKEstadoReservacion int constraint FKEstadoReservacionXReservacion foreign key references estadoReservacion(id) not null,
 	fechaInicioActividad date not null,
 	fechaFinalActividad date not null,
+	monto int,
 );
 
 

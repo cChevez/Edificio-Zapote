@@ -17,7 +17,7 @@ go
 create or alter procedure insertarReservacion @fechaSolicitud date, @nombreSolicitante nvarchar(50), @empresaSolicitante nvarchar(50), @nombreActividad nvarchar(50), @cedulaJuridica varchar(50), @email nvarchar(50), @numeroTelefono varchar(50),
 @descripcion nvarchar(100), @cantidadParticipantes int, 
 --@dia date, @horaInicio datetime, @horaFinal datetime, 
-@videobin bit, @TipoReservacion int, @administrador int, @fechaInicioActividad date, @FechaFinalActividad date
+@videobin bit, @TipoReservacion int, @administrador int, @fechaInicioActividad date, @FechaFinalActividad date, @monto int
 as begin
 	set nocount on
 	begin transaction
@@ -59,7 +59,7 @@ as begin
 			inner join Laboratorio L on L.numeroLab = T.numLab
 			where T.numAula is null
 		select * from HorarioReservado
-		insert into Reservacion(fechaSolicitud, nombreSolicitante, nombreEmpresa, nombreActividad, cedulaJuridica, email, numeroTelefono, descripcion, cantidadParticipantes, videoBin, FKTipoReservacion, FKHorarioReservado, FKAdministrador, FKEstadoReservacion,fechaInicioActividad,fechaFinalActividad) values (@fechaSolicitud, @nombreSolicitante, @empresaSolicitante,@nombreActividad, @cedulaJuridica, @email, @numeroTelefono, @descripcion,@cantidadParticipantes, @videobin, @TipoReservacion, @@IDENTITY, @administrador, 1,@fechaInicioActividad,@FechaFinalActividad)
+		insert into Reservacion(fechaSolicitud, nombreSolicitante, nombreEmpresa, nombreActividad, cedulaJuridica, email, numeroTelefono, descripcion, cantidadParticipantes, videoBin, FKTipoReservacion, FKHorarioReservado, FKAdministrador, FKEstadoReservacion,fechaInicioActividad,fechaFinalActividad) values (@fechaSolicitud, @nombreSolicitante, @empresaSolicitante,@nombreActividad, @cedulaJuridica, @email, @numeroTelefono, @descripcion,@cantidadParticipantes, @videobin, @TipoReservacion, @@IDENTITY, @administrador, 1,@fechaInicioActividad,@FechaFinalActividad,@monto)
 		
 	commit
 	return @@identity
@@ -74,12 +74,12 @@ go
 
 
 create or alter procedure insertarTotal @fechaReservacion date, @nombre varchar(50), @empresa varchar(50), @cedula varchar(50) , @correo varchar(50), @telefono varchar(50), 
-@nombreActividad varchar(50), @fechaInicio date, @fechaFinal date, @observaciones varchar(250), @cantidadParticipantes int
+@nombreActividad varchar(50), @fechaInicio date, @fechaFinal date, @observaciones varchar(250), @cantidadParticipantes int, @monto int
 as begin
 	set nocount on;
 	begin transaction;
 	begin try
-	Execute insertarReservacion @fechaReservacion, @nombre, @empresa, @nombreActividad,@cedula,@correo,@telefono,@observaciones,@cantidadParticipantes, 1, 1,1, @fechaInicio, @fechaFinal
+	Execute insertarReservacion @fechaReservacion, @nombre, @empresa, @nombreActividad,@cedula,@correo,@telefono,@observaciones,@cantidadParticipantes, 1, 1,1, @fechaInicio, @fechaFinal, @monto
 	DELETE FROM HorasSolicitudTable
 	commit;
 	end try
@@ -125,21 +125,7 @@ as begin
 end 
 go
 
-exec SaveHoraSolicitudTable '05-07-19','09:00:00','11:00:00',1,null
-exec SaveHoraSolicitudTable '05-07-19','10:00:00','12:00:00',1,null
-exec SaveHoraSolicitudTable '05-07-19','10:00:00','12:00:00',2,null
-exec SaveHoraSolicitudTable '05-07-19','16:00:00','19:00:00',3,null
-exec SaveHoraSolicitudTable '05-07-19','12:00:00','16:00:00',null,1
-exec SaveHoraSolicitudTable '05-07-19','15:00:00','17:00:00',null,1
-exec SaveHoraSolicitudTable '05-07-19','16:00:00','19:00:00',null,2
-
-select * from HorasSolicitudTable
-
-DELETE FROM HorasSolicitudTable
-
-
 Create or alter Procedure CorreoAvisoComprobante
-
 as begin
 	
 	DECLARE @nombre VARCHAR(MAX)
@@ -280,6 +266,14 @@ as begin
 	*/
 	end
 end
+go
+
+
+create or alter procedure NotificarReservacion
+as begin
+
+end 
+
 go
 
 Exec CorreoBloqueoReserva
