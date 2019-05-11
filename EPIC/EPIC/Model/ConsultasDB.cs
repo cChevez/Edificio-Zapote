@@ -7,12 +7,12 @@ namespace EPIC.Model
     public class ConsultasDB
     {
         public static void InsertarReservacion(string fechaForm, string nombreV, string empresaV, string cedulaV, string correoV,
-            string telefonoV, string nombreActividadV, string fechaInicioV, string fechaFinalV, string observacionesV, int participantes)
+            string telefonoV, string nombreActividadV, string fechaInicioV, string fechaFinalV, string observacionesV, int participantes, int total)
         {
             SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["ePICsqlConnection"].ToString());
             sqlConnection.Open();
             SqlCommand sqlCommand = new SqlCommand("Execute insertarTotal '" + fechaForm.Replace("'", "") + "','" + nombreV + "','" + empresaV + "','" + cedulaV + "','" + correoV + "','"
-                + telefonoV + "','" + nombreActividadV + "','" + fechaInicioV + "','" + fechaFinalV + "','" + observacionesV + "','" + participantes + "'", sqlConnection);
+                + telefonoV + "','" + nombreActividadV + "','" + fechaInicioV + "','" + fechaFinalV + "','" + observacionesV + "','" + participantes + "','" + total + "'", sqlConnection);
 
             sqlCommand.ExecuteNonQuery();
 
@@ -90,6 +90,41 @@ namespace EPIC.Model
             SqlParameter imageParam = sqlCommand.Parameters.Add("@imgComprobante", System.Data.SqlDbType.Image);
             imageParam.Value = imagen;
 
+            sqlCommand.ExecuteNonQuery();
+
+            sqlConnection.Close();
+        }
+
+        public static int VerificarCredenciales(string email, string password)
+        {
+            SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["ePICsqlConnection"].ToString());
+            sqlConnection.Open();
+            
+            SqlCommand sqlCommand = new SqlCommand("SELECT COUNT(*) FROM Administrador WHERE email = '" + email + "' AND contra = '" + password + "'", sqlConnection);
+
+            sqlCommand.ExecuteNonQuery();
+
+            return Convert.ToInt32(sqlCommand.ExecuteScalar());
+        }
+
+        public static void ActualizarEstado(string numeroReservacion, string codigoEstado)
+        {
+            SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["ePICsqlConnection"].ToString());
+            sqlConnection.Open();
+            SqlCommand sqlCommand = new SqlCommand("UPDATE Reservacion SET FKEstadoReservacion = '" + codigoEstado + "'  WHERE id = '" + numeroReservacion + "'", sqlConnection);
+
+            sqlCommand.ExecuteNonQuery();
+
+            sqlConnection.Close();
+        }
+        
+        public static void AgregarHorario(string dia, string horaInicio, string horaFinal, string aula, string lab)
+        {
+            SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["ePICsqlConnection"].ToString());
+            sqlConnection.Open();
+
+            SqlCommand sqlCommand = new SqlCommand("Execute SaveHoraSolicitudTable '" + dia + "','" + horaInicio + "','" + horaFinal + "'," + aula + "," + lab, sqlConnection);
+            
             sqlCommand.ExecuteNonQuery();
 
             sqlConnection.Close();

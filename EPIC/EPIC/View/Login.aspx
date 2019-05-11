@@ -1,24 +1,23 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Inicio.Master" AutoEventWireup="true" CodeBehind="Index.aspx.cs" Inherits="EPIC.Index" %>
-
-<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="server">
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Inicio.Master" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="EPIC.View.Login" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="../styles/styles.css" rel="stylesheet" type="text/css" media="all">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="server">
-    
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
     <body>
         <div class="wrapper row0">
           <div id="topbar" class="hoc clear"> 
             <!-- ################################################################################################ -->
             <div class="fl_left">
               <ul>
-                <li><i class="fa fa-phone"></i> +506 25509160</li>
-                <li><i class="fa fa-envelope-o"></i> sagomez@itcr.ac.cr</li>
+                <li><i class="fa fa-phone"></i> +00 (123) 456 7890</li>
+                <li><i class="fa fa-envelope-o"></i> info@domain.com</li>
               </ul>
             </div>
             <div class="fl_right">
               <ul>
                 <li><a href="#"><i class="fa fa-lg fa-home"></i></a></li>
-                <li><a href="Login.aspx">Ingresar</a></li>
+                <li><a href="#">Ingresar</a></li>
                 <li><a href="#">Registrarse</a></li>
               </ul>
             </div>
@@ -33,7 +32,7 @@
             </div>
             <nav id="mainav" class="fl_right">
               <ul class="clear">
-                <li class="active"><a href="Index.aspx">Home</a></li>
+                <li><a href="Index.aspx">Inicio</a></li>
                 <li><a class="drop" href="#">Solicitar</a>
                   <ul>
                     <li><a href="Alquiler.aspx">Alquiler de espacio</a></li>
@@ -41,15 +40,39 @@
                   </ul>
                 </li>
                 <li><a href="Comprobante.aspx">Subir comprobante</a></li>
-                <li><a href="Login.aspx">Opciones administrativas</a></li>
               </ul>
             </nav>
             <!-- ################################################################################################ -->
           </header>
         </div>
-        <div class="bgded overlay" style="background-image:url('../images/logo.png');">
-            <div id="pageintro" class="hoc clear"> 
+        <div class="wrapper row2">
+            <div id="breadcrumb" class="hoc clear"> 
             </div>
+        </div>
+        <div class="wrapper row3">
+            <main class="hoc container clear"> 
+                <div class="content">
+                    <h2>Ingresar</h2>
+                    <br />
+                    <div class="one_half first">
+                        <asp:Label class="etiquetas" ID="Label2" runat="server" Text="Correo electrónico"></asp:Label>
+                        <asp:TextBox ID="correo" runat="server" ></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="* Campo necesario" ControlToValidate="correo" ForeColor="Red" class="etiquetas"></asp:RequiredFieldValidator>
+                        <br />
+                        <br />
+                    </div>
+                    <div class="one_half">
+                        <asp:Label class="etiquetas" ID="Label4" runat="server" Text="Contraseña"></asp:Label>
+                        <asp:TextBox ID="contrasena" runat="server" TextMode="Password" ></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="* Campo necesario" ControlToValidate="contrasena" ForeColor="Red" class="etiquetas"></asp:RequiredFieldValidator>
+                        <br />
+                        <br />
+                    </div>
+                    <div class="one_half first">
+                        <asp:Button ID="btnLogIn" runat="server" Text="Iniciar sesión" OnClick="btnLogIn_Click"/>
+                    </div>
+                </div>
+            </main>
         </div>
         <div class="wrapper row5">
           <div id="copyright" class="hoc clear"> 

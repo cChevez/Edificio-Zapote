@@ -91,6 +91,8 @@
     <Content Include="styles\fonts\fontawesome-webfont.svg" />
     <Content Include="styles\fonts\index.html" />
     <Content Include="styles\styles.css" />
+    <Content Include="View\IndexAdministrativo.aspx" />
+    <Content Include="View\Login.aspx" />
     <Content Include="View\Reservaciones.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -132,6 +134,20 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="View\IndexAdministrativo.aspx.cs">
+      <DependentUpon>IndexAdministrativo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\IndexAdministrativo.aspx.designer.cs">
+      <DependentUpon>IndexAdministrativo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
     <Compile Include="View\Reservaciones.aspx.cs">
       <DependentUpon>Reservaciones.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

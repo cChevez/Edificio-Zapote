@@ -11,7 +11,16 @@ namespace EPIC.View
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+        }
 
+        protected void btnCambiarEstado_Click(object sender, EventArgs e)
+        {
+            string codigoAntiguo = codigoReservacion.SelectedValue.Replace("'", "");
+            string codigoNuevo = codigoEstado.SelectedValue.Replace("'", "");
+
+            Model.ConsultasDB.ActualizarEstado(codigoAntiguo, codigoNuevo);
+
+            Response.Redirect("Reservaciones.aspx");
         }
     }
 }

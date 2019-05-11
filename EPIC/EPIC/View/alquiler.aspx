@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Inicio.Master" AutoEventWireup="true" CodeBehind="Alquiler.aspx.cs" Inherits="EPIC.Alquiler" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Inicio.Master" AutoEventWireup="true" CodeBehind="Alquiler.aspx.cs" Inherits="EPIC.Alquiler" EnableViewState="true" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="../styles/styles.css" rel="stylesheet" type="text/css" media="all">
 </asp:Content>
@@ -10,8 +10,8 @@
             <!-- ################################################################################################ -->
             <div class="fl_left">
               <ul>
-                <li><i class="fa fa-phone"></i> +00 (123) 456 7890</li>
-                <li><i class="fa fa-envelope-o"></i> info@domain.com</li>
+                <li><i class="fa fa-phone"></i> +506 25509160</li>
+                <li><i class="fa fa-envelope-o"></i> sagomez@itcr.ac.cr</li>
               </ul>
             </div>
             <div class="fl_right">
@@ -35,18 +35,12 @@
                 <li><a href="Index.aspx">Home</a></li>
                 <li class="active"><a class="drop" href="#">Solicitar</a>
                   <ul>
-                    <li class="active"><a href="Alquiler.aspx">Alquiler de espacio</a></li>
+                    <li><a href="Alquiler.aspx">Alquiler de espacio</a></li>
                     <li><a href="">Préstamo de espacio</a></li>
                   </ul>
                 </li>
                 <li><a href="Comprobante.aspx">Subir comprobante</a></li>
-                <li><a class="drop" href="#">Opciones administrativas</a>
-                  <ul>
-                    <li><a href="Reservaciones.aspx">Control de reservaciones</a></li>
-                    <li><a href="#">Level 2</a></li>
-                  </ul>
-                </li>
-                <li><a href="#">Link Text</a></li>
+                <li><a href="Login.aspx">Opciones administrativas</a></li>
               </ul>
             </nav>
             <!-- ################################################################################################ -->
@@ -84,7 +78,7 @@
                     <asp:Label class="etiquetas" ID="Label4" runat="server" Text="Cédula jurídica o física"></asp:Label>
                     <asp:TextBox ID="cedula" runat="server" ></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="* Campo necesario" ControlToValidate="cedula" ForeColor="Red" class="etiquetas"></asp:RequiredFieldValidator>
-                    &nbsp;<asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="cedula" ValidationExpression="\d{9,12}" Text="* Solo números sin guiones" ForeColor="Red"></asp:RegularExpressionValidator>
+                    <br /><asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="cedula" ValidationExpression="\d{9,12}" Text="* Solo números sin guiones" ForeColor="Red"></asp:RegularExpressionValidator>
                     <br />
                     <br />
                 </div>
@@ -92,7 +86,7 @@
                     <asp:Label class="etiquetas" ID="Label5" runat="server" Text="Correo electrónico"></asp:Label>
                     <asp:TextBox ID="correo" runat="server" ></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="* Campo necesario" ControlToValidate="correo" ForeColor="Red" class="etiquetas"></asp:RequiredFieldValidator>
-                    &nbsp;<asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ControlToValidate="correo" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" Text="* ejemplo@ejemplo.com" ForeColor="Red"></asp:RegularExpressionValidator>
+                    <br /><asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ControlToValidate="correo" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" Text="* ejemplo@ejemplo.com" ForeColor="Red"></asp:RegularExpressionValidator>
                     <br />
                     <br />
                 </div>
@@ -100,7 +94,7 @@
                     <asp:Label class="etiquetas" ID="Label6" runat="server" Text="Número de teléfono"></asp:Label>
                     <asp:TextBox ID="telefono" runat="server" ></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="* Campo necesario" ControlToValidate="telefono" ForeColor="Red" class="etiquetas"></asp:RequiredFieldValidator>
-                    &nbsp;<asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ControlToValidate="telefono" ValidationExpression="\d{8}" Text="* Formato esperado 00000000" ForeColor="Red"></asp:RegularExpressionValidator>
+                    <br /><asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ControlToValidate="telefono" ValidationExpression="\d{8}" Text="* Formato esperado 88888888" ForeColor="Red"></asp:RegularExpressionValidator>
                     <br />
                     <br />
                 </div>
@@ -126,36 +120,41 @@
                     <asp:Label class="etiquetas" ID="Label9" runat="server" Text="Cantidad o tipo de laboratorio"></asp:Label>
                     <asp:DropDownList ID="listLabs" runat="server" OnSelectedIndexChanged="listLabs_SelectedIndexChanged" AutoPostBack="True">
                         <asp:ListItem Selected="True">0</asp:ListItem>
-                        <asp:ListItem>B1</asp:ListItem>
-                        <asp:ListItem>B2</asp:ListItem>
-                        <asp:ListItem>2</asp:ListItem>
+                        <asp:ListItem Value="1">B1</asp:ListItem>
+                        <asp:ListItem Value="2">B2</asp:ListItem>
+                        <asp:ListItem Value="3">2</asp:ListItem>
                     </asp:DropDownList>
                 </div>
                 <div class="one_half first">
                     <br />
                     <asp:Label class="etiquetas" ID="Label10" runat="server" Text="Aula 1 (capacidad 25 personas)" Visible="false"></asp:Label>
                     <asp:TextBox ID="aula1" runat="server" Visible="false"></asp:TextBox>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator9" runat="server" ControlToValidate="aula1" ValidationExpression="\b(1?\d|2[0-5])\b" Text="* No pueden haber más de 25 personas" ForeColor="Red"></asp:RegularExpressionValidator>
                 </div>
                 <div class="one_half">
                     <br />
                     <asp:Label class="etiquetas" ID="Label11" runat="server" Text="Laboratorio B1 (capacidad 18 personas)" Visible="false"></asp:Label>
                     <asp:TextBox ID="lab1" runat="server" Visible="false"></asp:TextBox>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator12" runat="server" ControlToValidate="lab1" ValidationExpression="\b(\d|1[0-8])\b" Text="* No pueden haber más de 18 personas" ForeColor="Red"></asp:RegularExpressionValidator>
                 </div>
                 
                 <div class="one_half first">
                     <br />
                     <asp:Label class="etiquetas" ID="Label12" runat="server" Text="Aula 2 (capacidad 25 personas)" Visible="false"></asp:Label>
                     <asp:TextBox ID="aula2" runat="server" Visible="false"></asp:TextBox>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator10" runat="server" ControlToValidate="aula2" ValidationExpression="\b(1?\d|2[0-5])\b" Text="* No pueden haber más de 25 personas" ForeColor="Red"></asp:RegularExpressionValidator>
                 </div>
                 <div class="one_half">
                     <br />
                     <asp:Label class="etiquetas" ID="Label13" runat="server" Text="Laboratorio B2 (capacidad 20 personas)" Visible="false"></asp:Label>
                     <asp:TextBox ID="lab2" runat="server" Visible="false"></asp:TextBox>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator13" runat="server" ControlToValidate="lab2" ValidationExpression="\b(1?\d|20)\b" Text="* No pueden haber más de 20 personas" ForeColor="Red"></asp:RegularExpressionValidator>
                 </div>
                 <div class="one_half first">
                     <br />
                     <asp:Label class="etiquetas" ID="Label14" runat="server" Text="Aula 3 (capacidad 25 personas)" Visible="false"></asp:Label>
                     <asp:TextBox ID="aula3" runat="server" Visible="false"></asp:TextBox>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator11" runat="server" ControlToValidate="aula3" ValidationExpression="\b(1?\d|2[0-5])\b" Text="* No pueden haber más de 25 personas" ForeColor="Red"></asp:RegularExpressionValidator>
                 </div>
                 <br />
                 <br />
@@ -207,6 +206,14 @@
                     <asp:TextBox class="fecha" ID="horaFinal" runat="server" MaxLength="5"></asp:TextBox>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator8" class="etiquetas" runat="server" ControlToValidate="horaFinal" ValidationExpression="^(09|1[0-9]:[0|3]0)|^(2[0|1]):[0|3]0$" Text="De 09:00 a 21:30" ForeColor="Red"></asp:RegularExpressionValidator>
                 </div>
+                <div class="one_third first">
+                    <asp:DropDownList ID="AulasEscogidas" runat="server">
+                    </asp:DropDownList>
+                </div>
+                <div class="one_third">
+                    <asp:DropDownList ID="LabsEscogidos" runat="server">
+                    </asp:DropDownList>
+                </div>
                 <div class="one_quarter">
                     <br />
                     <asp:Button class="button" ID="agregarHorario" runat="server" Text="Agregar" OnClick="agregarHorario_Click"/> 
@@ -214,7 +221,25 @@
                     <br />
                 </div>
                 <div>
-                    
+                    <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AutoGenerateColumns="False" BackColor="White" BorderColor="#3366CC" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataSourceID="SqlHorario">
+                        <Columns>
+                            <asp:BoundField DataField="dia" HeaderText="Día" SortExpression="dia" />
+                            <asp:BoundField DataField="horaInicio" HeaderText="Hora de inicio" SortExpression="horaInicio" />
+                            <asp:BoundField DataField="horaFinal" HeaderText="Hora de finalización" SortExpression="horaFinal" />
+                            <asp:BoundField DataField="numAula" HeaderText="Aula" SortExpression="numAula" />
+                            <asp:BoundField DataField="numLab" HeaderText="Laboratorio" SortExpression="numLab" />
+                        </Columns>
+                        <FooterStyle BackColor="#99CCCC" ForeColor="#003399" />
+                        <HeaderStyle BackColor="#003399" Font-Bold="True" ForeColor="#CCCCFF" />
+                        <PagerStyle BackColor="#99CCCC" ForeColor="#003399" HorizontalAlign="Left" />
+                        <RowStyle BackColor="White" ForeColor="#003399" />
+                        <SelectedRowStyle BackColor="#009999" Font-Bold="True" ForeColor="#CCFF99" />
+                        <SortedAscendingCellStyle BackColor="#EDF6F6" />
+                        <SortedAscendingHeaderStyle BackColor="#0D4AC4" />
+                        <SortedDescendingCellStyle BackColor="#D6DFDF" />
+                        <SortedDescendingHeaderStyle BackColor="#002876" />
+                    </asp:GridView>
+                    <asp:SqlDataSource ID="SqlHorario" runat="server" ConnectionString="<%$ ConnectionStrings:ePICsqlConnection %>" SelectCommand="SELECT [dia], [horaInicio], [horaFinal], [numAula], [numLab] FROM [HorasSolicitudTable]"></asp:SqlDataSource>
                 </div>
                 <br />
                 <hr />
@@ -228,6 +253,15 @@
                         <br />
                     </div>
                 </div>
+                <br />
+                <br />
+                <div class="first">
+                    <asp:Label class="titulo" ID="Label29" runat="server" Text="Adicionales"></asp:Label>
+                    <br />
+                    <asp:CheckBox ID="proyector" runat="server" TextAlign="Left" Text="Proyector (4 mil colones adicionales por hora)"/>
+                    <br />
+                </div>
+                <br />
                 <br />
                 <br />
                 <br />
@@ -265,7 +299,7 @@
                         <br />
                         <br />
                         <asp:Label ID="Label28" runat="server" Text="Total:" ></asp:Label>
-                        <asp:Label ID="montoTotal" runat="server" Text="" ></asp:Label>
+                        <asp:Label ID="Total" runat="server" ></asp:Label>
                         <br />
                         <br />
                     </div>
