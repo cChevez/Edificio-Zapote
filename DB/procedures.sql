@@ -48,18 +48,20 @@ as begin
 			select ERROR_MESSAGE()
 			return -1
 		end
-		insert into HorarioReservado(dia, horaInicio, horaFinal, FKAula, FKLaboratorio) 
-			select T.dia, T.horaInicio, T.horaFinal, A.id, null
+		insert into Reservacion(fechaSolicitud, nombreSolicitante, nombreEmpresa, nombreActividad, cedulaJuridica, email, numeroTelefono, descripcion, cantidadParticipantes, videoBin, FKTipoReservacion, FKAdministrador, FKEstadoReservacion,fechaInicioActividad,fechaFinalActividad,monto) values (@fechaSolicitud, @nombreSolicitante, @empresaSolicitante,@nombreActividad, @cedulaJuridica, @email, @numeroTelefono, @descripcion,@cantidadParticipantes, @videobin, @TipoReservacion, @administrador, 1,@fechaInicioActividad,@FechaFinalActividad,@monto)
+		declare @FKid int 
+		set @FKid = @@IDENTITY
+		insert into HorarioReservado(dia, horaInicio, horaFinal, FKAula, FKLaboratorio,FKReservacion) 
+			select T.dia, T.horaInicio, T.horaFinal, A.id, null, @FKid
 			from HorasSolicitudTable T
 			inner join Aula A on A.numeroAula = T.numAula
 			where T.numLab is null
-		insert into HorarioReservado(dia, horaInicio, horaFinal, FKAula, FKLaboratorio) 
-			select T.dia, T.horaInicio, T.horaFinal, null, L.id
+		insert into HorarioReservado(dia, horaInicio, horaFinal, FKAula, FKLaboratorio,FKReservacion) 
+			select T.dia, T.horaInicio, T.horaFinal, null, L.id, @FKid
 			from HorasSolicitudTable T
 			inner join Laboratorio L on L.numeroLab = T.numLab
 			where T.numAula is null
 		select * from HorarioReservado
-		insert into Reservacion(fechaSolicitud, nombreSolicitante, nombreEmpresa, nombreActividad, cedulaJuridica, email, numeroTelefono, descripcion, cantidadParticipantes, videoBin, FKTipoReservacion, FKHorarioReservado, FKAdministrador, FKEstadoReservacion,fechaInicioActividad,fechaFinalActividad) values (@fechaSolicitud, @nombreSolicitante, @empresaSolicitante,@nombreActividad, @cedulaJuridica, @email, @numeroTelefono, @descripcion,@cantidadParticipantes, @videobin, @TipoReservacion, @@IDENTITY, @administrador, 1,@fechaInicioActividad,@FechaFinalActividad,@monto)
 		
 	commit
 	return @@identity
@@ -140,9 +142,9 @@ as begin
 	IF OBJECT_ID('tempdb..#temp') IS NOT NULL
 		DROP TABLE #temp
 
-	SELECT R.email, R.nombreSolicitante, R.nombreActividad, R.id, IDENTITY(INT,1,1) AS rn INTO #temp 	
+	SELECT distinct R.email, R.nombreSolicitante, R.nombreActividad, R.id, IDENTITY(INT,1,1) AS rn INTO #temp 	
 	FROM Reservacion R	
-	inner join HorarioReservado HR on R.FKHorarioReservado =  HR.id
+	inner join HorarioReservado HR on R.id =  HR.FKReservacion
 	WHERE (DATEDIFF(DAY,getDate(), HR.dia) = 2 AND R.FKEstadoReservacion = 1)
 	/*
 	SELECT R.email, R.nombreSolicitante, R.id, IDENTITY(INT,1,1) AS rn INTO #temp 	
@@ -185,7 +187,6 @@ as begin
 end
 go
 
-
 Create or alter Procedure CorreoBloqueoReserva
 as begin
 	
@@ -204,9 +205,9 @@ as begin
 	IF OBJECT_ID('tempdb..#temp') IS NOT NULL
 		DROP TABLE #temp
 
-	SELECT R.email, R.nombreSolicitante, R.nombreActividad, R.id, R.nombreEmpresa, R.fechaInicioActividad ,IDENTITY(INT,1,1) AS rn INTO #temp 	
+	SELECT distinct R.email, R.nombreSolicitante, R.nombreActividad, R.id, R.nombreEmpresa, R.fechaInicioActividad ,IDENTITY(INT,1,1) AS rn INTO #temp 	
 	FROM Reservacion R	
-	inner join HorarioReservado HR on R.FKHorarioReservado =  HR.id
+	inner join HorarioReservado HR on R.id =  HR.FKReservacion
 	WHERE (DATEDIFF(DAY,getDate(), HR.dia) = 2 AND R.FKEstadoReservacion = 1)
 	--DECLARE @Fecha date
 
@@ -263,22 +264,40 @@ as begin
 	/*
 	select DATEDIFF(DAY,'03-02-19', HR.dia) from Reservacion R
 	inner join HorarioReservado HR on R.FKHorarioReservado =  HR.id
+	inner join HorarioReservado HR on R.id =  HR.FKReservacion
 	*/
 	end
 end
 go
 
 
-create or alter procedure NotificarReservacion
+exec CorreoBloqueoReserva
+
+create or alter procedure NotificarReservacion @fkid int
 as begin
+	DECLARE @id int 
+	SET @id = @@IDENTITY
+
+	PRINT @id
+	declare @a int
+
+	select distinct R.email, R.cedulaJuridica, R.monto, R.id
+	from Reservacion R 
+	inner join HorarioReservado HR on HR.FKReservacion = R.id
+
+	select HR.id
+	from HorarioReservado HR where HR.FKReservacion = @fkid
+	--inner join Reservacion R on HR.FKReservacion = R.id
 
 end 
 
 go
 
-Exec CorreoBloqueoReserva
+Exec NotificarReservacion 2
 
 select * from Reservacion
+
+select * from HorarioReservado
 
 
 
@@ -326,9 +345,9 @@ select * from Reservacion
 
 --Exec insertarReservacion '12-14-19', 'Andres', 'Test', 'Test actividad', 12345124,'cjchevezc@gmail.com',5141414,'Test description',15, @tablaConHoras3,1,null,1,1,1
 
-DELETE FROM Reservacion
 DELETE FROM HorasSolicitudTable
 DELETE FROM HorarioReservado
+DELETE FROM Reservacion
 --insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('12-12-19','09:00:00','11:00:00',1,null)
 --insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('12-12-19','13:00:00','15:00:00',2,null)
 --insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('12-12-19','16:00:00','19:00:00',3,null)
@@ -336,23 +355,22 @@ DELETE FROM HorarioReservado
 --insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('12-12-19','16:00:00','19:00:00',null,2)
 
 
-insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-07-19','09:00:00','11:00:00',1,null)
-insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-07-19','10:00:00','12:00:00',1,null)
-insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-07-19','10:00:00','12:00:00',2,null)
-insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-07-19','16:00:00','19:00:00',3,null)
-insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-07-19','12:00:00','16:00:00',null,1)
-insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-07-19','16:00:00','19:00:00',null,2)
+insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-12-19','09:00:00','11:00:00',1,null)
+insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-12-19','10:00:00','12:00:00',2,null)
+insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-12-19','16:00:00','19:00:00',3,null)
+insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-12-19','12:00:00','16:00:00',null,1)
+insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-12-19','16:00:00','19:00:00',null,2)
 
-Exec insertarTotal '05-03-2019', 'Andres Gutierrez', 'nombreEmpresa', '2-0004-3123', 'andreguti333@gmail.com', '5124-1351','NombreActividad','12-14-19', '12-20-19','observacion', 12
+Exec insertarTotal '05-03-2019', 'Andres Gutierrez', 'nombreEmpresa', '2-0004-3123', 'andreguti333@gmail.com', '5124-1351','NombreActividad','12-14-19', '12-20-19','observacion', 12, 123
 
 
-insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-07-19','09:00:00','11:00:00',3,null)
-insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-07-19','13:00:00','15:00:00',1,null)
-insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-07-19','16:00:00','19:00:00',2,null)
-insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-07-19','12:00:00','16:00:00',null,2)
-insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-07-19','16:00:00','19:00:00',null,1)
+insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-12-19','09:00:00','11:00:00',3,null)
+insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-12-19','13:00:00','15:00:00',1,null)
+insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-12-19','16:00:00','19:00:00',2,null)
+insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-12-19','12:00:00','16:00:00',null,2)
+insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-12-19','16:00:00','19:00:00',null,1)
 
-Exec insertarTotal '05-03-2019', 'Carlos Chevez', 'nombreEmpresa', '2-0004-3123', 'cjchevezc@gmail.com', '5124-1351','NombreActividad','12-14-19', '12-20-19','observacion', 12
+Exec insertarTotal '05-03-2019', 'Carlos Chevez', 'nombreEmpresa', '2-0004-3123', 'cjchevezc@gmail.com', '5124-1351','NombreActividad','12-14-19', '12-20-19','observacion', 12,1234
 
 --DELETE FROM FilesSave
 

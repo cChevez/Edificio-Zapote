@@ -46,19 +46,10 @@ create table Laboratorio(
 	numeroLab int not null,
 	cantidadMax int not null
 );
-
-create table HorarioReservado(
-	id int identity primary key,
-	dia date not null,
-	horaInicio datetime not null,
-	horaFinal datetime not null,
-	FKAula int,
-	FKLaboratorio int
 	/*
 	FKAula int constraint FKAulaXRHorarioReservado foreign key references Aula(id),
 	FKLaboratorio int constraint FKLaboratorioXHorarioReservado foreign key references Laboratorio(id)
 	*/
-);
 
 create table estadoReservacion(
 	id int identity primary key,
@@ -78,7 +69,6 @@ create table Reservacion(
 	descripcion nvarchar(100) not null,	
 	cantidadParticipantes int not null,
 	FKTipoReservacion int constraint FKTipoReservacionXReservacion foreign key references TipoReservacion(id) not null,
-	FKHorarioReservado int constraint FKHorarioReservadoXReservacion foreign key references HorarioReservado(id) not null,
 	FKAdministrador int constraint FKAdministradorXReservacion foreign key references Administrador(id),
 	videoBin bit not null,
 	FKEstadoReservacion int constraint FKEstadoReservacionXReservacion foreign key references estadoReservacion(id) not null,
@@ -87,6 +77,15 @@ create table Reservacion(
 	monto int,
 );
 
+create table HorarioReservado(
+	id int identity primary key,
+	dia date not null,
+	horaInicio datetime not null,
+	horaFinal datetime not null,
+	FKAula int,
+	FKLaboratorio int,
+	FKReservacion int constraint FKHorarioReservadoXReservacion foreign key references Reservacion(id) not null,
+);
 
 create table Comprobante(
 	id int identity primary key,
