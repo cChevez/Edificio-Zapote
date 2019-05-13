@@ -62,6 +62,8 @@ as begin
 			inner join Laboratorio L on L.numeroLab = T.numLab
 			where T.numAula is null
 		select * from HorarioReservado
+			Exec NotificarReservacion @FKid
+
 		
 	commit
 	return @@identity
@@ -300,7 +302,7 @@ as begin
 	--from HorarioReservado HR where HR.FKReservacion = 1
 
 	SELECT HR.dia, HR.horaInicio, HR.horaFinal, HR.FKAula, HR.FKLaboratorio ,IDENTITY(INT,1,1) AS rn INTO #temp 	
-	from HorarioReservado HR where HR.FKReservacion = 1
+	from HorarioReservado HR where HR.FKReservacion = @fkid
 
 	Select * from #temp
 
@@ -308,7 +310,7 @@ as begin
 	DECLARE @MensajeHoras2 varchar(max)
 	SET @MensajeHoras2 = ''
 
-	SELECT @MensajeHoras = CHAR(09) +'Dia' +CHAR(09) + CHAR(09) + CHAR(124) +CHAR(09) + 'Hora Inicio' + CHAR(09) + CHAR(09) + CHAR(124) +CHAR(09) + 'Hora Final' + CHAR(09) + CHAR(09) + CHAR(124) +CHAR(09) + 'Aula' +  CHAR(09) + CHAR(124) +CHAR(09) + 'Laboratorio' + CHAR(10)
+	SELECT @MensajeHoras = CHAR(09) +'Dia' +CHAR(09) + CHAR(09) + CHAR(124) +CHAR(09) + 'Hora Inicio' + CHAR(08) +CHAR(09) + CHAR(09) + CHAR(124) +CHAR(09) + 'Hora Final' + CHAR(09) + CHAR(09) + CHAR(124) +CHAR(09) + 'Aula' +  CHAR(09) + CHAR(124) +CHAR(09) + 'Laboratorio' + CHAR(10)
 	--Print @MensajeHoras
 
 	while @contador <= (SELECT COUNT(*) FROM #temp)
@@ -317,11 +319,11 @@ as begin
 	
 	if @aula is not null
 		begin
-			SELECT @MensajeHoras += @dia + CHAR(09) + CHAR(124) +CHAR(09) + @horaInicio +CHAR(09) +CHAR(09) + CHAR(124) +CHAR(09) + @horaFinal +CHAR(09) +CHAR(09) + CHAR(124) +CHAR(09) + CAST(@aula as varchar(10)) +CHAR(09) +CHAR(09) + CHAR(124) +CHAR(09) + '' + CHAR(10)
+			SELECT @MensajeHoras += @dia + CHAR(09) + CHAR(09) + @horaInicio +CHAR(09) +CHAR(09) + CHAR(09) + @horaFinal +CHAR(09) +CHAR(09) + CHAR(09) + CAST(@aula as varchar(10)) +CHAR(09) +CHAR(09) +CHAR(09) + '' + CHAR(10)
 		end
 	else
 		begin 
-			SELECT @MensajeHoras += @dia + CHAR(09) + CHAR(124) +CHAR(09) + @horaInicio + CHAR(09) +CHAR(09) + CHAR(124) +CHAR(09) + @horaFinal +CHAR(09) +CHAR(09) + CHAR(124) +CHAR(09) + '' +CHAR(09) +CHAR(09) + CHAR(124) +CHAR(09) + CAST(@Lab as varchar(10)) + CHAR(10)
+			SELECT @MensajeHoras += @dia + CHAR(09) + CHAR(09) + @horaInicio + CHAR(09) +CHAR(09) +CHAR(09) + @horaFinal +CHAR(09) +CHAR(09) + CHAR(09) + '' +CHAR(09) +CHAR(09) +CHAR(09) + CAST(@Lab as varchar(10)) + CHAR(10)
 		end
 
 	--SELECT @MensajeHoras2 = '05-12-19'  +CHAR(09) + CHAR(124) +CHAR(09) + '12:00'  +CHAR(09) +CHAR(09) + CHAR(124) +CHAR(09) + '15:00' +CHAR(09) +CHAR(09) + CHAR(124) +CHAR(09) + CAST(@aula as varchar(10)) +CHAR(09) +CHAR(09) + CHAR(124) +CHAR(09)  + '2' + CHAR(10)
@@ -344,7 +346,7 @@ as begin
 	'Nombre de la actividad: ' + R.nombreActividad + CHAR(10) + CHAR(13) +
 	'Fecha de inicio: ' + CAST(R.fechaInicioActividad as varchar(10)) + CHAR(10) + CHAR(13) +
 	'Fecha de finalización: ' + CAST(R.fechaFinalActividad as varchar(10)) + CHAR(10) + CHAR(13)+
-	'Horario reservado: ' + CHAR(10) + CHAR(13)
+	'Horario reservado: ' + CHAR(10) + CHAR(13) + CHAR(10) + CHAR(13)
 	from Reservacion R 
 	inner join HorarioReservado HR on HR.FKReservacion = R.id )
 
