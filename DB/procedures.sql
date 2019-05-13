@@ -306,51 +306,71 @@ as begin
 
 	DECLARE @MensajeHoras varchar(max)
 	DECLARE @MensajeHoras2 varchar(max)
+	SET @MensajeHoras2 = ''
 
-	SELECT @MensajeHoras = CHAR(09) +'Dia' +CHAR(09) + CHAR(09) + CHAR(124) +CHAR(09) + 'Hora Inicio' + CHAR(09) + CHAR(124) +CHAR(09) + 'Hora Final' + CHAR(09) + CHAR(124) +CHAR(09) + 'Aula' + CHAR(09) + CHAR(124) +CHAR(09) + 'Laboratorio' + CHAR(10)
-	Print @MensajeHoras
+	SELECT @MensajeHoras = CHAR(09) +'Dia' +CHAR(09) + CHAR(09) + CHAR(124) +CHAR(09) + 'Hora Inicio' + CHAR(09) + CHAR(09) + CHAR(124) +CHAR(09) + 'Hora Final' + CHAR(09) + CHAR(09) + CHAR(124) +CHAR(09) + 'Aula' +  CHAR(09) + CHAR(124) +CHAR(09) + 'Laboratorio' + CHAR(10)
+	--Print @MensajeHoras
 
 	while @contador <= (SELECT COUNT(*) FROM #temp)
 	BEGIN
 	SELECT @dia=convert(varchar, dia, 105), @horaInicio=convert(varchar, horaInicio, 8), @horaFinal=convert(varchar, horaFinal, 8), @aula=FKAula, @Lab=FKLaboratorio FROM #temp WHERE rn=@contador
 	
-	SELECT @MensajeHoras2 = @dia +''+ CHAR(09) + CHAR(124) +CHAR(09) + @horaInicio +''+CHAR(09) +CHAR(09) + CHAR(124) +CHAR(09) + @horaFinal +CHAR(09) +CHAR(09) + CHAR(124) +CHAR(09) + CAST(@aula as varchar(10)) + CAST(@Lab as varchar(10)) + CHAR(10)
+	if @aula is not null
+		begin
+			SELECT @MensajeHoras += @dia + CHAR(09) + CHAR(124) +CHAR(09) + @horaInicio +CHAR(09) +CHAR(09) + CHAR(124) +CHAR(09) + @horaFinal +CHAR(09) +CHAR(09) + CHAR(124) +CHAR(09) + CAST(@aula as varchar(10)) +CHAR(09) +CHAR(09) + CHAR(124) +CHAR(09) + '' + CHAR(10)
+		end
+	else
+		begin 
+			SELECT @MensajeHoras += @dia + CHAR(09) + CHAR(124) +CHAR(09) + @horaInicio + CHAR(09) +CHAR(09) + CHAR(124) +CHAR(09) + @horaFinal +CHAR(09) +CHAR(09) + CHAR(124) +CHAR(09) + '' +CHAR(09) +CHAR(09) + CHAR(124) +CHAR(09) + CAST(@Lab as varchar(10)) + CHAR(10)
+		end
 
 	--SELECT @MensajeHoras2 = '05-12-19'  +CHAR(09) + CHAR(124) +CHAR(09) + '12:00'  +CHAR(09) +CHAR(09) + CHAR(124) +CHAR(09) + '15:00' +CHAR(09) +CHAR(09) + CHAR(124) +CHAR(09) + CAST(@aula as varchar(10)) +CHAR(09) +CHAR(09) + CHAR(124) +CHAR(09)  + '2' + CHAR(10)
 
-	Print @MensajeHoras2
+	--Print @MensajeHoras2
 
 	SET @contador=@contador+1
 
 	END
 
-	--Select @MensajeReservacion = (select distinct 'Se ha creado su reservación exitosamente.' + CHAR(10) + CHAR(13) + CHAR(10) + CHAR(13) + 
-	--'Datos de Reservacion' + CHAR(10) + CHAR(13) + CHAR(10) + CHAR(13) + 
-	--'Numero de Reservacion: '+ CAST(R.id as varchar(10))  + CHAR(10) + CHAR(13) +
-	--'Fecha de creación: ' + CAST(R.fechaSolicitud as varchar(10)) + CHAR(10) + CHAR(13) +
-	--'Nombre del reservante: ' + R.nombreSolicitante + CHAR(10) + CHAR(13) +
-	--'Nombre de la empresa: ' + R.nombreEmpresa + CHAR(10) + CHAR(13) +
-	--'Cédula jurídica: ' + R.cedulaJuridica + CHAR(10) + CHAR(13) +
-	--'Correo electrónico: ' + R.email + CHAR(10) + CHAR(13) +
-	--'Teléfono: ' + R.numeroTelefono + CHAR(10) + CHAR(13) +
-	--'Nombre de la actividad: ' + R.nombreActividad + CHAR(10) + CHAR(13) +
-	--'Fecha de inicio: ' + CAST(R.fechaInicioActividad as varchar(10)) + CHAR(10) + CHAR(13) +
-	--'Fecha de finalización: ' + CAST(R.fechaFinalActividad as varchar(10)) + CHAR(10) + CHAR(13)
-	--from Reservacion R 
-	--inner join HorarioReservado HR on HR.FKReservacion = R.id )
+	Select @MensajeReservacion = (select distinct 'Se ha creado su reservación exitosamente.' + CHAR(10) + CHAR(13) + CHAR(10) + CHAR(13) + 
+	'Datos de Reservacion' + CHAR(10) + CHAR(13) + CHAR(10) + CHAR(13) + 
+	'Numero de Reservacion: '+ CAST(R.id as varchar(10))  + CHAR(10) + CHAR(13) +
+	'Fecha de creación: ' + CAST(R.fechaSolicitud as varchar(10)) + CHAR(10) + CHAR(13) +
+	'Nombre del reservante: ' + R.nombreSolicitante + CHAR(10) + CHAR(13) +
+	'Nombre de la empresa: ' + R.nombreEmpresa + CHAR(10) + CHAR(13) +
+	'Cédula jurídica: ' + R.cedulaJuridica + CHAR(10) + CHAR(13) +
+	'Correo electrónico: ' + R.email + CHAR(10) + CHAR(13) +
+	'Teléfono: ' + R.numeroTelefono + CHAR(10) + CHAR(13) +
+	'Nombre de la actividad: ' + R.nombreActividad + CHAR(10) + CHAR(13) +
+	'Fecha de inicio: ' + CAST(R.fechaInicioActividad as varchar(10)) + CHAR(10) + CHAR(13) +
+	'Fecha de finalización: ' + CAST(R.fechaFinalActividad as varchar(10)) + CHAR(10) + CHAR(13)+
+	'Horario reservado: ' + CHAR(10) + CHAR(13)
+	from Reservacion R 
+	inner join HorarioReservado HR on HR.FKReservacion = R.id )
 
-	--PRINT @MensajeReservacion
-	Print @MensajeHoras
+	PRINT @MensajeReservacion
+	PRINT @MensajeHoras
+	--Print @MensajeHoras2
 
+	declare @titulo varchar(max)
+	Select @titulo = 'Notificacion Reservacion'
+	declare @mensaje varchar(max)
+	SET @mensaje = @MensajeReservacion + @MensajeHoras
+	
+	EXEC msdb.dbo.sp_send_dbmail
+		@profile_Name = 'ProyectoEmail',
+		--@recipients = @copy_to,
+		@recipients = @Email,
+		@subject = @titulo,
+		@body = @Mensaje
+		--@body_format = 'HTML'
+		
 
 end 
 
 go
 
 Exec NotificarReservacion 1
-
-DBCC FREEPROCCACHE WITH NO_INFOMSGS;  
-GO  
 
 select * from Reservacion
 
