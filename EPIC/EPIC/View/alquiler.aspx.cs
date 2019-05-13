@@ -12,17 +12,6 @@ namespace EPIC
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Total.Text = Convert.ToString(montoTotal);
-
-            if (ViewState["monto"] != null)
-            {
-                montoTotal = Convert.ToInt32(ViewState["monto"]);
-            }
-            else
-            {
-                montoTotal = 0;
-            }
-
             if (!Page.IsPostBack)
             {
                 RegularExpressionValidator9.Enabled = false;
@@ -32,6 +21,19 @@ namespace EPIC
                 RegularExpressionValidator13.Enabled = false;
                 AulasEscogidas.Items.Insert(0, "Ninguna");
                 LabsEscogidos.Items.Insert(0, "Ninguno");
+                Total.Text = "0 colones";
+            }
+            else
+            {
+                if (ViewState["monto"] != null)
+                {
+                    montoTotal = Convert.ToInt32(ViewState["monto"]);
+                    Total.Text = Convert.ToString(montoTotal) + " colones";
+                }
+                else
+                {
+                    montoTotal = 0;
+                }
             }
         }
 
@@ -154,7 +156,7 @@ namespace EPIC
 
         protected void agregarHorario_Click(object sender, EventArgs e)
         {
-            if(diaReserva.Text.Length==0 || horaInicio.Text.Length == 0 || horaFinal.Text.Length == 0)
+            if (diaReserva.Text.Length == 0 || horaInicio.Text.Length == 0 || horaFinal.Text.Length == 0)
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Ingrese una fecha y hora de reservación');", true);
             }
@@ -196,11 +198,11 @@ namespace EPIC
 
                     aula = aula.Replace("'", "");
                     lab = lab.Replace("'", "");
-                    if(aula.Equals("null") && lab.Equals("null"))
+                    if (aula.Equals("null") && lab.Equals("null"))
                     {
                         ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Seleccione un aula o laboratorio');", true);
                     }
-                    else if(!aula.Equals("null") && !lab.Equals("null"))
+                    else if (!aula.Equals("null") && !lab.Equals("null"))
                     {
                         ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Seleccione solo aula o laboratorio');", true);
                     }
@@ -236,7 +238,7 @@ namespace EPIC
                         horaInicio.Text = "";
                         horaFinal.Text = "";
                         this.GridView1.DataBind();
-                    }           
+                    }
                 }
             }
         }
@@ -244,12 +246,17 @@ namespace EPIC
         protected void enviar_Click(object sender, EventArgs e)
         {
             Boolean enviado = false; ;
-            
+
             string fechaForm, nombreV, empresaV, cedulaV, correoV, telefonoV, nombreActividadV, fechaInicioV, fechaFinalV, observacionesV;
-            string dia, mes, anno;
+            string dia, mes, anno, hora, minuto;
 
             DateTime today = DateTime.Today;
-            fechaForm = today.ToString("dd-MM-yyyy HH:MM");
+            dia = today.Day.ToString();
+            mes = today.Month.ToString();
+            anno = today.Year.ToString();
+            hora = today.Hour.ToString();
+            minuto = today.Minute.ToString();
+            fechaForm = anno + "-" + mes + "-" + dia + " " + hora + ":" + minuto;
             nombreV = nombre.Text.Replace("'", "");
             empresaV = empresa.Text.Replace("'", "");
             cedulaV = cedula.Text.Replace("'", "");
@@ -289,12 +296,11 @@ namespace EPIC
 
                 try
                 {
-                    
                     Model.ConsultasDB.InsertarReservacion(fechaForm, nombreV, empresaV, cedulaV, correoV, telefonoV, nombreActividadV, fechaInicioV, fechaFinalV, observacionesV, participantes, montoTotal);
 
                     enviado = true;
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Model.ConsultasDB.BorrarHorasSolicitadas();
                     ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('No se puede crear la reservación');", true);
@@ -305,8 +311,7 @@ namespace EPIC
             if (enviado)
             {
                 Thread.Sleep(2000);
-                ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Reservación creada');", true);
-
+                
                 nombre.Text = "";
                 empresa.Text = "";
                 cedula.Text = "";
@@ -322,8 +327,13 @@ namespace EPIC
                 horaInicio.Text = "";
                 horaFinal.Text = "";
 
-                Response.Redirect("Index.aspx");
-                }
+                ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Reservación creada');", true);
+
+                int nReservacion = Model.ConsultasDB.ObtenerNumeroReservacion(cedulaV);
+                Model.EnviarCorreo.CorreoReservacion(fechaForm, nombreV, empresaV, cedulaV, correoV, telefonoV, nombreActividadV, fechaInicioV, fechaFinalV, observacionesV, nReservacion);
+
+                Thread.Sleep(1000);
+                Response.Redirect("Alquiler.aspx");
             }
         }
     }

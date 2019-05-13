@@ -16,9 +16,8 @@
                 </div>
                 <div class="fl_right">
                     <ul>
-                        <li><a href="#"><i class="fa fa-lg fa-home"></i></a></li>
-                        <li><a href="#">Ingresar</a></li>
-                        <li><a href="#">Registrarse</a></li>
+                        <li><a href="Index.aspx"><i class="fa fa-lg fa-home"></i></a></li>
+                        <li><a href="Login.aspx">Ingresar</a></li>
                     </ul>
                 </div>
                 <!-- ################################################################################################ -->
@@ -32,15 +31,22 @@
             </div>
             <nav id="mainav" class="fl_right">
               <ul class="clear">
-                <li><a href="Index.aspx">Home</a></li>
-                <li><a class="drop" href="#">Solicitar</a>
-                  <ul>
-                    <li><a href="Alquiler.aspx">Alquiler de espacio</a></li>
-                    <li><a href="">Préstamo de espacio</a></li>
-                  </ul>
-                </li>
-                <li class="active"><a href="Comprobante.aspx">Subir comprobante</a></li>
-                <li><a href="Login.aspx">Opciones administrativas</a></li>
+                  <li><a href="Index.aspx">Inicio</a></li>
+                  <li><a class="drop" href="#">Solicitar</a>
+                      <ul>
+                          <li><a href="Alquiler.aspx">Alquiler de espacio</a></li>
+                          <li><a href="">Préstamo de espacio</a></li>
+                      </ul>
+                  </li>
+                  <li class="active"><a href="Comprobante.aspx">Subir comprobante</a></li>
+                  <li><a href="Login.aspx">Opciones administrativas</a></li>
+                  <li><a class="drop" href="#">Información Adicional</a>
+                      <ul>
+                          <li><a href="#">Protocolos de emergencia</a></li>
+                          <li><a href="#">Eventos realizados</a></li>
+                          <li><a href="#">Cursos disponibles</a></li>
+                      </ul>
+                  </li>
               </ul>
             </nav>
             <!-- ################################################################################################ -->

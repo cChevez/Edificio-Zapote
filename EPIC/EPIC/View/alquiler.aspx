@@ -16,9 +16,8 @@
             </div>
             <div class="fl_right">
               <ul>
-                <li><a href="#"><i class="fa fa-lg fa-home"></i></a></li>
-                <li><a href="#">Ingresar</a></li>
-                <li><a href="#">Registrarse</a></li>
+                <li><a href="Index.aspx"><i class="fa fa-lg fa-home"></i></a></li>
+                <li><a href="Login.aspx">Ingresar</a></li>
               </ul>
             </div>
             <!-- ################################################################################################ -->
@@ -32,15 +31,22 @@
             </div>
             <nav id="mainav" class="fl_right">
               <ul class="clear">
-                <li><a href="Index.aspx">Home</a></li>
-                <li class="active"><a class="drop" href="#">Solicitar</a>
-                  <ul>
-                    <li><a href="Alquiler.aspx">Alquiler de espacio</a></li>
-                    <li><a href="">Préstamo de espacio</a></li>
-                  </ul>
-                </li>
-                <li><a href="Comprobante.aspx">Subir comprobante</a></li>
-                <li><a href="Login.aspx">Opciones administrativas</a></li>
+                  <li><a href="Index.aspx">Inicio</a></li>
+                  <li class="active"><a class="drop" href="#">Solicitar</a>
+                      <ul>
+                          <li><a href="Alquiler.aspx">Alquiler de espacio</a></li>
+                          <li><a href="">Préstamo de espacio</a></li>
+                      </ul>
+                  </li>
+                  <li><a href="Comprobante.aspx">Subir comprobante</a></li>
+                  <li><a href="Login.aspx">Opciones administrativas</a></li>
+                  <li><a class="drop" href="#">Información Adicional</a>
+                      <ul>
+                          <li><a href="#">Protocolos de emergencia</a></li>
+                          <li><a href="#">Eventos realizados</a></li>
+                          <li><a href="#">Cursos disponibles</a></li>
+                      </ul>
+                  </li>
               </ul>
             </nav>
             <!-- ################################################################################################ -->
@@ -223,9 +229,9 @@
                 <div>
                     <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AutoGenerateColumns="False" BackColor="White" BorderColor="#3366CC" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataSourceID="SqlHorario">
                         <Columns>
-                            <asp:BoundField DataField="dia" HeaderText="Día" SortExpression="dia" />
-                            <asp:BoundField DataField="horaInicio" HeaderText="Hora de inicio" SortExpression="horaInicio" />
-                            <asp:BoundField DataField="horaFinal" HeaderText="Hora de finalización" SortExpression="horaFinal" />
+                            <asp:BoundField DataField="dia" HeaderText="Día" SortExpression="dia" DataFormatString="{0:dd, MMM yyyy}" />
+                            <asp:BoundField DataField="horaInicio" HeaderText="Hora de inicio" SortExpression="horaInicio" DataFormatString="{0:hh:mm}" />
+                            <asp:BoundField DataField="horaFinal" HeaderText="Hora de finalización" SortExpression="horaFinal" DataFormatString="{0:hh:mm}" />
                             <asp:BoundField DataField="numAula" HeaderText="Aula" SortExpression="numAula" />
                             <asp:BoundField DataField="numLab" HeaderText="Laboratorio" SortExpression="numLab" />
                         </Columns>
@@ -255,12 +261,12 @@
                 </div>
                 <br />
                 <br />
-                <div class="first">
+                <!--<div class="first">
                     <asp:Label class="titulo" ID="Label29" runat="server" Text="Adicionales"></asp:Label>
                     <br />
                     <asp:CheckBox ID="proyector" runat="server" TextAlign="Left" Text="Proyector (4 mil colones adicionales por hora)"/>
                     <br />
-                </div>
+                </div>-->
                 <br />
                 <br />
                 <br />

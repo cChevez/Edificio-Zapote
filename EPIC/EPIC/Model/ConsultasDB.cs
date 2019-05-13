@@ -79,12 +79,11 @@ namespace EPIC.Model
             SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["ePICsqlConnection"].ToString());
             sqlConnection.Open();
 
-            string query = @"Insert into comprobante (nombreArchivo, sizeArchivo, imgComprobante, FKReservacion) values (@nombreArchivo, @sizeArchivo, @imgComprobante, @FKReservacion)";
+            //string query = @"Insert into comprobante (nombreArchivo, sizeArchivo, imgComprobante, FKReservacion) values (@nombreArchivo, @sizeArchivo, @imgComprobante, @FKReservacion)";
+            string query = @"Insert into comprobante (imgComprobante, FKReservacion) values (@imgComprobante, @FKReservacion)";
 
             SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
-
-            sqlCommand.Parameters.AddWithValue("@nombreArchivo", nombre);
-            sqlCommand.Parameters.AddWithValue("@sizeArchivo", length);
+            
             sqlCommand.Parameters.AddWithValue("@FKReservacion", reservacion);
 
             SqlParameter imageParam = sqlCommand.Parameters.Add("@imgComprobante", System.Data.SqlDbType.Image);
@@ -128,6 +127,27 @@ namespace EPIC.Model
             sqlCommand.ExecuteNonQuery();
 
             sqlConnection.Close();
+        }
+
+        public static string ObtenerNombreSolicitanteReservacion(string id)
+        {
+            SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["ePICsqlConnection"].ToString());
+            sqlConnection.Open();
+            SqlCommand sqlCommand = new SqlCommand("select nombreSolicitante from Reservacion where id= '" + id + "'", sqlConnection);
+
+            sqlCommand.ExecuteNonQuery();
+
+            return Convert.ToString(sqlCommand.ExecuteScalar());
+        }
+        public static string ObtenerNombreActividadReservacion(string id)
+        {
+            SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["ePICsqlConnection"].ToString());
+            sqlConnection.Open();
+            SqlCommand sqlCommand = new SqlCommand("select nombreActividad from Reservacion where id= '" + id + "'", sqlConnection);
+
+            sqlCommand.ExecuteNonQuery();
+
+            return Convert.ToString(sqlCommand.ExecuteScalar());
         }
     }
 }

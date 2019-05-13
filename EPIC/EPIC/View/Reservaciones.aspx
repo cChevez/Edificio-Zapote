@@ -16,9 +16,8 @@
             </div>
             <div class="fl_right">
               <ul>
-                <li><a href="#"><i class="fa fa-lg fa-home"></i></a></li>
-                <li><a href="#">Ingresar</a></li>
-                <li><a href="#">Registrarse</a></li>
+                <li><a href="IndexAdministrativo.aspx"><i class="fa fa-lg fa-home"></i></a></li>
+                <li><a href="Login.aspx">Salir</a></li>
               </ul>
             </div>
             <!-- ################################################################################################ -->
@@ -31,23 +30,19 @@
                 <h1><a href="Index.aspx">Reservaciones ePIC</a></h1>
             </div>
             <nav id="mainav" class="fl_right">
-              <ul class="clear">
-                <li><a href="Index.aspx">Home</a></li>
-                <li><a class="drop" href="#">Solicitar</a>
-                  <ul>
-                    <li><a href="Alquiler.aspx">Alquiler de espacio</a></li>
-                    <li><a href="">Préstamo de espacio</a></li>
-                  </ul>
-                </li>
-                <li><a href="Comprobante.aspx">Subir comprobante</a></li>
-                <li class="active"><a class="drop" href="#">Opciones administrativas</a>
-                    <ul>
-                        <li class="active"><a href="Reservaciones.aspx">Control de reservaciones</a></li>
-                        <li><a href="#">Level 2</a></li>
-                    </ul>
-                </li>
-                <li><a href="#">Link Text</a></li>
-              </ul>
+                <ul class="clear">
+                    <li><a href="IndexAdministrativo.aspx">Inicio</a></li>
+                    <li class="active"><a href="Reservaciones.aspx">Control de reservaciones</a></li>
+                    <li><a class="drop" href="#">Agregar</a>
+                        <ul>
+                            <li><a href="#">Administradores</a></li>
+                            <li><a href="#">Estudiantes</a></li>
+                            <li><a href="#">Protocolos de emergencia</a></li>
+                            <li><a href="#">Eventos realizados</a></li>
+                            <li><a href="#">Cursos disponibles</a></li>
+                        </ul>
+                    </li>
+                </ul>
             </nav>
             <!-- ################################################################################################ -->
           </header>
@@ -74,7 +69,7 @@
                 <div>
                     <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" DataSourceID="SqlReservaciones" BackColor="White" BorderColor="#3366CC" BorderStyle="None" BorderWidth="1px" CellPadding="4">
                         <Columns>
-                            <asp:BoundField DataField="fechaSolicitud" HeaderText="Fecha de solicitud" SortExpression="fechaSolicitud" />
+                            <asp:BoundField DataField="fechaSolicitud" HeaderText="Fecha de solicitud" SortExpression="fechaSolicitud" DataFormatString="{0:dd, MMM yyyy}" />
                             <asp:BoundField DataField="nombreSolicitante" HeaderText="Solicitante" SortExpression="nombreSolicitante" />
                             <asp:BoundField DataField="nombreEmpresa" HeaderText="Empresa" SortExpression="nombreEmpresa" />
                             <asp:BoundField DataField="nombreActividad" HeaderText="Actividad" SortExpression="nombreActividad" />

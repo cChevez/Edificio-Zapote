@@ -20,6 +20,17 @@ namespace EPIC.View
 
             Model.ConsultasDB.ActualizarEstado(codigoAntiguo, codigoNuevo);
 
+            string uEmail, uNombre, uNombreActividad;
+
+            uEmail = Model.ConsultasDB.ObtenerCorreoReservacion(codigoAntiguo);
+            uNombre = Model.ConsultasDB.ObtenerNombreSolicitanteReservacion(codigoAntiguo);
+            uNombreActividad = Model.ConsultasDB.ObtenerNombreActividadReservacion(codigoAntiguo);
+                                 
+            if (codigoNuevo.Equals("5"))
+            {
+                Model.EnviarCorreo.CorreoCancelacionReservacion(uEmail, codigoAntiguo, uNombre, uNombreActividad);
+            }
+
             Response.Redirect("Reservaciones.aspx");
         }
     }

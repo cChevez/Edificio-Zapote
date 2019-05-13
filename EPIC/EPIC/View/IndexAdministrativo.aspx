@@ -10,15 +10,14 @@
             <!-- ################################################################################################ -->
             <div class="fl_left">
               <ul>
-                <li><i class="fa fa-phone"></i> +00 (123) 456 7890</li>
-                <li><i class="fa fa-envelope-o"></i> info@domain.com</li>
+                <li><i class="fa fa-phone"></i> +506 25509160</li>
+                <li><i class="fa fa-envelope-o"></i> sagomez@itcr.ac.cr</li>
               </ul>
             </div>
             <div class="fl_right">
               <ul>
-                <li><a href="#"><i class="fa fa-lg fa-home"></i></a></li>
-                <li><a href="Login.aspx">Ingresar</a></li>
-                <li><a href="#">Registrarse</a></li>
+                <li><a href="IndexAdministrativo.aspx"><i class="fa fa-lg fa-home"></i></a></li>
+                <li><a href="Login.aspx">Salir</a></li>
               </ul>
             </div>
             <!-- ################################################################################################ -->
@@ -31,23 +30,19 @@
                 <h1><a href="IndexAdministrativo.aspx">Reservaciones ePIC</a></h1>
             </div>
             <nav id="mainav" class="fl_right">
-              <ul class="clear">
-                <li class="active"><a href="IndexAdministrativo.aspx">Home</a></li>
-                <li><a class="drop" href="#">Solicitar</a>
-                  <ul>
-                    <li><a href="Alquiler.aspx">Alquiler de espacio</a></li>
-                    <li><a href="">Préstamo de espacio</a></li>
-                  </ul>
-                </li>
-                <li><a href="Comprobante.aspx">Subir comprobante</a></li>
-                <li><a class="drop" href="#">Opciones administrativas</a>
-                  <ul>
+                <ul class="clear">
+                    <li class="active"><a href="IndexAdministrativo.aspx">Inicio</a></li>
                     <li><a href="Reservaciones.aspx">Control de reservaciones</a></li>
-                    <li><a href="#">Level 2</a></li>
-                  </ul>
-                </li>
-                <li><a href="#">Link Text</a></li>
-              </ul>
+                    <li><a class="drop" href="#">Agregar</a>
+                        <ul>
+                            <li><a href="#">Administradores</a></li>
+                            <li><a href="#">Estudiantes</a></li>
+                            <li><a href="#">Protocolos de emergencia</a></li>
+                            <li><a href="#">Eventos realizados</a></li>
+                            <li><a href="#">Cursos disponibles</a></li>
+                        </ul>
+                    </li>
+                </ul>
             </nav>
             <!-- ################################################################################################ -->
           </header>
