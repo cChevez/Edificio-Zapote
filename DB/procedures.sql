@@ -27,6 +27,7 @@ as begin
 	SET @id = @@IDENTITY
 	DECLARE @contador int
 	SET @contador=1
+	DECLARE @MensajeHoras varchar(max)
 
 	IF OBJECT_ID('tempdb..#temp') IS NOT NULL
 	DROP TABLE #temp
@@ -39,7 +40,7 @@ as begin
 	where R.id = @fkid)
 
 	select distinct R.id, R.fechaSolicitud, R.nombreSolicitante, R.nombreEmpresa, R.cedulaJuridica, R.email, 
-	R.numeroTelefono, R.nombreActividad, R.fechaInicioActividad, R.fechaFinalActividad
+	R.numeroTelefono, R.nombreActividad, R.fechaInicioActividad, R.fechaFinalActividad, R.descripcion
 	from Reservacion R 
 	inner join HorarioReservado HR on HR.FKReservacion = R.id
 	where R.id = @fkid
@@ -51,10 +52,6 @@ as begin
 	from HorarioReservado HR where HR.FKReservacion = @fkid
 
 	Select * from #temp
-
-	DECLARE @MensajeHoras varchar(max)
-	DECLARE @MensajeHoras2 varchar(max)
-	SET @MensajeHoras2 = ''
 
 	SELECT @MensajeHoras = CHAR(09) +'Dia' +CHAR(09) + CHAR(09) + CHAR(124) +CHAR(09) + 'Hora Inicio' + CHAR(08) +CHAR(09) + CHAR(09) + CHAR(124) +CHAR(09) + 'Hora Final' + CHAR(09) + CHAR(09) + CHAR(124) +CHAR(09) + 'Aula' +  CHAR(09) + CHAR(124) +CHAR(09) + 'Laboratorio' + CHAR(10)
 	--Print @MensajeHoras
@@ -92,19 +89,34 @@ as begin
 	'Nombre de la actividad: ' + R.nombreActividad + CHAR(10) + CHAR(13) +
 	'Fecha de inicio: ' + CAST(R.fechaInicioActividad as varchar(10)) + CHAR(10) + CHAR(13) +
 	'Fecha de finalización: ' + CAST(R.fechaFinalActividad as varchar(10)) + CHAR(10) + CHAR(13)+
+	'Observaciones: ' + R.descripcion + CHAR(10) + CHAR(13) +
 	'Horario reservado: ' + CHAR(10) + CHAR(13) + CHAR(10) + CHAR(13)
 	from Reservacion R 
 	inner join HorarioReservado HR on HR.FKReservacion = R.id
 	where R.id = @fkid)
 
+		DECLARE @MensajeInfo varchar(max)
+
+	Select @MensajeInfo = CHAR(10) + CHAR(13) + 'Para mayor información comuníquese al 2250-9160
+
+Formas de pago:
+-> Depósito bancario o transferencia electrónica
+Cuentas bancarias:
+>>> Banco Nacional # 75-003959-4
+>>> Banco de Costa Rica # 275-004039-8
+
+Correo generado de manera automática, por favor no responda a este correo, ya que no recibirá ninguna respuesta.
+	'
+
+
 	PRINT @MensajeReservacion
 	PRINT @MensajeHoras
-	--Print @MensajeHoras2
+	Print @MensajeInfo
 
 	declare @titulo varchar(max)
-	Select @titulo = 'Notificacion Reservacion'
+	Select @titulo = 'Reservacion creada'
 	declare @mensaje varchar(max)
-	SET @mensaje = @MensajeReservacion + @MensajeHoras
+	SET @mensaje = @MensajeReservacion + @MensajeHoras + @MensajeInfo
 	
 	EXEC msdb.dbo.sp_send_dbmail
 		@profile_Name = 'ProyectoEmail',
@@ -376,6 +388,8 @@ go
 Exec NotificarReservacion 1
 
 select * from Reservacion
+
+select * from Comprobante
 
 select * from HorarioReservado
 
