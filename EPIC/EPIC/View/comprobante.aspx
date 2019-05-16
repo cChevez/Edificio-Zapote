@@ -76,15 +76,6 @@
                 <br />
                 <hr />
                 <br />
-                <div>
-                    <asp:FileUpload ID="fuArchivo" runat="server" />
-                    <br />
-                    <asp:Button class="button" ID="subirImagen" runat="server" Text="Subir archivo" OnClick="subirImagen_Click"/>
-                    <br />
-                </div>
-                <br />
-                <hr />
-                <br />
                 <div class="one_third first encierroCentral">
                     <asp:Label class="etiquetas" ID="Label2" runat="server" Text="¿Desea factura electrónica?"></asp:Label>
                     <asp:CheckBox ID="factura" runat="server" OnCheckedChanged="factura_CheckedChanged" AutoPostBack="True" />
@@ -117,6 +108,17 @@
                     <asp:Label class="etiquetas" ID="Label8" runat="server" Text="Dirección"></asp:Label>
                     <asp:TextBox ID="direccion" runat="server" ></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator6" runat="server" ErrorMessage="* Campo necesario" ControlToValidate="direccion" ForeColor="Red" class="etiquetas"></asp:RequiredFieldValidator>
+                </div>
+                <br />
+                <br />
+                <hr />
+                <br />
+                <br />
+                <div>
+                    <asp:FileUpload ID="fuArchivo" runat="server" />
+                    <br />
+                    <asp:Button class="button" ID="subirImagen" runat="server" Text="Subir archivo" OnClick="subirImagen_Click"/>
+                    <br />
                 </div>
                 <br />
                 <br />

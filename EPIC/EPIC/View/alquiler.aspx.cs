@@ -312,26 +312,8 @@ namespace EPIC
             {
                 Thread.Sleep(2000);
                 
-                nombre.Text = "";
-                empresa.Text = "";
-                cedula.Text = "";
-                correo.Text = "";
-                telefono.Text = "";
-                nombre.Text = "";
-                fechaInicio.Text = "";
-                fechaFinal.Text = "";
-                observaciones.Text = "";
-                listAulas.SelectedIndex = 0;
-                listLabs.SelectedIndex = 0;
-                diaReserva.Text = "";
-                horaInicio.Text = "";
-                horaFinal.Text = "";
-
                 ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Reservación creada');", true);
-
-                int nReservacion = Model.ConsultasDB.ObtenerNumeroReservacion(cedulaV);
-                Model.EnviarCorreo.CorreoReservacion(fechaForm, nombreV, empresaV, cedulaV, correoV, telefonoV, nombreActividadV, fechaInicioV, fechaFinalV, observacionesV, nReservacion);
-
+                
                 Thread.Sleep(1000);
                 Response.Redirect("Alquiler.aspx");
             }

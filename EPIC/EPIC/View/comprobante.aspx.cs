@@ -38,6 +38,7 @@ namespace EPIC
             }
             else
             {
+                ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Número de reservación válido');", true);
                 fuArchivo.Enabled = true;
                 subirImagen.Enabled = true;
             }
@@ -80,6 +81,8 @@ namespace EPIC
                 {
                     Model.EnviarCorreo.CorreoComprobanteUsuario(emailRes, numeroRes);
                 }
+
+                Model.ConsultasDB.ActualizarEstadoComprobante(numeroRes);
             }
         }
 
@@ -103,9 +106,6 @@ namespace EPIC
                     }
 
                     ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Se ha subido el comprobante correctamente');", true);
-
-                    //nombreArchivo = Path.GetFileNameWithoutExtension(fuArchivo.FileName);
-
                 }
                 else
                 {

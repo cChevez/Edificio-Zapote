@@ -104,5 +104,27 @@ namespace EPIC.Model
             msg.Body = mensaje;
             smtp.Send(msg);
         }
+
+        public static void RegistrarAdministrador(string email, string nombreCompleto, string password)
+        {
+            var smtpSection = (SmtpSection)ConfigurationManager.GetSection("system.net/mailSettings/smtp");
+            string strHost = smtpSection.Network.Host;
+            int port = smtpSection.Network.Port;
+            string strUserName = smtpSection.Network.UserName;
+            string strFromPass = smtpSection.Network.Password;
+            SmtpClient smtp = new SmtpClient(strHost, port);
+            NetworkCredential cert = new NetworkCredential(strUserName, strFromPass);
+            smtp.Credentials = cert;
+            smtp.EnableSsl = true;
+
+            MailMessage msg = new MailMessage(smtpSection.From, email);
+            msg.Subject = "Registro de administrador";
+            msg.IsBodyHtml = true;
+            string mensaje = string.Format("Señor(a) {2}{0}{0}Se le informa que ha sido agregado como administrador para la aplicación Reservaciones ePIC.{0}" +
+                "Sus datos de inicio de sesión son:{0}Correo electrónico: {1}{0}Contraseña: {3}{0}{0}Correo generado de manera automática," +
+                " por favor no responda este correo ya que no recibirá ninguna respueta.", "<br/>", email, nombreCompleto, password);
+            msg.Body = mensaje;
+            smtp.Send(msg);
+        }
     }
 }

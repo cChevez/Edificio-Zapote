@@ -84,7 +84,7 @@
                     <asp:Label class="etiquetas" ID="Label4" runat="server" Text="Cédula jurídica o física"></asp:Label>
                     <asp:TextBox ID="cedula" runat="server" ></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="* Campo necesario" ControlToValidate="cedula" ForeColor="Red" class="etiquetas"></asp:RequiredFieldValidator>
-                    <br /><asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="cedula" ValidationExpression="\d{9,12}" Text="* Solo números sin guiones" ForeColor="Red"></asp:RegularExpressionValidator>
+                    <br /><asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="cedula" class="etiquetas" ValidationExpression="\d{9,12}" Text="* Solo números sin guiones" ForeColor="Red"></asp:RegularExpressionValidator>
                     <br />
                     <br />
                 </div>
@@ -92,7 +92,7 @@
                     <asp:Label class="etiquetas" ID="Label5" runat="server" Text="Correo electrónico"></asp:Label>
                     <asp:TextBox ID="correo" runat="server" ></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="* Campo necesario" ControlToValidate="correo" ForeColor="Red" class="etiquetas"></asp:RequiredFieldValidator>
-                    <br /><asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ControlToValidate="correo" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" Text="* ejemplo@ejemplo.com" ForeColor="Red"></asp:RegularExpressionValidator>
+                    <br /><asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ControlToValidate="correo" class="etiquetas" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" Text="* ejemplo@ejemplo.com" ForeColor="Red"></asp:RegularExpressionValidator>
                     <br />
                     <br />
                 </div>
@@ -100,7 +100,7 @@
                     <asp:Label class="etiquetas" ID="Label6" runat="server" Text="Número de teléfono"></asp:Label>
                     <asp:TextBox ID="telefono" runat="server" ></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="* Campo necesario" ControlToValidate="telefono" ForeColor="Red" class="etiquetas"></asp:RequiredFieldValidator>
-                    <br /><asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ControlToValidate="telefono" ValidationExpression="\d{8}" Text="* Formato esperado 88888888" ForeColor="Red"></asp:RegularExpressionValidator>
+                    <br /><asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ControlToValidate="telefono" class="etiquetas" ValidationExpression="\d{8}" Text="* Formato esperado 88888888" ForeColor="Red"></asp:RegularExpressionValidator>
                     <br />
                     <br />
                 </div>
@@ -135,32 +135,32 @@
                     <br />
                     <asp:Label class="etiquetas" ID="Label10" runat="server" Text="Aula 1 (capacidad 25 personas)" Visible="false"></asp:Label>
                     <asp:TextBox ID="aula1" runat="server" Visible="false"></asp:TextBox>
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator9" runat="server" ControlToValidate="aula1" ValidationExpression="\b(1?\d|2[0-5])\b" Text="* No pueden haber más de 25 personas" ForeColor="Red"></asp:RegularExpressionValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator9" runat="server" class="etiquetas" ControlToValidate="aula1" ValidationExpression="\b(1?\d|2[0-5])\b" Text="* No pueden haber más de 25 personas" ForeColor="Red"></asp:RegularExpressionValidator>
                 </div>
                 <div class="one_half">
                     <br />
                     <asp:Label class="etiquetas" ID="Label11" runat="server" Text="Laboratorio B1 (capacidad 18 personas)" Visible="false"></asp:Label>
                     <asp:TextBox ID="lab1" runat="server" Visible="false"></asp:TextBox>
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator12" runat="server" ControlToValidate="lab1" ValidationExpression="\b(\d|1[0-8])\b" Text="* No pueden haber más de 18 personas" ForeColor="Red"></asp:RegularExpressionValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator12" runat="server" class="etiquetas" ControlToValidate="lab1" ValidationExpression="\b(\d|1[0-8])\b" Text="* No pueden haber más de 18 personas" ForeColor="Red"></asp:RegularExpressionValidator>
                 </div>
                 
                 <div class="one_half first">
                     <br />
                     <asp:Label class="etiquetas" ID="Label12" runat="server" Text="Aula 2 (capacidad 25 personas)" Visible="false"></asp:Label>
                     <asp:TextBox ID="aula2" runat="server" Visible="false"></asp:TextBox>
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator10" runat="server" ControlToValidate="aula2" ValidationExpression="\b(1?\d|2[0-5])\b" Text="* No pueden haber más de 25 personas" ForeColor="Red"></asp:RegularExpressionValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator10" runat="server" class="etiquetas" ControlToValidate="aula2" ValidationExpression="\b(1?\d|2[0-5])\b" Text="* No pueden haber más de 25 personas" ForeColor="Red"></asp:RegularExpressionValidator>
                 </div>
                 <div class="one_half">
                     <br />
                     <asp:Label class="etiquetas" ID="Label13" runat="server" Text="Laboratorio B2 (capacidad 20 personas)" Visible="false"></asp:Label>
                     <asp:TextBox ID="lab2" runat="server" Visible="false"></asp:TextBox>
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator13" runat="server" ControlToValidate="lab2" ValidationExpression="\b(1?\d|20)\b" Text="* No pueden haber más de 20 personas" ForeColor="Red"></asp:RegularExpressionValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator13" runat="server" class="etiquetas" ControlToValidate="lab2" ValidationExpression="\b(1?\d|20)\b" Text="* No pueden haber más de 20 personas" ForeColor="Red"></asp:RegularExpressionValidator>
                 </div>
                 <div class="one_half first">
                     <br />
                     <asp:Label class="etiquetas" ID="Label14" runat="server" Text="Aula 3 (capacidad 25 personas)" Visible="false"></asp:Label>
                     <asp:TextBox ID="aula3" runat="server" Visible="false"></asp:TextBox>
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator11" runat="server" ControlToValidate="aula3" ValidationExpression="\b(1?\d|2[0-5])\b" Text="* No pueden haber más de 25 personas" ForeColor="Red"></asp:RegularExpressionValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator11" runat="server" class="etiquetas" ControlToValidate="aula3" ValidationExpression="\b(1?\d|2[0-5])\b" Text="* No pueden haber más de 25 personas" ForeColor="Red"></asp:RegularExpressionValidator>
                 </div>
                 <br />
                 <br />
@@ -205,12 +205,12 @@
                 <div class="one_quarter">
                     <asp:Label class="etiquetas" ID="Label22" runat="server" Text="Hora de inicio" ></asp:Label> 
                     <asp:TextBox class="fecha" ID="horaInicio" runat="server" MaxLength="5"></asp:TextBox>
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator7" class="etiquetas" runat="server" ControlToValidate="horaInicio" ValidationExpression="^((0[8-9]|1[0-9]):[0|3]0)|^(2[0-0]):00$" Text="De 08:00 a 20:00" ForeColor="Red"></asp:RegularExpressionValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator7" class="etiquetas" runat="server" ControlToValidate="horaInicio" ValidationExpression="^((0?[8-9]|1[0-9]):[0|3]0)|^(2[0-0]):00$" Text="De 08:00 a 20:00" ForeColor="Red"></asp:RegularExpressionValidator>
                 </div>
                 <div class="one_quarter">
                     <asp:Label class="etiquetas" ID="Label23" runat="server" Text="Hora de finalización" ></asp:Label> 
                     <asp:TextBox class="fecha" ID="horaFinal" runat="server" MaxLength="5"></asp:TextBox>
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator8" class="etiquetas" runat="server" ControlToValidate="horaFinal" ValidationExpression="^(09|1[0-9]:[0|3]0)|^(2[0|1]):[0|3]0$" Text="De 09:00 a 21:30" ForeColor="Red"></asp:RegularExpressionValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator8" class="etiquetas" runat="server" ControlToValidate="horaFinal" ValidationExpression="^((0?9|1[0-9]):([0|3]0))|^(2[0|1]):[0|3]0$" Text="De 09:00 a 21:30" ForeColor="Red"></asp:RegularExpressionValidator>
                 </div>
                 <div class="one_third first">
                     <asp:DropDownList ID="AulasEscogidas" runat="server">

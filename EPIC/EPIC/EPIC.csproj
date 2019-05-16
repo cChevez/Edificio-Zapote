@@ -70,6 +70,7 @@
   <ItemGroup>
     <Content Include="View\Alquiler.aspx" />
     <Content Include="View\Comprobante.aspx" />
+    <Content Include="View\Download.aspx" />
     <Content Include="View\Index.aspx" />
     <Content Include="styles\framework.css" />
     <Content Include="Global.asax" />
@@ -93,12 +94,20 @@
     <Content Include="styles\styles.css" />
     <Content Include="View\IndexAdministrativo.aspx" />
     <Content Include="View\Login.aspx" />
+    <Content Include="View\RegistrarAdministradores.aspx" />
+    <Content Include="View\RegistrarEstudiantes.aspx" />
+    <Content Include="View\RegistrarProtocolos.aspx" />
     <Content Include="View\Reservaciones.aspx" />
+    <Content Include="View\VerAdministradores.aspx" />
+    <Content Include="View\VerDocumentosCliente.aspx" />
+    <Content Include="View\VerEstudiantes.aspx" />
+    <Content Include="View\VerProtocolos.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Archivo.cs" />
     <Compile Include="View\Alquiler.aspx.cs">
       <DependentUpon>Alquiler.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -112,6 +121,13 @@
     </Compile>
     <Compile Include="View\Comprobante.aspx.designer.cs">
       <DependentUpon>Comprobante.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\Download.aspx.cs">
+      <DependentUpon>Download.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\Download.aspx.designer.cs">
+      <DependentUpon>Download.aspx</DependentUpon>
     </Compile>
     <Compile Include="View\Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
@@ -129,7 +145,6 @@
     </Compile>
     <Compile Include="Model\ConsultasDB.cs" />
     <Compile Include="Model\EnviarCorreo.cs" />
-    <Compile Include="Model\Horario.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -148,12 +163,61 @@
     <Compile Include="View\Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="View\RegistrarAdministradores.aspx.cs">
+      <DependentUpon>RegistrarAdministradores.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\RegistrarAdministradores.aspx.designer.cs">
+      <DependentUpon>RegistrarAdministradores.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\RegistrarEstudiantes.aspx.cs">
+      <DependentUpon>RegistrarEstudiantes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\RegistrarEstudiantes.aspx.designer.cs">
+      <DependentUpon>RegistrarEstudiantes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\RegistrarProtocolos.aspx.cs">
+      <DependentUpon>RegistrarProtocolos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\RegistrarProtocolos.aspx.designer.cs">
+      <DependentUpon>RegistrarProtocolos.aspx</DependentUpon>
+    </Compile>
     <Compile Include="View\Reservaciones.aspx.cs">
       <DependentUpon>Reservaciones.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="View\Reservaciones.aspx.designer.cs">
       <DependentUpon>Reservaciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\VerAdministradores.aspx.cs">
+      <DependentUpon>VerAdministradores.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\VerAdministradores.aspx.designer.cs">
+      <DependentUpon>VerAdministradores.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\VerDocumentosCliente.aspx.cs">
+      <DependentUpon>VerDocumentosCliente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\VerDocumentosCliente.aspx.designer.cs">
+      <DependentUpon>VerDocumentosCliente.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\VerEstudiantes.aspx.cs">
+      <DependentUpon>VerEstudiantes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\VerEstudiantes.aspx.designer.cs">
+      <DependentUpon>VerEstudiantes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\VerProtocolos.aspx.cs">
+      <DependentUpon>VerProtocolos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\VerProtocolos.aspx.designer.cs">
+      <DependentUpon>VerProtocolos.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

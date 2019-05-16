@@ -35,9 +35,18 @@
                     <li><a href="Reservaciones.aspx">Control de reservaciones</a></li>
                     <li><a class="drop" href="#">Agregar</a>
                         <ul>
-                            <li><a href="#">Administradores</a></li>
-                            <li><a href="#">Estudiantes</a></li>
-                            <li><a href="#">Protocolos de emergencia</a></li>
+                            <li><a href="RegistrarAdministradores.aspx">Administradores</a></li>
+                            <li><a href="RegistrarEstudiantes.aspx">Estudiantes</a></li>
+                            <li><a href="RegistrarProtocolos.aspx">Protocolos de emergencia</a></li>
+                            <li><a href="#">Eventos realizados</a></li>
+                            <li><a href="#">Cursos disponibles</a></li>
+                        </ul>
+                    </li>
+                    <li><a class="drop" href="#">Ver</a>
+                        <ul>
+                            <li><a href="VerAdministradores.aspx">Administradores</a></li>
+                            <li><a href="VerEstudiantes.aspx">Estudiantes</a></li>
+                            <li><a href="VerProtocolos.aspx">Protocolos de emergencia</a></li>
                             <li><a href="#">Eventos realizados</a></li>
                             <li><a href="#">Cursos disponibles</a></li>
                         </ul>
