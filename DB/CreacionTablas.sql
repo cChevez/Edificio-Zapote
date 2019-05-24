@@ -26,9 +26,6 @@ create table Operador(
 	email nvarchar(50) unique not null,
 );
 
-
-
-
 create table TipoReservacion(
 	id int identity primary key,
 	nombre nvarchar(50) not null,
@@ -55,6 +52,16 @@ create table estadoReservacion(
 	id int identity primary key,
 	nombreEstado varchar(50),
 	descripcion varchar(250)
+);
+
+
+create table Estudiante(
+
+	id int identity primary key,
+	nombre nvarchar(50) not null,
+	apellido nvarchar(50) not null,
+	email nvarchar(50) unique not null,
+	--contra nvarchar(25) not null
 );
 
 create table Reservacion(
@@ -87,6 +94,15 @@ create table HorarioReservado(
 	FKReservacion int constraint FKHorarioReservadoXReservacion foreign key references Reservacion(id) not null,
 );
 
+create table HorarioEstudiante(
+	id int identity primary key,
+	dia varchar(15) not null,
+	horaInicio datetime not null,
+	horaFinal datetime not null,
+	FKHorarioEstudiante int constraint FKHorarioReservadoXEstudiante foreign key references Estudiante(id) not null,
+);
+
+
 create table Comprobante(
 	id int identity primary key,
 	imgComprobante image not null,
@@ -103,6 +119,15 @@ CREATE Table HorasSolicitudTable(
 	numLab int CONSTRAINT CHK_NumLab CHECK (numLab>=1 AND numLab <=2),
 	CONSTRAINT CHK_HorasReserva CHECK (horaInicio < horaFinal),
 	CONSTRAINT CHK_DiaReserva CHECK (horaInicio < horaFinal),
+);
+
+CREATE Table HorasHorariosTable(
+	id int identity primary key,
+	dia varchar(15),
+	horaInicio datetime,
+	horaFinal datetime,
+	CONSTRAINT CHK_HorasHorarios CHECK (horaInicio < horaFinal),
+	CONSTRAINT CHK_DiaHoraHorarios CHECK (horaInicio < horaFinal),
 );
 
 CREATE Table FilesSave(

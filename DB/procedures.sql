@@ -80,7 +80,8 @@ as begin
 	Select @MensajeReservacion = (select distinct 'Se ha creado su reservación exitosamente.' + CHAR(10) + CHAR(13) + CHAR(10) + CHAR(13) + 
 	'Datos de Reservacion' + CHAR(10) + CHAR(13) + CHAR(10) + CHAR(13) + 
 	'Numero de Reservacion: '+ CAST(R.id as varchar(10))  + CHAR(10) + CHAR(13) +
-	'Fecha de creación: ' + CAST(R.fechaSolicitud as varchar(10)) + CHAR(10) + CHAR(13) +
+	--'Fecha de creación: ' + CAST(R.fechaSolicitud as varchar(10)) + CHAR(10) + CHAR(13) +
+	'Fecha de creación: ' + convert(varchar, R.fechaSolicitud, 105) + CHAR(10) + CHAR(13) +
 	'Nombre del reservante: ' + R.nombreSolicitante + CHAR(10) + CHAR(13) +
 	'Nombre de la empresa: ' + R.nombreEmpresa + CHAR(10) + CHAR(13) +
 	'Cédula jurídica: ' + R.cedulaJuridica + CHAR(10) + CHAR(13) +
@@ -262,13 +263,20 @@ as begin
 	FROM Reservacion R	
 	inner join HorarioReservado HR on R.id =  HR.FKReservacion
 	WHERE (DATEDIFF(DAY,getDate(), HR.dia) = 2 AND R.FKEstadoReservacion = 1)
+
+
 	/*
 	SELECT R.email, R.nombreSolicitante, R.id, IDENTITY(INT,1,1) AS rn INTO #temp 	
 	FROM Reservacion R	
 	inner join HorarioReservado HR on R.FKHorarioReservado =  HR.id
 	WHERE (DATEDIFF(DAY,'04-30-19', HR.dia) = 2 AND R.FKEstadoReservacion = 1)
 	*/
+
 	Select * from #temp
+
+	select * from Reservacion
+
+	select * from HorarioReservado
 
 	while @contador <= (SELECT COUNT(*) FROM #temp)
 	BEGIN
@@ -372,7 +380,7 @@ as begin
 	
 
 	UPDATE Reservacion
-	SET FKEstadoReservacion = 3
+	SET FKEstadoReservacion = 4
 	WHERE id=@id
 	SET @contador=@contador+1
 	/*
@@ -385,13 +393,48 @@ end
 go
 
 
-Exec NotificarReservacion 1
+create or alter procedure insertarOperador @nombre nvarchar(50), @apellido nvarchar(50), @email nvarchar(50)
+--@dia date, @horaInicio datetime, @horaFinal datetime, 
+as begin
+	set nocount on
+	begin transaction
+	begin try
+		if exists(select * from HorarioEstudiante HS
+					inner join HorasHorariosTable T on
+					HS.dia = T.dia and HS.dia = T.dia and 
+					((HS.horaInicio >= T.horaInicio and HS.horaInicio < T.horaFinal)
+					or (HS.horaFinal > T.horaInicio and HS.horaFinal <= T.horaFinal)))		
+		begin
+			rollback
+			select ERROR_MESSAGE()
+			return -1
+		end
+		insert into Estudiante(nombre, apellido, email) values (@nombre, @apellido, @email)
+		declare @FKid int 
+		set @FKid = @@IDENTITY
+		PRINT @FKid
+		insert into HorarioEstudiante(dia, horaInicio, horaFinal,FKHorarioEstudiante) 
+			select T.dia, T.horaInicio, T.horaFinal, @FKid
+			from HorasHorariosTable T
+		select * from HorarioEstudiante
+	commit
+	return @@identity
+	end try
+	begin catch
+		rollback
+		select ERROR_MESSAGE()
+		return -1
+	end catch
+end
+go
+
 
 select * from Reservacion
 
 select * from Comprobante
 
 select * from HorarioReservado
+
 
 
 
@@ -449,13 +492,26 @@ DELETE FROM Reservacion
 --insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('12-12-19','16:00:00','19:00:00',null,2)
 
 
-insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-12-19','09:00:00','11:00:00',1,null)
-insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-12-19','10:00:00','12:00:00',2,null)
-insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-12-19','16:00:00','19:00:00',3,null)
-insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-12-19','12:00:00','16:00:00',null,1)
-insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-12-19','16:00:00','19:00:00',null,2)
+insert into HorasHorariosTable(dia, horaInicio, horaFinal) values ('Lunes','09:00:00','11:00:00')
+insert into HorasHorariosTable(dia, horaInicio, horaFinal) values ('Martes','10:00:00','12:00:00')
+insert into HorasHorariosTable(dia, horaInicio, horaFinal) values ('Miercoles','16:00:00','19:00:00')
+insert into HorasHorariosTable(dia, horaInicio, horaFinal) values ('Jueves','12:00:00','16:00:00')
+insert into HorasHorariosTable(dia, horaInicio, horaFinal) values ('Lunes','16:00:00','19:00:00')
 
-Exec insertarTotal '05-03-2019', 'Andres Gutierrez', 'nombreEmpresa', '2-0004-3123', 'andreguti333@gmail.com', '5124-1351','NombreActividad','12-14-19', '12-20-19','observacion', 12, 123
+select * from HorasHorariosTable
+
+
+select * from Estudiante
+
+select * from HorarioEstudiante
+
+delete from Estudiante
+
+delete from HorasHorariosTable
+
+exec insertarOperador 'Andres','Gutierrez','test@test.com'
+
+Exec insertarTotal '05-03-2019', 'Andres Gutierrez', 'nombreEmpresa', '2-0004-3123', 'andreguti333@gmail.com', '5124-1351','NombreActividad','05-16-19', '05-18-19','observacion', 12, 123
 
 select * from HorasSolicitudTable
 insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-12-19','09:00:00','11:00:00',3,null)
