@@ -500,7 +500,6 @@ insert into HorasHorariosTable(dia, horaInicio, horaFinal) values ('Lunes','16:0
 
 select * from HorasHorariosTable
 
-
 select * from Estudiante
 
 select * from HorarioEstudiante
@@ -522,13 +521,3 @@ insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) value
 
 Exec insertarTotal '05-03-2019', 'Carlos Chevez', 'nombreEmpresa', '2-0004-3123', 'cjchevezc@gmail.com', '5124-1351','NombreActividad','12-14-19', '12-20-19','observacion', 12,1234
 
---DELETE FROM FilesSave
-
---exec SaveFile 'sqlservercentral_logo','C:\test','.jpg'
-
---exec TestSP
-
---Declare @idAula int
---set @idAula = (Select A.id from Aula A inner join HorasSolicitudTable H on H.numAula = A.numeroAula)
-
---PRINT @idAula

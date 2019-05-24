@@ -136,3 +136,10 @@ CREATE Table FilesSave(
 	FilePath varchar(MAX),
 	ext varchar(5)
 );
+
+CREATE Table Archivos(
+	id int identity primary key,
+	nombre varchar(250) not null,
+	archivo	image(MAX) not null,
+	size int not null,	
+);
