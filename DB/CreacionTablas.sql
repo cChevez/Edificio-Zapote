@@ -140,6 +140,6 @@ CREATE Table FilesSave(
 CREATE Table Archivos(
 	id int identity primary key,
 	nombre varchar(250) not null,
-	archivo	image(MAX) not null,
+	archivo	image not null,
 	size int not null,	
 );

@@ -77,7 +77,7 @@ as begin
 
 	END
 
-	Select @MensajeReservacion = (select distinct 'Se ha creado su reservación exitosamente.' + CHAR(10) + CHAR(13) + CHAR(10) + CHAR(13) + 
+	Select @MensajeReservacion = (select distinct 'Su reservacion en el edificio ePIC se ha creado exitosamente.' + CHAR(10) + CHAR(13) + CHAR(10) + CHAR(13) + 
 	'Datos de Reservacion' + CHAR(10) + CHAR(13) + CHAR(10) + CHAR(13) + 
 	'Numero de Reservacion: '+ CAST(R.id as varchar(10))  + CHAR(10) + CHAR(13) +
 	--'Fecha de creación: ' + CAST(R.fechaSolicitud as varchar(10)) + CHAR(10) + CHAR(13) +
@@ -123,11 +123,11 @@ Correo generado de manera automática, por favor no responda a este correo, ya qu
 		@profile_Name = 'ProyectoEmail',
 		--@recipients = @copy_to,
 		@recipients = @Email,
+		@copy_recipients = 'andreduard333@gmail.com',
 		@subject = @titulo,
 		@body = @Mensaje
 		--@body_format = 'HTML'
 end 
-
 go
 
 
@@ -297,7 +297,7 @@ as begin
 		@profile_Name = 'ProyectoEmail',
 		--@recipients = @copy_to,
 		@recipients = @Email,
-		--@copy_recipients = 'andreguti333@gmail.com',
+		@copy_recipients = 'andreduard333@gmail.com',
 		@subject = @titulo,
 		@body = @Mensaje
 		--@body_format = 'HTML'
@@ -364,7 +364,6 @@ as begin
 	
 	EXEC msdb.dbo.sp_send_dbmail
 		@profile_Name = 'ProyectoEmail',
-		--@recipients = @copy_to,
 		@recipients = @Email,
 		@subject = @titulo,
 		@body = @Mensaje
@@ -393,8 +392,79 @@ end
 go
 
 
+create or alter procedure NotificarOperador @fkid int
+as begin
+	DECLARE @id int 
+	declare @Email varchar(max)
+	DECLARE @dia varchar(20)
+	DECLARE @horaInicio varchar(20)
+	DECLARE @horaFinal varchar(20)
+	DECLARE @MensajeReservacion varchar(max)
+	SET @id = @@IDENTITY
+	DECLARE @contador int
+	SET @contador=1
+	DECLARE @MensajeHoras varchar(max)
+
+	IF OBJECT_ID('tempdb..#temp') IS NOT NULL
+	DROP TABLE #temp
+
+	PRINT @id
+
+	Select @Email = (select distinct R.email
+	from Estudiante R 
+	inner join HorarioEstudiante HR on HR.FKHorarioEstudiante = R.id
+	where R.id = @fkid)
+
+	SELECT HR.dia, HR.horaInicio, HR.horaFinal ,IDENTITY(INT,1,1) AS rn INTO #temp 	
+	from HorarioEstudiante HR where HR.FKHorarioEstudiante = @fkid
+
+	Select * from #temp
+	
+	SELECT @MensajeHoras = CHAR(09) +'Dia' +CHAR(09) + CHAR(09) + CHAR(124) +CHAR(09) + 'Hora Inicio' + CHAR(08) +CHAR(09) + CHAR(09) + CHAR(124) +CHAR(09) + 'Hora Final' + CHAR(09) + CHAR(09) + CHAR(124) +CHAR(09) + CHAR(10)
+	Print @MensajeHoras
+
+	while @contador <= (SELECT COUNT(*) FROM #temp)
+	BEGIN
+	SELECT @dia=dia, @horaInicio=convert(varchar, horaInicio, 8), @horaFinal=convert(varchar, horaFinal, 8) FROM #temp WHERE rn=@contador
+
+	SELECT @MensajeHoras += CHAR(09) + CHAR(09) + @dia + CHAR(09) + CHAR(09) + @horaInicio +CHAR(09) +CHAR(09) + CHAR(09) + @horaFinal +CHAR(09) +CHAR(09) + CHAR(09) + CHAR(10)
+	
+	SET @contador=@contador+1
+
+	END
+
+	Select @MensajeReservacion = 'Reservaciones ePIC informa:
+
+	Se le comunica que ha sido agregado como estudiante operador para el edificio ePIC.
+	Su horario es el siguiente:
+	
+	'
+
+	DECLARE @MensajeInfo varchar(max)
+
+	Select @MensajeInfo = CHAR(10) + CHAR(13) + 'Correo generado de manera automática, por favor no responda a este correo, ya que no recibirá ninguna respuesta.'
+
+	PRINT @MensajeReservacion
+	PRINT @MensajeHoras
+
+	declare @titulo varchar(max)
+	Select @titulo = 'Registro de estudiante'
+	declare @mensaje varchar(max)
+	SET @mensaje = @MensajeReservacion + @MensajeHoras + @MensajeInfo
+	
+	EXEC msdb.dbo.sp_send_dbmail
+		@profile_Name = 'ProyectoEmail',
+		--@recipients = @copy_to,
+		@recipients = @Email,
+		@copy_recipients = 'andreduard333@gmail.com',
+		@subject = @titulo,
+		@body = @Mensaje
+		--@body_format = 'HTML'
+end 
+go
+
+
 create or alter procedure insertarOperador @nombre nvarchar(50), @apellido nvarchar(50), @email nvarchar(50)
---@dia date, @horaInicio datetime, @horaFinal datetime, 
 as begin
 	set nocount on
 	begin transaction
@@ -416,13 +486,16 @@ as begin
 		insert into HorarioEstudiante(dia, horaInicio, horaFinal,FKHorarioEstudiante) 
 			select T.dia, T.horaInicio, T.horaFinal, @FKid
 			from HorasHorariosTable T
+		exec NotificarOperador @FKid
 		select * from HorarioEstudiante
+		Delete from HorasHorariosTable
 	commit
 	return @@identity
 	end try
 	begin catch
 		rollback
 		select ERROR_MESSAGE()
+		Delete from HorasHorariosTable
 		return -1
 	end catch
 end
@@ -496,7 +569,8 @@ insert into HorasHorariosTable(dia, horaInicio, horaFinal) values ('Lunes','09:0
 insert into HorasHorariosTable(dia, horaInicio, horaFinal) values ('Martes','10:00:00','12:00:00')
 insert into HorasHorariosTable(dia, horaInicio, horaFinal) values ('Miercoles','16:00:00','19:00:00')
 insert into HorasHorariosTable(dia, horaInicio, horaFinal) values ('Jueves','12:00:00','16:00:00')
-insert into HorasHorariosTable(dia, horaInicio, horaFinal) values ('Lunes','16:00:00','19:00:00')
+insert into HorasHorariosTable(dia, horaInicio, horaFinal) values ('Viernes','12:00:00','16:00:00')
+
 
 select * from HorasHorariosTable
 
@@ -508,7 +582,10 @@ delete from Estudiante
 
 delete from HorasHorariosTable
 
-exec insertarOperador 'Andres','Gutierrez','test@test.com'
+delete from HorarioEstudiante
+
+
+exec insertarOperador 'Andres','Gutierrez','andreguti333@gmail.com'
 
 Exec insertarTotal '05-03-2019', 'Andres Gutierrez', 'nombreEmpresa', '2-0004-3123', 'andreguti333@gmail.com', '5124-1351','NombreActividad','05-16-19', '05-18-19','observacion', 12, 123
 
