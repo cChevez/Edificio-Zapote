@@ -60,7 +60,7 @@ h1, h2, h3, h4, h5, h6, .heading{font-family:Georgia, "Times New Roman", Times, 
 form, fieldset, legend{margin:0; padding:0; border:none;}
 legend{display:none;}
 label, input, textarea, select, button{display:block; resize:none; outline:none; color:inherit; font-size:inherit; font-family:inherit; vertical-align:middle;
-    width: 250px; margin-left:10px;
+    margin-left:10px;
 }
 .button{width: 150px}
 .fecha{width: 150px}

@@ -30,6 +30,27 @@ namespace EPIC.Model
             sqlConnection.Close();
         }
 
+        internal static void SubirCurso(string name, byte[] foto, string description)
+        {
+            SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["ePICsqlConnection"].ToString());
+            sqlConnection.Open();
+
+            string query = @"Insert into Cursos (nombre, foto, descripcion) values (@nombre, @foto, @descripcion)";
+
+            SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+
+            sqlCommand.Parameters.AddWithValue("@nombre", name);
+
+            SqlParameter archivoParam = sqlCommand.Parameters.Add("@foto", System.Data.SqlDbType.Image);
+            archivoParam.Value = foto;
+
+            sqlCommand.Parameters.AddWithValue("@descripcion", description);
+
+            sqlCommand.ExecuteNonQuery();
+
+            sqlConnection.Close();
+        }
+
         public static void InsertarHoras(string fecha, string inicio, string final)
         {
             SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["ePICsqlConnection"].ToString());
@@ -183,12 +204,12 @@ namespace EPIC.Model
             sqlConnection.Close();
         }
 
-        public static void AgregarHorarioEstudiante(string dia, string horaInicio, string horaFinal, string estudiante)
+        public static void AgregarHorarioEstudiante(string dia, string horaInicio, string horaFinal)
         {
             SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["ePICsqlConnection"].ToString());
             sqlConnection.Open();
-            SqlCommand sqlCommand = new SqlCommand("Insert into HorarioEstudiante(dia, horaInicio, horaFinal, FKEstudiante) values ('" + dia + "','" + horaInicio +
-                "','" + horaFinal + "','" + estudiante + "')", sqlConnection);
+            SqlCommand sqlCommand = new SqlCommand("Insert into HorasHorariosTable(dia, horaInicio, horaFinal) " +
+                "values ('" + dia + "','" + horaInicio +  "','" + horaFinal + "')", sqlConnection);
 
             sqlCommand.ExecuteNonQuery();
 
@@ -228,6 +249,31 @@ namespace EPIC.Model
             sqlConnection.Close();
         }
 
+        public static Archivo ObtenerComprobante(int id)
+        {
+            Archivo arch = null;
+
+            SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["ePICsqlConnection"].ToString());
+            sqlConnection.Open();
+
+            string query = @"SELECT imgComprobante, FKReservacion FROM Comprobante WHERE FKReservacion = @id";
+
+            SqlCommand sqlCommand = new SqlCommand(query, sqlConnection);
+            sqlCommand.Parameters.AddWithValue("@id", id);
+
+            SqlDataReader reader = sqlCommand.ExecuteReader();
+
+            if (reader.Read())
+            {
+                arch = new Archivo(Convert.ToInt32(reader["FKReservacion"]));
+
+                arch.ContenidoArchivo = (byte[])reader["imgComprobante"];
+
+            }
+
+            return arch;
+        }
+
         public static Archivo ObtenerArchivo(int id)
         {
             Archivo arch = null;
@@ -254,6 +300,53 @@ namespace EPIC.Model
             }
 
             return arch;
+        }
+
+        public static String ObtenerUsuario(string email, string pass)
+        {
+            SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["ePICsqlConnection"].ToString());
+            sqlConnection.Open();
+            SqlCommand sqlCommand = new SqlCommand("select nombre + ' ' + apellido from Administrador where email= '" + email + "' and contra = '" + pass + "'", sqlConnection);
+
+            sqlCommand.ExecuteNonQuery();
+
+            return Convert.ToString(sqlCommand.ExecuteScalar());
+        }
+
+        public static void AgregarEstudiante(string nombre, string apellido, string correo)
+        {
+            SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["ePICsqlConnection"].ToString());
+            sqlConnection.Open();
+
+            SqlCommand sqlCommand = new SqlCommand("Execute insertarOperador '" + nombre + "','" + apellido + "','" + correo + "'", sqlConnection);
+
+            sqlCommand.ExecuteNonQuery();
+
+            sqlConnection.Close();
+        }
+
+        public static void BorrarDatosTablaHorariosEstudiantes()
+        {
+            SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["ePICsqlConnection"].ToString());
+            sqlConnection.Open();
+
+            SqlCommand sqlCommand = new SqlCommand("Delete from HorasHorariosTable", sqlConnection);
+
+            sqlCommand.ExecuteNonQuery();
+
+            sqlConnection.Close();
+        }
+        
+        public static void BorrarCurso(string id)
+        {
+            SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["ePICsqlConnection"].ToString());
+            sqlConnection.Open();
+
+            SqlCommand sqlCommand = new SqlCommand("Delete from Cursos where id = '" + id + "'", sqlConnection);
+
+            sqlCommand.ExecuteNonQuery();
+
+            sqlConnection.Close();
         }
     }
 }

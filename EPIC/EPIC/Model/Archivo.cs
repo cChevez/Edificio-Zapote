@@ -13,6 +13,10 @@ namespace EPIC.Model
             this.Nombre = nombre;
             this.Length = length;
         }
+        public Archivo(int id)
+        {
+            this.Id = id;
+        }
         public int Id { get; set; }
         public int Length { get; set; }
         public string Nombre { get; set; }

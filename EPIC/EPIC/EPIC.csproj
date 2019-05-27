@@ -68,10 +68,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="View\Alquiler.aspx" />
-    <Content Include="View\Comprobante.aspx" />
-    <Content Include="View\Download.aspx" />
-    <Content Include="View\Index.aspx" />
+    <Content Include="View\AdministratorViews\DetalleReservacion.aspx" />
+    <Content Include="View\AdministratorViews\DetallesEstudiante.aspx" />
+    <Content Include="View\AdministratorViews\DownloadComprobante.aspx" />
+    <Content Include="View\AdministratorViews\RegistrarCursos.aspx" />
+    <Content Include="View\AdministratorViews\VerComprobante.aspx" />
+    <Content Include="View\AdministratorViews\VerCursos.aspx" />
+    <Content Include="View\UserViews\Alquiler.aspx" />
+    <Content Include="View\UserViews\Comprobante.aspx" />
+    <Content Include="View\UserViews\DetalleCursos.aspx" />
+    <Content Include="View\UserViews\Download.aspx" />
+    <Content Include="View\UserViews\Index.aspx" />
     <Content Include="styles\framework.css" />
     <Content Include="Global.asax" />
     <Content Include="images\demo\320x180.png" />
@@ -92,48 +99,98 @@
     <Content Include="styles\fonts\fontawesome-webfont.svg" />
     <Content Include="styles\fonts\index.html" />
     <Content Include="styles\styles.css" />
-    <Content Include="View\IndexAdministrativo.aspx" />
-    <Content Include="View\Login.aspx" />
-    <Content Include="View\RegistrarAdministradores.aspx" />
-    <Content Include="View\RegistrarEstudiantes.aspx" />
-    <Content Include="View\RegistrarProtocolos.aspx" />
-    <Content Include="View\Reservaciones.aspx" />
-    <Content Include="View\VerAdministradores.aspx" />
-    <Content Include="View\VerDocumentosCliente.aspx" />
-    <Content Include="View\VerEstudiantes.aspx" />
-    <Content Include="View\VerProtocolos.aspx" />
+    <Content Include="View\AdministratorViews\IndexAdministrativo.aspx" />
+    <Content Include="View\UserViews\Login.aspx" />
+    <Content Include="View\AdministratorViews\RegistrarAdministradores.aspx" />
+    <Content Include="View\AdministratorViews\RegistrarEstudiantes.aspx" />
+    <Content Include="View\AdministratorViews\RegistrarProtocolos.aspx" />
+    <Content Include="View\AdministratorViews\Reservaciones.aspx" />
+    <Content Include="View\AdministratorViews\VerAdministradores.aspx" />
+    <Content Include="View\UserViews\VerCursosCliente.aspx" />
+    <Content Include="View\UserViews\VerDocumentosCliente.aspx" />
+    <Content Include="View\AdministratorViews\VerEstudiantes.aspx" />
+    <Content Include="View\AdministratorViews\VerProtocolos.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Archivo.cs" />
-    <Compile Include="View\Alquiler.aspx.cs">
+    <Compile Include="View\AdministratorViews\DetalleReservacion.aspx.cs">
+      <DependentUpon>DetalleReservacion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\AdministratorViews\DetalleReservacion.aspx.designer.cs">
+      <DependentUpon>DetalleReservacion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdministratorViews\DetallesEstudiante.aspx.cs">
+      <DependentUpon>DetallesEstudiante.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\AdministratorViews\DetallesEstudiante.aspx.designer.cs">
+      <DependentUpon>DetallesEstudiante.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdministratorViews\DownloadComprobante.aspx.cs">
+      <DependentUpon>DownloadComprobante.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\AdministratorViews\DownloadComprobante.aspx.designer.cs">
+      <DependentUpon>DownloadComprobante.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdministratorViews\RegistrarCursos.aspx.cs">
+      <DependentUpon>RegistrarCursos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\AdministratorViews\RegistrarCursos.aspx.designer.cs">
+      <DependentUpon>RegistrarCursos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdministratorViews\VerComprobante.aspx.cs">
+      <DependentUpon>VerComprobante.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\AdministratorViews\VerComprobante.aspx.designer.cs">
+      <DependentUpon>VerComprobante.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdministratorViews\VerCursos.aspx.cs">
+      <DependentUpon>VerCursos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\AdministratorViews\VerCursos.aspx.designer.cs">
+      <DependentUpon>VerCursos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserViews\Alquiler.aspx.cs">
       <DependentUpon>Alquiler.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="View\Alquiler.aspx.designer.cs">
+    <Compile Include="View\UserViews\Alquiler.aspx.designer.cs">
       <DependentUpon>Alquiler.aspx</DependentUpon>
     </Compile>
-    <Compile Include="View\Comprobante.aspx.cs">
+    <Compile Include="View\UserViews\Comprobante.aspx.cs">
       <DependentUpon>Comprobante.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="View\Comprobante.aspx.designer.cs">
+    <Compile Include="View\UserViews\Comprobante.aspx.designer.cs">
       <DependentUpon>Comprobante.aspx</DependentUpon>
     </Compile>
-    <Compile Include="View\Download.aspx.cs">
+    <Compile Include="View\UserViews\DetalleCursos.aspx.cs">
+      <DependentUpon>DetalleCursos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\UserViews\DetalleCursos.aspx.designer.cs">
+      <DependentUpon>DetalleCursos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserViews\Download.aspx.cs">
       <DependentUpon>Download.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="View\Download.aspx.designer.cs">
+    <Compile Include="View\UserViews\Download.aspx.designer.cs">
       <DependentUpon>Download.aspx</DependentUpon>
     </Compile>
-    <Compile Include="View\Index.aspx.cs">
+    <Compile Include="View\UserViews\Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="View\Index.aspx.designer.cs">
+    <Compile Include="View\UserViews\Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
     <Compile Include="Inicio.Master.cs">
@@ -149,74 +206,81 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="View\IndexAdministrativo.aspx.cs">
+    <Compile Include="View\AdministratorViews\IndexAdministrativo.aspx.cs">
       <DependentUpon>IndexAdministrativo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="View\IndexAdministrativo.aspx.designer.cs">
+    <Compile Include="View\AdministratorViews\IndexAdministrativo.aspx.designer.cs">
       <DependentUpon>IndexAdministrativo.aspx</DependentUpon>
     </Compile>
-    <Compile Include="View\Login.aspx.cs">
+    <Compile Include="View\UserViews\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="View\Login.aspx.designer.cs">
+    <Compile Include="View\UserViews\Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
-    <Compile Include="View\RegistrarAdministradores.aspx.cs">
+    <Compile Include="View\AdministratorViews\RegistrarAdministradores.aspx.cs">
       <DependentUpon>RegistrarAdministradores.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="View\RegistrarAdministradores.aspx.designer.cs">
+    <Compile Include="View\AdministratorViews\RegistrarAdministradores.aspx.designer.cs">
       <DependentUpon>RegistrarAdministradores.aspx</DependentUpon>
     </Compile>
-    <Compile Include="View\RegistrarEstudiantes.aspx.cs">
+    <Compile Include="View\AdministratorViews\RegistrarEstudiantes.aspx.cs">
       <DependentUpon>RegistrarEstudiantes.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="View\RegistrarEstudiantes.aspx.designer.cs">
+    <Compile Include="View\AdministratorViews\RegistrarEstudiantes.aspx.designer.cs">
       <DependentUpon>RegistrarEstudiantes.aspx</DependentUpon>
     </Compile>
-    <Compile Include="View\RegistrarProtocolos.aspx.cs">
+    <Compile Include="View\AdministratorViews\RegistrarProtocolos.aspx.cs">
       <DependentUpon>RegistrarProtocolos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="View\RegistrarProtocolos.aspx.designer.cs">
+    <Compile Include="View\AdministratorViews\RegistrarProtocolos.aspx.designer.cs">
       <DependentUpon>RegistrarProtocolos.aspx</DependentUpon>
     </Compile>
-    <Compile Include="View\Reservaciones.aspx.cs">
+    <Compile Include="View\AdministratorViews\Reservaciones.aspx.cs">
       <DependentUpon>Reservaciones.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="View\Reservaciones.aspx.designer.cs">
+    <Compile Include="View\AdministratorViews\Reservaciones.aspx.designer.cs">
       <DependentUpon>Reservaciones.aspx</DependentUpon>
     </Compile>
-    <Compile Include="View\VerAdministradores.aspx.cs">
+    <Compile Include="View\AdministratorViews\VerAdministradores.aspx.cs">
       <DependentUpon>VerAdministradores.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="View\VerAdministradores.aspx.designer.cs">
+    <Compile Include="View\AdministratorViews\VerAdministradores.aspx.designer.cs">
       <DependentUpon>VerAdministradores.aspx</DependentUpon>
     </Compile>
-    <Compile Include="View\VerDocumentosCliente.aspx.cs">
+    <Compile Include="View\UserViews\VerCursosCliente.aspx.cs">
+      <DependentUpon>VerCursosCliente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\UserViews\VerCursosCliente.aspx.designer.cs">
+      <DependentUpon>VerCursosCliente.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserViews\VerDocumentosCliente.aspx.cs">
       <DependentUpon>VerDocumentosCliente.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="View\VerDocumentosCliente.aspx.designer.cs">
+    <Compile Include="View\UserViews\VerDocumentosCliente.aspx.designer.cs">
       <DependentUpon>VerDocumentosCliente.aspx</DependentUpon>
     </Compile>
-    <Compile Include="View\VerEstudiantes.aspx.cs">
+    <Compile Include="View\AdministratorViews\VerEstudiantes.aspx.cs">
       <DependentUpon>VerEstudiantes.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="View\VerEstudiantes.aspx.designer.cs">
+    <Compile Include="View\AdministratorViews\VerEstudiantes.aspx.designer.cs">
       <DependentUpon>VerEstudiantes.aspx</DependentUpon>
     </Compile>
-    <Compile Include="View\VerProtocolos.aspx.cs">
+    <Compile Include="View\AdministratorViews\VerProtocolos.aspx.cs">
       <DependentUpon>VerProtocolos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="View\VerProtocolos.aspx.designer.cs">
+    <Compile Include="View\AdministratorViews\VerProtocolos.aspx.designer.cs">
       <DependentUpon>VerProtocolos.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
