@@ -13,16 +13,22 @@ namespace EPIC.View.AdministratorViews
         {
             int id = Convert.ToInt32(Request.QueryString["id"]);
 
-            Model.Archivo archivo = Model.ConsultasDB.ObtenerComprobante(id);
+            try
+            {
+                Model.Archivo archivo = Model.ConsultasDB.ObtenerComprobante(id);
 
-            Response.Clear();
+                Response.Clear();
 
-            Response.AddHeader("content-disposition", string.Format("attachment;filename={0}", "Reservación número " + archivo.Id + ".jpg"));
-            Response.ContentType = "application/octet-stream";
+                Response.AddHeader("content-disposition", string.Format("attachment;filename={0}", "Reservación número " + archivo.Id + ".jpg"));
+                Response.ContentType = "application/octet-stream";
 
-            Response.BinaryWrite(archivo.ContenidoArchivo);
-            Response.End();
-
+                Response.BinaryWrite(archivo.ContenidoArchivo);
+                Response.End();
+            }catch(Exception ex)
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('La reservación no posee comprobante');", true);
+                Response.Redirect("Reservaciones.aspx");
+            }
         }
     }
 }

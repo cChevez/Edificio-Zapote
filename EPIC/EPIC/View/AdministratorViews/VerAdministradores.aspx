@@ -97,10 +97,6 @@
                     <br />
                     <asp:Button ID="btnEliminar" runat="server" Text="Eliminar administrador" OnClick="btnEliminar_Click" />
                 </div>
-                <div class="one_third">
-                    <br />
-                    <asp:Button ID="btnModificar" runat="server" Text="Modificar administrador" OnClick="btnModificar_Click" />
-                </div>
             </main>
         </div>
         <a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a>

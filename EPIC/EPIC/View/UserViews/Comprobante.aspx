@@ -116,7 +116,6 @@
                 <div>
                     <asp:FileUpload ID="fuArchivo" runat="server" />
                     <br />
-                    <asp:Button class="button" ID="subirImagen" runat="server" Text="Subir archivo" OnClick="subirImagen_Click"/>
                     <br />
                 </div>
                 <br />

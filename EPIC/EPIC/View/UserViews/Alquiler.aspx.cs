@@ -163,24 +163,28 @@ namespace EPIC
             else
             {
                 string dia, mes, anno;
-                dia = diaReserva.Text.Replace("'", "").Substring(0, 2);
-                mes = diaReserva.Text.Replace("'", "").Substring(3, 2);
-                anno = diaReserva.Text.Replace("'", "").Substring(6, 4);
+                dia = diaReserva.Text.Replace("'", "").Substring(8, 2);
+                mes = diaReserva.Text.Replace("'", "").Substring(5, 2);
+                anno = diaReserva.Text.Replace("'", "").Substring(0, 4);
                 string fecha = (mes + "-" + dia + "-" + anno).Replace("'", "");
+                
                 string inicio = horaInicio.Text.Replace("'", "");
                 int horaI = Int32.Parse(inicio.Substring(0, 2));
                 string final = horaFinal.Text.Replace("'", "");
-                int horaF = Int32.Parse(final.Substring(0, 2));
+                int horaF = Int32.Parse(final.Substring(0, 2));               
 
                 string cantAula = listAulas.SelectedValue;
                 string cantLabs = listLabs.SelectedValue;
-
+                
                 if (horaI >= horaF)
                 {
                     ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('La hora de finalización no puede ser menor o igual a la de inicio');", true);
                 }
                 else
                 {
+                    dia = diaReserva.Text.Replace("'", "").Substring(8, 2);
+                    mes = diaReserva.Text.Replace("'", "").Substring(5, 2);
+                    anno = diaReserva.Text.Replace("'", "").Substring(0, 4);
                     string dayStart = (anno + "-" + mes + "-" + dia).Replace("'", "");
                     string start = (dayStart + " " + inicio).Replace("'", "");
                     string end = (dayStart + " " + final).Replace("'", "");
@@ -263,14 +267,19 @@ namespace EPIC
             correoV = correo.Text.Replace("'", "");
             telefonoV = telefono.Text.Replace("'", "");
             nombreActividadV = nombreActividad.Text.Replace("'", "");
-            dia = fechaInicio.Text.Replace("'", "").Substring(0, 2);
-            mes = fechaInicio.Text.Replace("'", "").Substring(3, 2);
-            anno = fechaInicio.Text.Replace("'", "").Substring(6, 4);
-            fechaInicioV = (mes + "-" + dia + "-" + anno).Replace("'", "");
-            dia = fechaFinal.Text.Replace("'", "").Substring(0, 2);
-            mes = fechaFinal.Text.Replace("'", "").Substring(3, 2);
-            anno = fechaFinal.Text.Replace("'", "").Substring(6, 4);
-            fechaFinalV = (mes + "-" + dia + "-" + anno).Replace("'", "");
+
+            dia = fechaInicio.Text.Replace("'", "").Substring(8, 2);
+            mes = fechaInicio.Text.Replace("'", "").Substring(5, 2);
+            anno = fechaInicio.Text.Replace("'", "").Substring(0, 4);
+            string fechaInicial = (mes + "-" + dia + "-" + anno).Replace("'", "");
+
+            dia = fechaFinal.Text.Replace("'", "").Substring(8, 2);
+            mes = fechaFinal.Text.Replace("'", "").Substring(5, 2);
+            anno = fechaFinal.Text.Replace("'", "").Substring(0, 4);
+            string fechaFinalizacion = (mes + "-" + dia + "-" + anno).Replace("'", "");
+
+            fechaInicioV = fechaInicial.Replace("'", "");
+            fechaFinalV = fechaFinalizacion.Replace("'", "");
             observacionesV = observaciones.Text.Replace("'", "");
 
             if (Page.IsValid)
@@ -298,11 +307,12 @@ namespace EPIC
                 {
                     Model.ConsultasDB.InsertarReservacion(fechaForm, nombreV, empresaV, cedulaV, correoV, telefonoV, nombreActividadV, fechaInicioV, fechaFinalV, observacionesV, participantes, montoTotal);
 
+                    Model.ConsultasDB.BorrarHorasSolicitadas();
+
                     enviado = true;
                 }
                 catch (Exception ex)
                 {
-                    Model.ConsultasDB.BorrarHorasSolicitadas();
                     ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('No se puede crear la reservación');", true);
 
                     enviado = false;

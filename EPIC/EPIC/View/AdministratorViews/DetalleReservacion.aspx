@@ -206,9 +206,9 @@
                     </div>
                     <br />
                     <hr />
-                    <div class="one_third first">
-                        <br />
-                    </div>
+                    <br />
+                    <br />
+                    <asp:Button ID="btnVolver" runat="server" Text="Atrás" OnClick="btnVolver_Click" />
                 </div>
             </main>
         </div>

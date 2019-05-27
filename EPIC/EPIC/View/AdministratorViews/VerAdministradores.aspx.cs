@@ -23,11 +23,5 @@ namespace EPIC.View
             
             Response.Redirect("VerAdministradores.aspx");
         }
-
-        protected void btnModificar_Click(object sender, EventArgs e)
-        {
-            string id = idAdministrador.SelectedValue;
-
-        }
     }
 }

@@ -19,8 +19,6 @@ namespace EPIC
                 RequiredFieldValidator4.Enabled = false;
                 RequiredFieldValidator5.Enabled = false;
                 RequiredFieldValidator6.Enabled = false;
-                subirImagen.Enabled = false;
-                enviar.Enabled = false;
                 fuArchivo.Enabled = false;
             }
         }
@@ -32,7 +30,6 @@ namespace EPIC
             if (isReserved == 0)
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('El número ingresado no existe');", true);
-                subirImagen.Enabled = false;
                 enviar.Enabled = false;
                 fuArchivo.Enabled = false;
             }
@@ -40,7 +37,7 @@ namespace EPIC
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Número de reservación válido');", true);
                 fuArchivo.Enabled = true;
-                subirImagen.Enabled = true;
+                enviar.Enabled = true;
             }
         }
 
@@ -68,28 +65,7 @@ namespace EPIC
             telefonoRes = telefono.Text.Replace("'", "");
             direccionRes = direccion.Text.Replace("'", "");
 
-            int isReserved = Model.ConsultasDB.VerificarReservacion(numeroRes);
-
-            if (isReserved == 1)
-            {
-                emailRes = Model.ConsultasDB.ObtenerCorreoReservacion(numeroRes);
-                if (factura.Checked)
-                {
-                    Model.EnviarCorreo.CorreoFacturaElectronicaUsuario(emailRes, numeroRes, nombreRes, cedulaRes, correoRes, telefonoRes, direccionRes);
-                }
-                else
-                {
-                    Model.EnviarCorreo.CorreoComprobanteUsuario(emailRes, numeroRes);
-                }
-
-                Model.ConsultasDB.ActualizarEstadoComprobante(numeroRes);
-            }
-        }
-
-        protected void subirImagen_Click(object sender, EventArgs e)
-        {
             Byte[] Archivo = null;
-            string numeroRes = numeroReservacion.Text.Replace("'", "");
             string nombreArchivo = string.Empty;
             string extensionArchivo = string.Empty;
             if (fuArchivo.HasFile == true)
@@ -112,8 +88,26 @@ namespace EPIC
                     ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Archivo no permitido, verifique que la extensión del archivo sea .png .jpg .pdf');", true);
                 }
             }
+            
 
-            enviar.Enabled = true;
+            int isReserved = Model.ConsultasDB.VerificarReservacion(numeroRes);
+
+            if (isReserved == 1)
+            {
+                emailRes = Model.ConsultasDB.ObtenerCorreoReservacion(numeroRes);
+                if (factura.Checked)
+                {
+                    Model.EnviarCorreo.CorreoFacturaElectronicaUsuario(emailRes, numeroRes, nombreRes, cedulaRes, correoRes, telefonoRes, direccionRes);
+                }
+                else
+                {
+                    Model.EnviarCorreo.CorreoComprobanteUsuario(emailRes, numeroRes);
+                }
+
+                Model.ConsultasDB.ActualizarEstadoComprobante(numeroRes);
+            }
+
+            Response.Redirect("Comprobante.aspx");
         }
     }
 }

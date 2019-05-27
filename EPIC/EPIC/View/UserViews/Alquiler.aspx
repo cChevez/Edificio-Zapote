@@ -182,15 +182,13 @@
                 </div>
                 <div class="one_quarter first">
                     <asp:Label class="etiquetas" ID="Label18" runat="server" Text="Del:" ></asp:Label> 
-                    <asp:TextBox class="fecha" ID="fechaInicio" runat="server"></asp:TextBox>
+                    <asp:TextBox class="fecha" ID="fechaInicio" runat="server" TextMode="Date"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator7" runat="server" ErrorMessage="* Campo necesario" ControlToValidate="fechaInicio" ForeColor="Red" class="etiquetas"></asp:RequiredFieldValidator>
-                    <br /> <asp:RegularExpressionValidator ID="RegularExpressionValidator4" class="etiquetas" runat="server" ControlToValidate="fechaInicio" ValidationExpression="^([0-2][0-9]|(3)[0-1])(\-)(((0)[0-9])|((1)[0-2]))(\-)\d{4}$" Text="* Formato 01-12-2019" ForeColor="Red"></asp:RegularExpressionValidator>
                 </div>
                 <div class="one_quarter">
                     <asp:Label class="etiquetas" ID="Label19" runat="server" Text="hasta:"></asp:Label>
-                    <asp:TextBox class="fecha" ID="fechaFinal" runat="server"></asp:TextBox>
+                    <asp:TextBox class="fecha" ID="fechaFinal" runat="server" TextMode="Date"></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ErrorMessage="* Campo necesario" ControlToValidate="fechaFinal" ForeColor="Red" class="etiquetas"></asp:RequiredFieldValidator>
-                    <br /> <asp:RegularExpressionValidator ID="RegularExpressionValidator5" class="etiquetas" runat="server" ControlToValidate="fechaFinal" ValidationExpression="^([0-2][0-9]|(3)[0-1])(\-)(((0)[0-9])|((1)[0-2]))(\-)\d{4}$" Text="* Formato 01-12-2019" ForeColor="Red"></asp:RegularExpressionValidator>
                 </div>
                 <div class="one_half first">
                     <br />
@@ -198,8 +196,7 @@
                 </div>
                 <div class="one_quarter first">
                     <asp:Label class="etiquetas" ID="Label21" runat="server" Text="Día" ></asp:Label> 
-                    <asp:TextBox class="fecha" ID="diaReserva" runat="server" ></asp:TextBox>
-                    <asp:RegularExpressionValidator ID="RegularExpressionValidator6" class="etiquetas" runat="server" ControlToValidate="diaReserva" ValidationExpression="^([0-2][0-9]|(3)[0-1])(\-)(((0)[0-9])|((1)[0-2]))(\-)\d{4}$" Text="* Formato 01-01-2019" ForeColor="Red"></asp:RegularExpressionValidator>
+                    <asp:TextBox class="fecha" ID="diaReserva" runat="server" TextMode="Date"></asp:TextBox>
                 </div>
                 <div class="one_quarter">
                     <asp:Label class="etiquetas" ID="Label22" runat="server" Text="Hora de inicio" ></asp:Label> 

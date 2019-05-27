@@ -40,5 +40,10 @@ namespace EPIC.View.AdministratorViews
             }
             sqlDataReader.Close();
         }
+
+        protected void btnVolver_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Reservaciones.aspx");
+        }
     }
 }

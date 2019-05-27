@@ -6,22 +6,22 @@
     
     <body>
         <div class="wrapper row0">
-            <div id="topbar" class="hoc clear">
-                <!-- ################################################################################################ -->
-                <div class="fl_left">
-                    <ul>
-                        <li><i class="fa fa-phone"></i>+506 25509160</li>
-                        <li><i class="fa fa-envelope-o"></i>sagomez@itcr.ac.cr</li>
-                    </ul>
-                </div>
-                <div class="fl_right">
-                    <ul>
-                        <li><a href="IndexAdministrativo.aspx"><i class="fa fa-lg fa-home"></i></a></li>
-                        <li><a href="Login.aspx">Salir</a></li>
-                    </ul>
-                </div>
-                <!-- ################################################################################################ -->
+          <div id="topbar" class="hoc clear"> 
+            <!-- ################################################################################################ -->
+            <div class="fl_left">
+              <ul>
+                <li><i class="fa fa-phone"></i> +506 25509160</li>
+                <li><i class="fa fa-envelope-o"></i> sagomez@itcr.ac.cr</li>
+              </ul>
             </div>
+            <div class="fl_right">
+              <ul>
+                <li><a href="Index.aspx"><i class="fa fa-lg fa-home"></i></a></li>
+                <li><a href="Login.aspx">Ingresar</a></li>
+              </ul>
+            </div>
+            <!-- ################################################################################################ -->
+          </div>
         </div>
         <div class="wrapper row1">
             <header id="header" class="hoc clear">
