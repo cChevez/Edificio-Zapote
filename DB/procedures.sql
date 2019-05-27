@@ -282,6 +282,7 @@ as begin
 	BEGIN
 	SELECT @nombre=nombreSolicitante,@id=id, @Email=email, @nombreActividad=nombreActividad FROM #temp WHERE rn=@contador
 	SELECT @Mensaje = 'Señor(a) ' + @nombre + CHAR(10) + CHAR(13) + CHAR(10) + CHAR(13) + 
+	'Reservaciones ePIC informa: ' +
 	'Se le recuerda que tiene una reservación pendiente para la actividad '+@nombreActividad+', para la cuál quedan dos días y aún no se ha enviado el comprobante de pago.' +CHAR(10) + CHAR(13) + CHAR(10) + CHAR(13) + 
 	'En caso de haber realizado el pago, se le solicita enviar el comprobante de pago a través de la plataforma.'+ CHAR(10) + CHAR(13) + 
 	'Su numero de reservacion es: ' +CAST(@id as varchar(10)) + CHAR(10) + CHAR(13) + CHAR(10) + CHAR(13) + 
@@ -352,6 +353,7 @@ as begin
 	BEGIN
 	SELECT @nombre=nombreSolicitante,@id=id, @Email=email, @nombreActividad=nombreActividad, @nombreEmpresa=nombreEmpresa, @Fecha=convert(varchar, fechaInicioActividad, 105) FROM #temp WHERE rn=@contador
 	SELECT @Mensaje = 'Señor(a) ' + @nombre + CHAR(10) + CHAR(13) + CHAR(10) + CHAR(13) + 
+	'Reservaciones ePIC informa: ' +
 	'Se le comunica que la reservación número '+CAST(@id as varchar(10)) +' para la actividadad '+@nombreActividad+' ha sido bloqueada debido a que no se ha enviado el comprobante de pago respectivo.' +CHAR(10) + CHAR(13) + CHAR(10) + CHAR(13) + 
 	'Además, se le informa que cualquier tramite que desee realizar, ya sea para cancelar la reservación o si desea mantener la reservación, deberá realizarse con Sarela Gómez, puede comunicarse al número 2250-9160 o al correo sagomez@itcr.ac.cr'+ CHAR(10) + CHAR(13) + CHAR(10) + CHAR(13) + 
 	'Correo generado de manera automática, por favor no responda este correo ya que no recibirá ninguna respueta.'
@@ -501,6 +503,18 @@ as begin
 end
 go
 
+
+create or alter procedure getImageById @id int
+as begin
+select foto from Cursos C where C.id = @id
+end
+go
+
+create or alter procedure getComprobanteById @id int
+as begin
+select imgComprobante from Comprobante C where C.FKReservacion = @id
+end
+go
 
 select * from Reservacion
 

@@ -143,3 +143,10 @@ CREATE Table Archivos(
 	archivo	image not null,
 	size int not null,	
 );
+
+CREATE Table Cursos(
+	id int identity primary key,
+	nombre varchar(250) not null,
+	foto image not null,
+	descripcion nvarchar(max) not null,	
+);
