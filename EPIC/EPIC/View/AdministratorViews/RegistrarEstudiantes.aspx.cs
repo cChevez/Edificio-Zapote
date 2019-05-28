@@ -46,21 +46,26 @@ namespace EPIC.View
             name = nombre.Text.Replace("'", "");
             last_name = apellido.Text.Replace("'", "");
             email = correo.Text.Replace("'", "");
-
-            try
+            int hasHours = Model.ConsultasDB.VerificarHorasEstudiante();
+            if (hasHours > 0)
             {
-                Model.ConsultasDB.AgregarEstudiante(name, last_name, email);
-                ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Estudiante registrado exitosamente');", true);
-                Model.ConsultasDB.BorrarDatosTablaHorariosEstudiantes();
-            }
-            catch (Exception ex)
-            {
-                ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Ya existe un estudiante registrado con ese correo');", true);
-            }
+                try
+                {
+                    Model.ConsultasDB.AgregarEstudiante(name, last_name, email);
+                    ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Estudiante registrado exitosamente');", true);
+                    Model.ConsultasDB.BorrarDatosTablaHorariosEstudiantes();
 
-            Thread.Sleep(1000);
-            
-            Response.Redirect("RegistrarEstudiantes.aspx");
+                    Response.Redirect("RegistrarEstudiantes.aspx");
+                }
+                catch (Exception ex)
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Ya existe un estudiante registrado con ese correo');", true);
+                }
+            }
+            else
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Agregue al menos una hora');", true);
+            }
         }
     }
 }

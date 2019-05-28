@@ -11,7 +11,7 @@ namespace EPIC.View.AdministratorViews
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            lblNombreUsuario.Text = "Bienvenido(a)" + Session["nombreUsuario"].ToString();
         }
 
         protected void btnAgregarCurso_Click(object sender, EventArgs e)

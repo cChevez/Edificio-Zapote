@@ -35,7 +35,6 @@
                         <li><a class="drop" href="#">Solicitar</a>
                             <ul>
                                 <li><a href="Alquiler.aspx">Alquiler de espacio</a></li>
-                                <li><a href="#">Préstamo de espacio</a></li>
                             </ul>
                         </li>
                         <li><a href="Comprobante.aspx">Subir comprobante</a></li>

@@ -93,7 +93,7 @@
                 </div>
                 <div class="one_third">
                     <br />
-                    <asp:Button ID="btnEliminar" runat="server" Text="Eliminar archivo" OnClick="btnEliminar_Click" />
+                    <asp:Button ID="btnEliminar" runat="server" Text="Eliminar curso" OnClick="btnEliminar_Click" />
                 </div>
             </main>
         </div>

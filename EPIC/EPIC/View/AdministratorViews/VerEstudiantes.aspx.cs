@@ -17,7 +17,11 @@ namespace EPIC.View
 
         protected void btnEliminar_Click(object sender, EventArgs e)
         {
+            string id = idEstudiante.SelectedValue;
+            Model.ConsultasDB.BorrarHorasEstudiante(id);
+            Model.ConsultasDB.BorrarEstudiante(id);
 
+            Response.Redirect("VerEstudiantes.aspx");
         }
     }
 }

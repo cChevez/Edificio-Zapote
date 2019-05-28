@@ -35,7 +35,6 @@
                   <li><a class="drop" href="#">Solicitar</a>
                       <ul>
                           <li><a href="Alquiler.aspx">Alquiler de espacio</a></li>
-                          <li><a href="">Préstamo de espacio</a></li>
                       </ul>
                   </li>
                   <li class="active"><a href="Comprobante.aspx">Subir comprobante</a></li>
@@ -67,6 +66,7 @@
                     <br />
                     <asp:TextBox ID="numeroReservacion" runat="server" ></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="* Campo necesario" ControlToValidate="numeroReservacion" ForeColor="Red" class="etiquetas"></asp:RequiredFieldValidator>
+                    <br /><asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ControlToValidate="numeroReservacion" class="etiquetas" ValidationExpression="\d{10}" Text="* Ingrese solo digitos" ForeColor="Red"></asp:RegularExpressionValidator>
                     <br />
                     <br />
                     <asp:Button class="button" ID="verificarReservacion" runat="server" Text="Verificar" OnClick="verificarReservacion_Click"/>

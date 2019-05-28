@@ -35,7 +35,6 @@
                   <li><a class="drop" href="#">Solicitar</a>
                       <ul>
                           <li><a href="Alquiler.aspx">Alquiler de espacio</a></li>
-                          <li><a href="#">Préstamo de espacio</a></li>
                       </ul>
                   </li>
                   <li><a href="Comprobante.aspx">Subir comprobante</a></li>
@@ -63,8 +62,8 @@
                     <asp:GridView ID="GridView1" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" BackColor="White" BorderColor="#3366CC" BorderStyle="None" BorderWidth="1px" CellPadding="4" DataSourceID="SqlDocumentos" DataKeyNames="id">
                         <Columns>
                             <asp:BoundField DataField="id" HeaderText="id" SortExpression="id" InsertVisible="False" ReadOnly="True" Visible="False" />
-                            <asp:BoundField DataField="nombre" HeaderText="nombre" SortExpression="nombre" />
-                            <asp:BoundField DataField="size" HeaderText="size" SortExpression="size" />
+                            <asp:BoundField DataField="nombre" HeaderText="Nombre del documento" SortExpression="nombre" />
+                            <asp:BoundField DataField="size" HeaderText="Tamaño" SortExpression="size" />
                             <asp:TemplateField HeaderText="Descargar archivo">
                                 <ItemTemplate>
                                     <asp:HyperLink ID="descarga" runat="server" NavigateUrl='<%# Eval("id", "~/View/UserViews/Download.aspx?id={0}") %>' Text="Descargar">

@@ -88,13 +88,13 @@
                         <SortedDescendingCellStyle BackColor="#D6DFDF" />
                         <SortedDescendingHeaderStyle BackColor="#002876" />
                     </asp:GridView>                    
-                    <asp:SqlDataSource ID="SqlMostrarEstudiantes" runat="server" ConnectionString="<%$ ConnectionStrings:ePICsqlConnection %>" SelectCommand="SELECT [id], [nombre], [apellido] FROM [Estudiante]"></asp:SqlDataSource>
+                    <asp:SqlDataSource ID="SqlMostrarEstudiantes" runat="server" ConnectionString="<%$ ConnectionStrings:ePICsqlConnection %>" SelectCommand="SELECT id, nombre, apellido FROM Estudiante"></asp:SqlDataSource>
                 </div>
                 <br />
                 <br />
                 <div class="one_third first">
                     <asp:Label class="etiquetas" ID="Label2" runat="server" Text="ID del estudiante"></asp:Label>
-                    <asp:DropDownList ID="idEstudiante" runat="server"></asp:DropDownList>
+                    <asp:DropDownList ID="idEstudiante" runat="server" DataSourceID="SqlMostrarEstudiantes" DataTextField="id" DataValueField="id"></asp:DropDownList>
                     <br />
                     <br />
                 </div>

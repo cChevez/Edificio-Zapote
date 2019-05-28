@@ -17,7 +17,31 @@ namespace EPIC.Model
             sqlCommand.ExecuteNonQuery();
 
             sqlConnection.Close();
-        } 
+        }
+
+        public static void BorrarEstudiante(string id)
+        {
+            SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["ePICsqlConnection"].ToString());
+            sqlConnection.Open();
+
+            SqlCommand sqlCommand = new SqlCommand("Delete from Estudiante where id = '" + id + "'", sqlConnection);
+
+            sqlCommand.ExecuteNonQuery();
+
+            sqlConnection.Close();
+        }
+
+        public static void BorrarHorasEstudiante(string id)
+        {
+            SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["ePICsqlConnection"].ToString());
+            sqlConnection.Open();
+
+            SqlCommand sqlCommand = new SqlCommand("Delete from HorarioEstudiante where FKHorarioEstudiante = '" + id + "'", sqlConnection);
+
+            sqlCommand.ExecuteNonQuery();
+
+            sqlConnection.Close();
+        }
 
         public static void BorrarHorasSolicitadas()
         {
@@ -67,6 +91,17 @@ namespace EPIC.Model
             SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["ePICsqlConnection"].ToString());
             sqlConnection.Open();
             SqlCommand sqlCommand = new SqlCommand("select count(*) from Reservacion where id= '" + id + "'", sqlConnection);
+
+            sqlCommand.ExecuteNonQuery();
+
+            return Convert.ToInt32(sqlCommand.ExecuteScalar());
+        }
+
+        public static int VerificarHorasEstudiante()
+        {
+            SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["ePICsqlConnection"].ToString());
+            sqlConnection.Open();
+            SqlCommand sqlCommand = new SqlCommand("select count(*) from HorasHorariosTable", sqlConnection);
 
             sqlCommand.ExecuteNonQuery();
 
