@@ -20,7 +20,7 @@ namespace EPIC.View
             if (!string.IsNullOrEmpty(FileUpload.FileName) && nombre.Text.Length>0)
             {
                 string path = System.IO.Path.GetFileName(FileUpload.PostedFile.FileName);
-                if(FileUpload.PostedFile.ContentLength <= 4000000)
+                if(FileUpload.PostedFile.ContentLength <= 10000000)
                 {
                     if (System.IO.Path.GetExtension(path).ToLower().Equals(".pdf"))
                     {
@@ -31,6 +31,14 @@ namespace EPIC.View
                         ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Se ha subido el archivo');", true);
                         nombre.Text = "";
                     }
+                    else
+                    {
+                        ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Solo se admiten archivos PDF');", true);
+                    }
+                }
+                else
+                {
+                    ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('El tamaño del archivo es muy grande');", true);
                 }
             }
         }

@@ -68,46 +68,73 @@ namespace EPIC
             Byte[] Archivo = null;
             string nombreArchivo = string.Empty;
             string extensionArchivo = string.Empty;
-            if (fuArchivo.HasFile == true)
+            try
             {
-                extensionArchivo = Path.GetExtension(fuArchivo.FileName);
 
-                if (extensionArchivo.Equals(".png") || extensionArchivo.Equals(".jpg") || extensionArchivo.Equals(".pdf"))
+                if (fuArchivo.HasFile == true)
                 {
-                    using (BinaryReader reader = new BinaryReader(fuArchivo.PostedFile.InputStream))
+                    if (fuArchivo.PostedFile.ContentLength <= 10000000)
                     {
-                        Archivo = reader.ReadBytes(fuArchivo.PostedFile.ContentLength);
+                        extensionArchivo = Path.GetExtension(fuArchivo.FileName);
+                        if (extensionArchivo.ToLower().Equals(".png") || extensionArchivo.ToLower().Equals(".jpg"))
+                        {
+                            using (BinaryReader reader = new BinaryReader(fuArchivo.PostedFile.InputStream))
+                            {
+                                Archivo = reader.ReadBytes(fuArchivo.PostedFile.ContentLength);
 
-                        Model.ConsultasDB.InsertarComprobante(fuArchivo.FileName, fuArchivo.PostedFile.ContentLength, Archivo, numeroRes);
+                                Model.ConsultasDB.InsertarComprobante(fuArchivo.FileName, fuArchivo.PostedFile.ContentLength, Archivo, numeroRes);
+                            }
+
+                            ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Se ha enviado el comprobante');", true);
+                            limpiarValores();
+                        }
+                        else
+                        {
+                            ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Archivo no permitido, verifique que la extensión del archivo sea .png o .jpg');", true);
+                        }
                     }
-
-                    ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Se ha subido el comprobante correctamente');", true);
+                    else
+                    {
+                        ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Archivo no permitido, el tamaño del archivo es muy grande');", true);
+                    }
                 }
-                else
-                {
-                    ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Archivo no permitido, verifique que la extensión del archivo sea .png .jpg .pdf');", true);
-                }
-            }
             
 
-            int isReserved = Model.ConsultasDB.VerificarReservacion(numeroRes);
+                int isReserved = Model.ConsultasDB.VerificarReservacion(numeroRes);
 
-            if (isReserved == 1)
-            {
-                emailRes = Model.ConsultasDB.ObtenerCorreoReservacion(numeroRes);
-                if (factura.Checked)
+                if (isReserved == 1)
                 {
-                    Model.EnviarCorreo.CorreoFacturaElectronicaUsuario(emailRes, numeroRes, nombreRes, cedulaRes, correoRes, telefonoRes, direccionRes);
-                }
-                else
-                {
-                    Model.EnviarCorreo.CorreoComprobanteUsuario(emailRes, numeroRes);
-                }
+                    emailRes = Model.ConsultasDB.ObtenerCorreoReservacion(numeroRes);
+                    if (factura.Checked)
+                    {
+                        Model.EnviarCorreo.CorreoFacturaElectronicaUsuario(emailRes, numeroRes, nombreRes, cedulaRes, correoRes, telefonoRes, direccionRes);
+                    }
+                    else
+                    {
+                        Model.EnviarCorreo.CorreoComprobanteUsuario(emailRes, numeroRes);
+                    }
 
-                Model.ConsultasDB.ActualizarEstadoComprobante(numeroRes);
-            }
+                    Model.ConsultasDB.ActualizarEstadoComprobante(numeroRes);
+                }
+            }catch(Exception ex) { 
+}
 
-            Response.Redirect("Comprobante.aspx");
+        }
+
+        private void limpiarValores()
+        {
+            nombre.Enabled = false;
+            cedula.Enabled = false;
+            correo.Enabled = false;
+            telefono.Enabled = false;
+            direccion.Enabled = false;
+            RequiredFieldValidator2.Enabled = false;
+            RequiredFieldValidator3.Enabled = false;
+            RequiredFieldValidator4.Enabled = false;
+            RequiredFieldValidator5.Enabled = false;
+            RequiredFieldValidator6.Enabled = false;
+            fuArchivo.Enabled = false;
+            numeroReservacion.Text = "";
         }
     }
 }

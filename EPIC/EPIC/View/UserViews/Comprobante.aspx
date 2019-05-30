@@ -66,7 +66,7 @@
                     <br />
                     <asp:TextBox ID="numeroReservacion" runat="server" ></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="* Campo necesario" ControlToValidate="numeroReservacion" ForeColor="Red" class="etiquetas"></asp:RequiredFieldValidator>
-                    <br /><asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ControlToValidate="numeroReservacion" class="etiquetas" ValidationExpression="\d{10}" Text="* Ingrese solo digitos" ForeColor="Red"></asp:RegularExpressionValidator>
+                    <br /><asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ControlToValidate="numeroReservacion" class="etiquetas" ValidationExpression="\d{1,10}" Text="* Ingrese solo digitos" ForeColor="Red"></asp:RegularExpressionValidator>
                     <br />
                     <br />
                     <asp:Button class="button" ID="verificarReservacion" runat="server" Text="Verificar" OnClick="verificarReservacion_Click"/>
@@ -95,14 +95,17 @@
                     <asp:Label class="etiquetas" ID="Label5" runat="server" Text="Cédula"></asp:Label>
                     <asp:TextBox ID="cedula" runat="server" ></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="* Campo necesario" ControlToValidate="cedula" ForeColor="Red" class="etiquetas"></asp:RequiredFieldValidator>
+                    <br /><asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="cedula" class="etiquetas" ValidationExpression="\d{9,12}" Text="* Solo números sin guiones" ForeColor="Red"></asp:RegularExpressionValidator>
                     <br />
                     <asp:Label class="etiquetas" ID="Label6" runat="server" Text="Teléfono"></asp:Label>
                     <asp:TextBox ID="telefono" runat="server" ></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ErrorMessage="* Campo necesario" ControlToValidate="telefono" ForeColor="Red" class="etiquetas"></asp:RequiredFieldValidator>
+                    <br /><asp:RegularExpressionValidator ID="RegularExpressionValidator4" runat="server" ControlToValidate="telefono" class="etiquetas" ValidationExpression="\d{8}" Text="* Formato esperado 88888888" ForeColor="Red"></asp:RegularExpressionValidator>
                     <br />
                     <asp:Label class="etiquetas" ID="Label7" runat="server" Text="Correo electrónico"></asp:Label>
                     <asp:TextBox ID="correo" runat="server" ></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ErrorMessage="* Campo necesario" ControlToValidate="correo" ForeColor="Red" class="etiquetas"></asp:RequiredFieldValidator>
+                    <br /><asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ControlToValidate="correo" class="etiquetas" ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*" Text="* ejemplo@ejemplo.com" ForeColor="Red"></asp:RegularExpressionValidator>
                     <br />
                     <asp:Label class="etiquetas" ID="Label8" runat="server" Text="Dirección"></asp:Label>
                     <asp:TextBox ID="direccion" runat="server" ></asp:TextBox>

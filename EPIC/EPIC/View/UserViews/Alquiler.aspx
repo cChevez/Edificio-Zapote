@@ -82,7 +82,7 @@
                     <asp:Label class="etiquetas" ID="Label4" runat="server" Text="Cédula jurídica o física"></asp:Label>
                     <asp:TextBox ID="cedula" runat="server" ></asp:TextBox>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="* Campo necesario" ControlToValidate="cedula" ForeColor="Red" class="etiquetas"></asp:RequiredFieldValidator>
-                    <br /><asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="cedula" class="etiquetas" ValidationExpression="\d{9,12}" Text="* Solo números sin guiones" ForeColor="Red"></asp:RegularExpressionValidator>
+                    <br /><asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="cedula" class="etiquetas" ValidationExpression="\d{9,12}" Text="* Cambie los guines por números, deben haber mínimo 9 caracteres" ForeColor="Red"></asp:RegularExpressionValidator>
                     <br />
                     <br />
                 </div>

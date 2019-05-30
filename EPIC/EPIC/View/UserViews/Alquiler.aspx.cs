@@ -8,7 +8,9 @@ namespace EPIC
 {
     public partial class Alquiler : System.Web.UI.Page
     {
-        private int montoTotal;
+        int montoTotal;
+
+        public int MontoTotal { get => montoTotal; set => montoTotal = value; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -27,12 +29,12 @@ namespace EPIC
             {
                 if (ViewState["monto"] != null)
                 {
-                    montoTotal = Convert.ToInt32(ViewState["monto"]);
-                    Total.Text = Convert.ToString(montoTotal) + " colones";
+                    MontoTotal = Convert.ToInt32(ViewState["monto"]);
+                    Total.Text = Convert.ToString(MontoTotal) + " colones";
                 }
                 else
                 {
-                    montoTotal = 0;
+                    MontoTotal = 0;
                 }
             }
         }
@@ -216,13 +218,13 @@ namespace EPIC
                         {
                             if (aula.Equals("null"))
                             {
-                                montoTotal = montoTotal + (25000 * (horaF - horaI));
-                                ViewState["monto"] = montoTotal;
+                                MontoTotal = MontoTotal + (25000 * (horaF - horaI));
+                                ViewState["monto"] = MontoTotal;
                             }
                             else
                             {
-                                montoTotal = montoTotal + (9850 * (horaF - horaI));
-                                ViewState["monto"] = montoTotal;
+                                MontoTotal = MontoTotal + (9850 * (horaF - horaI));
+                                ViewState["monto"] = MontoTotal;
                             }
                             if (aula.Equals("Aula 1")) aula = "1";
                             else if (aula.Equals("Aula 2")) aula = "2";
@@ -305,7 +307,7 @@ namespace EPIC
 
                 try
                 {
-                    Model.ConsultasDB.InsertarReservacion(fechaForm, nombreV, empresaV, cedulaV, correoV, telefonoV, nombreActividadV, fechaInicioV, fechaFinalV, observacionesV, participantes, montoTotal);
+                    Model.ConsultasDB.InsertarReservacion(fechaForm, nombreV, empresaV, cedulaV, correoV, telefonoV, nombreActividadV, fechaInicioV, fechaFinalV, observacionesV, participantes, MontoTotal);
 
                     Model.ConsultasDB.BorrarHorasSolicitadas();
 
@@ -320,14 +322,23 @@ namespace EPIC
             }
             if (enviado)
             {
-                Thread.Sleep(2000);
-                
+
                 ClientScript.RegisterStartupScript(this.GetType(), "myalert", "alert('Reservación creada');", true);
                 
-                Thread.Sleep(1000);
-                Response.Redirect("Alquiler.aspx");
+                nombre.Text = "";
+                cedula.Text = "";
+                telefono.Text = "";
+                correo.Text = "";
+                empresa.Text = "";
+                nombreActividad.Text = "";
+                fechaInicio.Text = "";
+                fechaFinal.Text = "";
+                listAulas.SelectedValue = "0";
+                listLabs.SelectedValue = "0";
+                GridView1.DataBind();
+                observaciones.Text = "";
+                Total.Text = "";
             }
         }
-        
     }
 }
