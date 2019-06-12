@@ -40,7 +40,7 @@ as begin
 	where R.id = @fkid)
 
 	select distinct R.id, R.fechaSolicitud, R.nombreSolicitante, R.nombreEmpresa, R.cedulaJuridica, R.email, 
-	R.numeroTelefono, R.nombreActividad, R.fechaInicioActividad, R.fechaFinalActividad, R.descripcion
+	R.numeroTelefono, R.nombreActividad, R.fechaInicioActividad, R.fechaFinalActividad, R.descripcion, R.monto
 	from Reservacion R 
 	inner join HorarioReservado HR on HR.FKReservacion = R.id
 	where R.id = @fkid
@@ -91,6 +91,7 @@ as begin
 	'Fecha de inicio: ' + CAST(R.fechaInicioActividad as varchar(10)) + CHAR(10) + CHAR(13) +
 	'Fecha de finalización: ' + CAST(R.fechaFinalActividad as varchar(10)) + CHAR(10) + CHAR(13)+
 	'Observaciones: ' + R.descripcion + CHAR(10) + CHAR(13) +
+	'Monto: ' + CAST(R.monto as varchar(max))  + CHAR(10) + CHAR(13) +
 	'Horario reservado: ' + CHAR(10) + CHAR(13) + CHAR(10) + CHAR(13)
 	from Reservacion R 
 	inner join HorarioReservado HR on HR.FKReservacion = R.id
@@ -516,62 +517,62 @@ select imgComprobante from Comprobante C where C.FKReservacion = @id
 end
 go
 
-select * from Reservacion
+--select * from Reservacion
 
-select * from Comprobante
+--select * from Comprobante
 
-select * from HorarioReservado
-
-
-
-
---set nocount on
---declare @tablaConHoras as HorasSolicitudTable
---insert into @tablaConHoras(dia, horaInicio, horaFinal,numAula,numLab) values ('12-13-19','10:00:00','11:00:00')
---insert into @tablaConHoras(dia, horaInicio, horaFinal,numAula,numLab) values ('12-14-19','09:00:00','11:00:00')
---insert into @tablaConHoras(dia, horaInicio, horaFinal,numAula,numLab) values ('12-15-19','09:00:00','11:00:00')
---set nocount off
-
---Exec insertarReservacion '12-12-2019', 'Andres', 'Test', 'Test actividad', 12345124,'andreguti333@gmail.com',5141414,'Test description',15, @tablaConHoras,1,null,1,1,1
-----Exec insertarReservacion '12-13-19', 'Andres', 'Test', 'Test actividad', 12345124,'andreguti333@gmail.com',5141414,'Test description',15, @tablaConHoras,1,null,1,1,1
-
-
---set nocount on
---declare @tablaConHoras1 as HorasSolicitudTable
---insert into @tablaConHoras1(dia, horaInicio, horaFinal) values ('12-20-19','09:00:00','11:00:00')
---insert into @tablaConHoras1(dia, horaInicio, horaFinal) values ('12-21-19','10:00:00','11:00:00')
---insert into @tablaConHoras1(dia, horaInicio, horaFinal) values ('12-22-19','09:00:00','11:00:00')
---insert into @tablaConHoras1(dia, horaInicio, horaFinal) values ('12-23-19','09:00:00','11:00:00')
---set nocount off
-
---Exec insertarReservacion '12-13-19', 'Andres', 'Test', 'Test actividad', 12345124,'andreguti333@gmail.com',5141414,'Test description',15, @tablaConHoras1,1,null,1,1,1
+--select * from HorarioReservado
 
 
 
---set nocount on
---declare @tablaConHoras2 as HorasSolicitudTable
---insert into @tablaConHoras2(dia, horaInicio, horaFinal) values ('12-24-19','09:00:00','11:00:00')
---insert into @tablaConHoras2(dia, horaInicio, horaFinal) values ('12-25-19','10:00:00','11:00:00')
---insert into @tablaConHoras2(dia, horaInicio, horaFinal) values ('12-26-19','09:00:00','11:00:00')
---insert into @tablaConHoras2(dia, horaInicio, horaFinal) values ('12-27-19','09:00:00','11:00:00')
---set nocount off
 
---Exec insertarReservacion '12-14-19', 'Andres', 'Test', 'Test actividad', 12345124,'darklightbeing@gmail.com',5141414,'Test description',15, @tablaConHoras2,1,null,1,1,1
+----set nocount on
+----declare @tablaConHoras as HorasSolicitudTable
+----insert into @tablaConHoras(dia, horaInicio, horaFinal,numAula,numLab) values ('12-13-19','10:00:00','11:00:00')
+----insert into @tablaConHoras(dia, horaInicio, horaFinal,numAula,numLab) values ('12-14-19','09:00:00','11:00:00')
+----insert into @tablaConHoras(dia, horaInicio, horaFinal,numAula,numLab) values ('12-15-19','09:00:00','11:00:00')
+----set nocount off
+
+----Exec insertarReservacion '12-12-2019', 'Andres', 'Test', 'Test actividad', 12345124,'andreguti333@gmail.com',5141414,'Test description',15, @tablaConHoras,1,null,1,1,1
+------Exec insertarReservacion '12-13-19', 'Andres', 'Test', 'Test actividad', 12345124,'andreguti333@gmail.com',5141414,'Test description',15, @tablaConHoras,1,null,1,1,1
 
 
---set nocount on
---declare @tablaConHoras3 as HorasSolicitudTable
---insert into @tablaConHoras3(dia, horaInicio, horaFinal) values ('12-28-19','09:00:00','11:00:00')
---insert into @tablaConHoras3(dia, horaInicio, horaFinal) values ('12-29-19','10:00:00','11:00:00')
---insert into @tablaConHoras3(dia, horaInicio, horaFinal) values ('12-30-19','09:00:00','11:00:00')
---insert into @tablaConHoras3(dia, horaInicio, horaFinal) values ('12-31-19','09:00:00','11:00:00')
---set nocount off
+----set nocount on
+----declare @tablaConHoras1 as HorasSolicitudTable
+----insert into @tablaConHoras1(dia, horaInicio, horaFinal) values ('12-20-19','09:00:00','11:00:00')
+----insert into @tablaConHoras1(dia, horaInicio, horaFinal) values ('12-21-19','10:00:00','11:00:00')
+----insert into @tablaConHoras1(dia, horaInicio, horaFinal) values ('12-22-19','09:00:00','11:00:00')
+----insert into @tablaConHoras1(dia, horaInicio, horaFinal) values ('12-23-19','09:00:00','11:00:00')
+----set nocount off
 
---Exec insertarReservacion '12-14-19', 'Andres', 'Test', 'Test actividad', 12345124,'cjchevezc@gmail.com',5141414,'Test description',15, @tablaConHoras3,1,null,1,1,1
+----Exec insertarReservacion '12-13-19', 'Andres', 'Test', 'Test actividad', 12345124,'andreguti333@gmail.com',5141414,'Test description',15, @tablaConHoras1,1,null,1,1,1
 
-DELETE FROM HorasSolicitudTable
-DELETE FROM HorarioReservado
-DELETE FROM Reservacion
+
+
+----set nocount on
+----declare @tablaConHoras2 as HorasSolicitudTable
+----insert into @tablaConHoras2(dia, horaInicio, horaFinal) values ('12-24-19','09:00:00','11:00:00')
+----insert into @tablaConHoras2(dia, horaInicio, horaFinal) values ('12-25-19','10:00:00','11:00:00')
+----insert into @tablaConHoras2(dia, horaInicio, horaFinal) values ('12-26-19','09:00:00','11:00:00')
+----insert into @tablaConHoras2(dia, horaInicio, horaFinal) values ('12-27-19','09:00:00','11:00:00')
+----set nocount off
+
+----Exec insertarReservacion '12-14-19', 'Andres', 'Test', 'Test actividad', 12345124,'darklightbeing@gmail.com',5141414,'Test description',15, @tablaConHoras2,1,null,1,1,1
+
+
+----set nocount on
+----declare @tablaConHoras3 as HorasSolicitudTable
+----insert into @tablaConHoras3(dia, horaInicio, horaFinal) values ('12-28-19','09:00:00','11:00:00')
+----insert into @tablaConHoras3(dia, horaInicio, horaFinal) values ('12-29-19','10:00:00','11:00:00')
+----insert into @tablaConHoras3(dia, horaInicio, horaFinal) values ('12-30-19','09:00:00','11:00:00')
+----insert into @tablaConHoras3(dia, horaInicio, horaFinal) values ('12-31-19','09:00:00','11:00:00')
+----set nocount off
+
+----Exec insertarReservacion '12-14-19', 'Andres', 'Test', 'Test actividad', 12345124,'cjchevezc@gmail.com',5141414,'Test description',15, @tablaConHoras3,1,null,1,1,1
+
+--DELETE FROM HorasSolicitudTable
+--DELETE FROM HorarioReservado
+--DELETE FROM Reservacion
 --insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('12-12-19','09:00:00','11:00:00',1,null)
 --insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('12-12-19','13:00:00','15:00:00',2,null)
 --insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('12-12-19','16:00:00','19:00:00',3,null)
@@ -579,36 +580,37 @@ DELETE FROM Reservacion
 --insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('12-12-19','16:00:00','19:00:00',null,2)
 
 
-insert into HorasHorariosTable(dia, horaInicio, horaFinal) values ('Lunes','09:00:00','11:00:00')
-insert into HorasHorariosTable(dia, horaInicio, horaFinal) values ('Martes','10:00:00','12:00:00')
-insert into HorasHorariosTable(dia, horaInicio, horaFinal) values ('Miercoles','16:00:00','19:00:00')
-insert into HorasHorariosTable(dia, horaInicio, horaFinal) values ('Jueves','12:00:00','16:00:00')
-insert into HorasHorariosTable(dia, horaInicio, horaFinal) values ('Viernes','12:00:00','16:00:00')
+--insert into HorasHorariosTable(dia, horaInicio, horaFinal) values ('Lunes','09:00:00','11:00:00')
+--insert into HorasHorariosTable(dia, horaInicio, horaFinal) values ('Martes','10:00:00','12:00:00')
+--insert into HorasHorariosTable(dia, horaInicio, horaFinal) values ('Miercoles','16:00:00','19:00:00')
+--insert into HorasHorariosTable(dia, horaInicio, horaFinal) values ('Jueves','12:00:00','16:00:00')
+--insert into HorasHorariosTable(dia, horaInicio, horaFinal) values ('Viernes','12:00:00','16:00:00')
 
 
-select * from HorasHorariosTable
+--select * from HorasHorariosTable
 
-select * from Estudiante
+--select * from Estudiante
 
-select * from HorarioEstudiante
+--select * from HorarioEstudiante
 
-delete from Estudiante
+--delete from Estudiante
 
-delete from HorasHorariosTable
+--delete from HorasHorariosTable
 
-delete from HorarioEstudiante
+--delete from HorarioEstudiante
 
 
-exec insertarOperador 'Andres','Gutierrez','andreguti333@gmail.com'
+--exec insertarOperador 'Andres','Gutierrez','andreguti333@gmail.com'
 
-Exec insertarTotal '05-03-2019', 'Andres Gutierrez', 'nombreEmpresa', '2-0004-3123', 'andreguti333@gmail.com', '5124-1351','NombreActividad','05-16-19', '05-18-19','observacion', 12, 123
+--Exec insertarTotal '05-03-2019', 'Andres Gutierrez', 'nombreEmpresa', '2-0004-3123', 'andreguti333@gmail.com', '5124-1351','NombreActividad','05-16-19', '05-18-19','observacion', 12, 123
 
-select * from HorasSolicitudTable
-insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-12-19','09:00:00','11:00:00',3,null)
-insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-12-19','13:00:00','15:00:00',1,null)
-insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-12-19','16:00:00','19:00:00',2,null)
-insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-12-19','12:00:00','16:00:00',null,2)
-insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-12-19','16:00:00','19:00:00',null,1)
+--select * from HorasSolicitudTable
+--insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-12-19','09:00:00','11:00:00',3,null)
+--insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-12-19','13:00:00','15:00:00',1,null)
+--insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-12-19','16:00:00','19:00:00',2,null)
+--insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-12-19','12:00:00','16:00:00',null,2)
+--insert into HorasSolicitudTable(dia, horaInicio, horaFinal,numAula,numLab) values ('05-12-19','16:00:00','19:00:00',null,1)
 
-Exec insertarTotal '05-03-2019', 'Carlos Chevez', 'nombreEmpresa', '2-0004-3123', 'cjchevezc@gmail.com', '5124-1351','NombreActividad','12-14-19', '12-20-19','observacion', 12,1234
+--Exec insertarTotal '05-03-2019', 'Carlos Chevez', 'nombreEmpresa', '2-0004-3123', 'cjchevezc@gmail.com', '5124-1351','NombreActividad','12-14-19', '12-20-19','observacion', 12,1234
 
+select * from Reservacion

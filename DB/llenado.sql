@@ -15,7 +15,6 @@ begin
 		insert into estadoReservacion(nombreEstado, descripcion) values ('Aprobada', 'Estado de la reservacion con el comprobante agregado')
 		insert into estadoReservacion(nombreEstado, descripcion) values ('Bloqueada', 'Estado de la reservacion que se encuentra bloqueada cuando no se subio el comprobante')
 		insert into estadoReservacion(nombreEstado, descripcion) values ('Cancelada', 'Estado de la reservacion para cuando se cancela')
-		--insert into estadoReservacion(nombreEstado, descripcion) values ('Todas', 'Estado de la reservacion para cuando se cancela')
 
 		insert into Laboratorio(numeroLab, cantidadMax) values (1, 20)
 		insert into Laboratorio(numeroLab, cantidadMax) values (2, 20)
