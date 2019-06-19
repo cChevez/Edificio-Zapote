@@ -1,0 +1,354 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{D395231F-4584-43C9-BFC6-F0F7E5AFBC2C}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EPIC</RootNamespace>
+    <AssemblyName>EPIC</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <FilesToIncludeForPublish>AllFilesInTheProject</FilesToIncludeForPublish>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="StartPage.aspx" />
+    <Content Include="View\AdministratorViews\DetalleReservacion.aspx" />
+    <Content Include="View\AdministratorViews\DetallesEstudiante.aspx" />
+    <Content Include="View\AdministratorViews\DownloadComprobante.aspx" />
+    <Content Include="View\AdministratorViews\RegistrarCursos.aspx" />
+    <Content Include="View\AdministratorViews\VerComprobante.aspx" />
+    <Content Include="View\AdministratorViews\VerCursos.aspx" />
+    <Content Include="View\UserViews\Alquiler.aspx" />
+    <Content Include="View\UserViews\Comprobante.aspx" />
+    <Content Include="View\UserViews\DetalleCursos.aspx" />
+    <Content Include="View\UserViews\Download.aspx" />
+    <Content Include="View\UserViews\Index.aspx" />
+    <Content Include="styles\framework.css" />
+    <Content Include="Global.asax" />
+    <Content Include="images\demo\320x180.png" />
+    <Content Include="images\demo\320x220.png" />
+    <Content Include="images\demo\60x60.png" />
+    <Content Include="images\demo\avatar.png" />
+    <Content Include="images\demo\backgrounds\01.png" />
+    <Content Include="images\demo\backgrounds\02.png" />
+    <Content Include="images\demo\backgrounds\03.png" />
+    <Content Include="images\demo\backgrounds\index.html" />
+    <Content Include="images\demo\gallery\01.png" />
+    <Content Include="images\demo\gallery\index.html" />
+    <Content Include="images\demo\imgl.gif" />
+    <Content Include="images\demo\imgr.gif" />
+    <Content Include="images\demo\index.html" />
+    <Content Include="styles\custom.flexslider.css" />
+    <Content Include="styles\fontawesome-4.6.3.min.css" />
+    <Content Include="styles\fonts\fontawesome-webfont.svg" />
+    <Content Include="styles\fonts\index.html" />
+    <Content Include="styles\styles.css" />
+    <Content Include="View\AdministratorViews\IndexAdministrativo.aspx" />
+    <Content Include="View\UserViews\Login.aspx" />
+    <Content Include="View\AdministratorViews\RegistrarAdministradores.aspx" />
+    <Content Include="View\AdministratorViews\RegistrarEstudiantes.aspx" />
+    <Content Include="View\AdministratorViews\RegistrarProtocolos.aspx" />
+    <Content Include="View\AdministratorViews\Reservaciones.aspx" />
+    <Content Include="View\AdministratorViews\VerAdministradores.aspx" />
+    <Content Include="View\UserViews\VerCursosCliente.aspx" />
+    <Content Include="View\UserViews\VerDocumentosCliente.aspx" />
+    <Content Include="View\AdministratorViews\VerEstudiantes.aspx" />
+    <Content Include="View\AdministratorViews\VerProtocolos.aspx" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Model\Archivo.cs" />
+    <Compile Include="StartPage.aspx.cs">
+      <DependentUpon>StartPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StartPage.aspx.designer.cs">
+      <DependentUpon>StartPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdministratorViews\DetalleReservacion.aspx.cs">
+      <DependentUpon>DetalleReservacion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\AdministratorViews\DetalleReservacion.aspx.designer.cs">
+      <DependentUpon>DetalleReservacion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdministratorViews\DetallesEstudiante.aspx.cs">
+      <DependentUpon>DetallesEstudiante.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\AdministratorViews\DetallesEstudiante.aspx.designer.cs">
+      <DependentUpon>DetallesEstudiante.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdministratorViews\DownloadComprobante.aspx.cs">
+      <DependentUpon>DownloadComprobante.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\AdministratorViews\DownloadComprobante.aspx.designer.cs">
+      <DependentUpon>DownloadComprobante.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdministratorViews\RegistrarCursos.aspx.cs">
+      <DependentUpon>RegistrarCursos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\AdministratorViews\RegistrarCursos.aspx.designer.cs">
+      <DependentUpon>RegistrarCursos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdministratorViews\VerComprobante.aspx.cs">
+      <DependentUpon>VerComprobante.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\AdministratorViews\VerComprobante.aspx.designer.cs">
+      <DependentUpon>VerComprobante.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdministratorViews\VerCursos.aspx.cs">
+      <DependentUpon>VerCursos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\AdministratorViews\VerCursos.aspx.designer.cs">
+      <DependentUpon>VerCursos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserViews\Alquiler.aspx.cs">
+      <DependentUpon>Alquiler.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\UserViews\Alquiler.aspx.designer.cs">
+      <DependentUpon>Alquiler.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserViews\Comprobante.aspx.cs">
+      <DependentUpon>Comprobante.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\UserViews\Comprobante.aspx.designer.cs">
+      <DependentUpon>Comprobante.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserViews\DetalleCursos.aspx.cs">
+      <DependentUpon>DetalleCursos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\UserViews\DetalleCursos.aspx.designer.cs">
+      <DependentUpon>DetalleCursos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserViews\Download.aspx.cs">
+      <DependentUpon>Download.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\UserViews\Download.aspx.designer.cs">
+      <DependentUpon>Download.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserViews\Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\UserViews\Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Inicio.Master.cs">
+      <DependentUpon>Inicio.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Inicio.Master.designer.cs">
+      <DependentUpon>Inicio.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ConsultasDB.cs" />
+    <Compile Include="Model\EnviarCorreo.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="View\AdministratorViews\IndexAdministrativo.aspx.cs">
+      <DependentUpon>IndexAdministrativo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\AdministratorViews\IndexAdministrativo.aspx.designer.cs">
+      <DependentUpon>IndexAdministrativo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserViews\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\UserViews\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdministratorViews\RegistrarAdministradores.aspx.cs">
+      <DependentUpon>RegistrarAdministradores.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\AdministratorViews\RegistrarAdministradores.aspx.designer.cs">
+      <DependentUpon>RegistrarAdministradores.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdministratorViews\RegistrarEstudiantes.aspx.cs">
+      <DependentUpon>RegistrarEstudiantes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\AdministratorViews\RegistrarEstudiantes.aspx.designer.cs">
+      <DependentUpon>RegistrarEstudiantes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdministratorViews\RegistrarProtocolos.aspx.cs">
+      <DependentUpon>RegistrarProtocolos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\AdministratorViews\RegistrarProtocolos.aspx.designer.cs">
+      <DependentUpon>RegistrarProtocolos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdministratorViews\Reservaciones.aspx.cs">
+      <DependentUpon>Reservaciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\AdministratorViews\Reservaciones.aspx.designer.cs">
+      <DependentUpon>Reservaciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdministratorViews\VerAdministradores.aspx.cs">
+      <DependentUpon>VerAdministradores.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\AdministratorViews\VerAdministradores.aspx.designer.cs">
+      <DependentUpon>VerAdministradores.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserViews\VerCursosCliente.aspx.cs">
+      <DependentUpon>VerCursosCliente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\UserViews\VerCursosCliente.aspx.designer.cs">
+      <DependentUpon>VerCursosCliente.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserViews\VerDocumentosCliente.aspx.cs">
+      <DependentUpon>VerDocumentosCliente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\UserViews\VerDocumentosCliente.aspx.designer.cs">
+      <DependentUpon>VerDocumentosCliente.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdministratorViews\VerEstudiantes.aspx.cs">
+      <DependentUpon>VerEstudiantes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\AdministratorViews\VerEstudiantes.aspx.designer.cs">
+      <DependentUpon>VerEstudiantes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdministratorViews\VerProtocolos.aspx.cs">
+      <DependentUpon>VerProtocolos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\AdministratorViews\VerProtocolos.aspx.designer.cs">
+      <DependentUpon>VerProtocolos.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Inicio.Master" />
+    <None Include="packages.config" />
+    <Content Include="styles\fonts\fontawesome-webfont.eot" />
+    <Content Include="styles\fonts\fontawesome-webfont.ttf" />
+    <Content Include="styles\fonts\fontawesome-webfont.woff" />
+    <Content Include="styles\fonts\fontawesome-webfont.woff2" />
+    <Content Include="styles\fonts\FontAwesome.otf" />
+    <None Include="Properties\PublishProfiles\proyectoEpic - Web Deploy.pubxml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Controller\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>54085</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:54085/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
