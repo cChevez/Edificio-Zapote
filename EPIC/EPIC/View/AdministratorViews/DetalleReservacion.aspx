@@ -16,8 +16,10 @@
                 </div>
                 <div class="fl_right">
                     <ul>
-                        <li><a href="Index.aspx"><i class="fa fa-lg fa-home"></i></a></li>
-                        <li><a href="Login.aspx">Ingresar</a></li>
+                        <li>
+                            <asp:Label ID="lblNombreUsuario" runat="server"></asp:Label></li>
+                        <li><a href="IndexAdministrativo.aspx"><i class="fa fa-lg fa-home"></i></a></li>
+                        <li><a href="../UserViews/Index.aspx">Salir</a></li>
                     </ul>
                 </div>
                 <!-- ################################################################################################ -->

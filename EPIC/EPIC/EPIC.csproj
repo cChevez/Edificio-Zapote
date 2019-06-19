@@ -32,6 +32,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <FilesToIncludeForPublish>AllFilesInTheProject</FilesToIncludeForPublish>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -68,6 +69,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="StartPage.aspx" />
     <Content Include="View\AdministratorViews\DetalleReservacion.aspx" />
     <Content Include="View\AdministratorViews\DetallesEstudiante.aspx" />
     <Content Include="View\AdministratorViews\DownloadComprobante.aspx" />
@@ -116,6 +118,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Archivo.cs" />
+    <Compile Include="StartPage.aspx.cs">
+      <DependentUpon>StartPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StartPage.aspx.designer.cs">
+      <DependentUpon>StartPage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="View\AdministratorViews\DetalleReservacion.aspx.cs">
       <DependentUpon>DetalleReservacion.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -292,6 +301,7 @@
     <Content Include="styles\fonts\fontawesome-webfont.woff" />
     <Content Include="styles\fonts\fontawesome-webfont.woff2" />
     <Content Include="styles\fonts\FontAwesome.otf" />
+    <None Include="Properties\PublishProfiles\proyectoEpic - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

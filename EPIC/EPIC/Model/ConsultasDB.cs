@@ -54,7 +54,7 @@ namespace EPIC.Model
             sqlConnection.Close();
         }
 
-        internal static void SubirCurso(string name, byte[] foto, string description)
+        public static void SubirCurso(string name, byte[] foto, string description)
         {
             SqlConnection sqlConnection = new SqlConnection(ConfigurationManager.ConnectionStrings["ePICsqlConnection"].ToString());
             sqlConnection.Open();
